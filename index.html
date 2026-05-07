@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Master Drinks | Coquetelaria de Luxo</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Cormorant Garamond (display) + Jost (corpo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- =============================================
+       BOTÃO FLUTUANTE DO WHATSAPP
+  ============================================== -->
+  <a
+    href="https://wa.me/5500000000000"
+    class="whatsapp-float"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Fale conosco pelo WhatsApp"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- =============================================
+       HEADER / NAVEGAÇÃO FIXA
+  ============================================== -->
+  <header class="header" id="header">
+    <div class="header__inner">
+
+      <!-- Logo -->
+      <a href="#hero" class="logo">
+        <span class="logo__main">Master Drinks</span>
+        <span class="logo__sub">Coquetelaria de Luxo</span>
+      </a>
+
+      <!-- Navegação principal (desktop) -->
+      <nav class="nav" id="nav" aria-label="Navegação principal">
+        <ul class="nav__list">
+          <li><a href="#sobre" class="nav__link">Sobre</a></li>
+          <li><a href="#servicos" class="nav__link">Serviços</a></li>
+          <li><a href="#portfolio" class="nav__link">Portfólio</a></li>
+          <li><a href="#cardapio" class="nav__link">Cardápio</a></li>
+          <li><a href="#depoimentos" class="nav__link">Depoimentos</a></li>
+          <li><a href="#contato" class="nav__link nav__link--cta">Contato</a></li>
+        </ul>
+      </nav>
+
+      <!-- Botão hamburguer (mobile) -->
+      <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- =============================================
+       SEÇÃO HERO
+  ============================================== -->
+  <section class="hero" id="hero">
+    <div class="hero__overlay" aria-hidden="true"></div>
+
+    <!-- Partículas decorativas sutis -->
+    <div class="hero__particles" aria-hidden="true">
+      <span></span><span></span><span></span>
+      <span></span><span></span><span></span>
+    </div>
+
+    <div class="hero__content">
+      <p class="hero__tagline fade-up">Desde 2020</p>
+
+      <h1 class="hero__title fade-up">
+        A Arte de <em>Encantar</em><br>em Cada Dose
+      </h1>
+
+      <p class="hero__description fade-up">
+        Experiências únicas em coquetelaria para eventos sofisticados.<br>
+        Elegância, sabor e profissionalismo em perfeita harmonia.
+      </p>
+
+      <div class="hero__actions fade-up">
+        <a href="#servicos" class="btn btn--primary">Nossos Serviços</a>
+        <a href="#contato" class="btn btn--ghost">Solicitar Orçamento</a>
+      </div>
+    </div>
+
+    <!-- Indicador de scroll -->
+    <div class="hero__scroll" aria-hidden="true">
+      <span class="hero__scroll-line"></span>
+      <span class="hero__scroll-text">Scroll</span>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FAIXA DECORATIVA COM DIFERENCIAIS
+  ============================================== -->
+  <div class="ribbon" aria-hidden="true">
+    <div class="ribbon__track">
+      <div class="ribbon__inner">
+        <span>✦ Atendimento Premium</span>
+        <span>✦ Equipe Qualificada</span>
+        <span>✦ Organização Impecável</span>
+        <span>✦ Experiência Personalizada</span>
+        <span>✦ Desde 2020</span>
+        <!-- Duplicado para loop contínuo sem JS -->
+        <span>✦ Atendimento Premium</span>
+        <span>✦ Equipe Qualificada</span>
+        <span>✦ Organização Impecável</span>
+        <span>✦ Experiência Personalizada</span>
+        <span>✦ Desde 2020</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================
+       SEÇÃO SOBRE A EMPRESA
+  ============================================== -->
+  <section class="sobre section" id="sobre" aria-labelledby="sobre-titulo">
+    <div class="container">
+      <div class="sobre__layout">
+
+        <!-- Visual -->
+        <div class="sobre__visual reveal">
+          <div class="sobre__img-wrapper">
+            <img
+              src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=1200&auto=format&fit=crop"
+              alt="Jenifer e Marcelo preparando coquetéis artesanais"
+              class="sobre__img"
+              loading="lazy"
+              width="600"
+              height="750"
+            />
+            <div class="sobre__img-border" aria-hidden="true"></div>
+            <div class="sobre__badge">
+              <span class="sobre__badge-num">+5</span>
+              <span class="sobre__badge-label">Anos de<br>Excelência</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conteúdo -->
+        <div class="sobre__content reveal">
+          <span class="eyebrow">Nossa História</span>
+          <h2 class="sobre__title" id="sobre-titulo">
+            Paixão que se<br><em>transforma em arte</em>
+          </h2>
+
+          <div class="sobre__paragrafos">
+            <p>
+              Fundada em 2020 por <strong>Jenifer e Marcelo</strong>, a Master Drinks nasceu do sonho de transformar cada evento em uma experiência verdadeiramente inesquecível.
+            </p>
+            <p>
+              Unimos gastronomia, mixologia e gestão de alto padrão para criar um serviço onde cada detalhe é pensado com cuidado — da escolha dos ingredientes premium à apresentação final de cada drinque.
+            </p>
+          </div>
+
+          <!-- Valores -->
+          <div class="sobre__valores">
+            <div class="sobre__valor">
+              <span class="sobre__valor-icon" aria-hidden="true">✧</span>
+              <div>
+                <strong>Excelência</strong>
+                <p>Ingredientes selecionados e técnicas refinadas.</p>
+              </div>
+            </div>
+            <div class="sobre__valor">
+              <span class="sobre__valor-icon" aria-hidden="true">✧</span>
+              <div>
+                <strong>Personalização</strong>
+                <p>Cardápio exclusivo criado sob medida para você.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estatísticas -->
+          <div class="sobre__stats">
+            <div class="sobre__stat">
+              <span class="sobre__stat-num">200+</span>
+              <span class="sobre__stat-desc">Eventos</span>
+            </div>
+            <div class="sobre__stat">
+              <span class="sobre__stat-num">98%</span>
+              <span class="sobre__stat-desc">Satisfeitos</span>
+            </div>
+            <div class="sobre__stat">
+              <span class="sobre__stat-num">50+</span>
+              <span class="sobre__stat-desc">Drinks</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SEÇÃO SERVIÇOS
+  ============================================== -->
+  <section class="servicos section" id="servicos" aria-labelledby="servicos-titulo">
+    <div class="container">
+
+      <div class="section__header">
+        <span class="eyebrow">O que oferecemos</span>
+        <h2 class="section__title" id="servicos-titulo">Nossos <em>Serviços</em></h2>
+        <p class="section__subtitle">
+          Atendimento personalizado para cada tipo de evento, com profissionalismo e sofisticação em cada detalhe.
+        </p>
+      </div>
+
+      <div class="servicos__grid">
+
+        <!-- Casamentos -->
+        <article class="servicos__card reveal">
+          <div class="servicos__card-top">
+            <span class="servicos__num" aria-hidden="true">01</span>
+            <span class="servicos__tag">Casamentos</span>
+          </div>
+          <h3 class="servicos__card-title">Casamentos</h3>
+          <p class="servicos__card-body">
+            Transforme o dia mais especial em uma experiência sensorial única. Drinks personalizados que contam a história do casal, com apresentação impecável.
+          </p>
+          <ul class="servicos__card-list">
+            <li>Open bar completo</li>
+            <li>Drinks personalizados</li>
+            <li>Bartenders treinados</li>
+          </ul>
+        </article>
+
+        <!-- Eventos Corporativos -->
+        <article class="servicos__card reveal">
+          <div class="servicos__card-top">
+            <span class="servicos__num" aria-hidden="true">02</span>
+            <span class="servicos__tag">Empresarial</span>
+          </div>
+          <h3 class="servicos__card-title">Eventos Corporativos</h3>
+          <p class="servicos__card-body">
+            Impressione clientes e colaboradores com serviço de drinks sofisticado e profissional, ideal para networking e celebrações empresariais.
+          </p>
+          <ul class="servicos__card-list">
+            <li>Atendimento profissional</li>
+            <li>Cardápio personalizado</li>
+            <li>Estrutura completa</li>
+          </ul>
+        </article>
+
+        <!-- Aniversários -->
+        <article class="servicos__card reveal">
+          <div class="servicos__card-top">
+            <span class="servicos__num" aria-hidden="true">03</span>
+            <span class="servicos__tag">Festas</span>
+          </div>
+          <h3 class="servicos__card-title">Aniversários</h3>
+          <p class="servicos__card-body">
+            Deixe sua festa ainda mais memorável com drinks exclusivos e um bar completo que combina com o seu estilo e tema da comemoração.
+          </p>
+          <ul class="servicos__card-list">
+            <li>Drinks personalizados</li>
+            <li>Open bar flexível</li>
+            <li>Opções com e sem álcool</li>
+          </ul>
+        </article>
+
+        <!-- Eventos Privados -->
+        <article class="servicos__card reveal">
+          <div class="servicos__card-top">
+            <span class="servicos__num" aria-hidden="true">04</span>
+            <span class="servicos__tag">Exclusivo</span>
+          </div>
+          <h3 class="servicos__card-title">Eventos Privados</h3>
+          <p class="servicos__card-body">
+            Atendemos festas exclusivas, confraternizações e encontros especiais com serviço personalizado e sofisticado de alto padrão.
+          </p>
+          <ul class="servicos__card-list">
+            <li>Atendimento sob medida</li>
+            <li>Equipe especializada</li>
+            <li>Experiência premium</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SEÇÃO PORTFÓLIO / GALERIA
+  ============================================== -->
+  <section class="portfolio section" id="portfolio" aria-labelledby="portfolio-titulo">
+    <div class="container">
+
+      <div class="section__header">
+        <span class="eyebrow">Nosso Trabalho</span>
+        <h2 class="section__title" id="portfolio-titulo">Portfólio</h2>
+        <p class="section__subtitle">Veja alguns dos eventos que transformamos em experiências únicas</p>
+      </div>
+
+      <!-- Filtros -->
+      <div class="portfolio__filtros" role="group" aria-label="Filtrar por categoria">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="casamento">Casamentos</button>
+        <button class="filter-btn" data-filter="corporativo">Corporativo</button>
+        <button class="filter-btn" data-filter="aniversario">Aniversários</button>
+      </div>
+
+      <!-- Galeria -->
+      <div class="gallery" id="gallery">
+
+        <div class="gallery__item reveal" data-category="casamento">
+          <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=800&h=600" alt="Casamento luxo com 150 convidados" loading="lazy">
+          <div class="gallery__overlay">
+            <span class="gallery__overlay-text">Casamento Luxo · 150 convidados</span>
+          </div>
+        </div>
+
+        <div class="gallery__item reveal" data-category="corporativo">
+          <img src="https://images.unsplash.com/photo-1574096079513-d8259312b785?auto=format&fit=crop&q=80&w=800&h=600" alt="Evento corporativo executivo" loading="lazy">
+          <div class="gallery__overlay">
+            <span class="gallery__overlay-text">Evento Corporativo Executivo</span>
+          </div>
+        </div>
+
+        <div class="gallery__item reveal" data-category="aniversario">
+          <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=800&h=600" alt="Aniversário premium" loading="lazy">
+          <div class="gallery__overlay">
+            <span class="gallery__overlay-text">Aniversário Premium</span>
+          </div>
+        </div>
+
+        <div class="gallery__item reveal" data-category="casamento">
+          <img src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?auto=format&fit=crop&q=80&w=800&h=600" alt="Equipe em evento luxuoso" loading="lazy">
+          <div class="gallery__overlay">
+            <span class="gallery__overlay-text">Equipe em Evento Luxuoso</span>
+          </div>
+        </div>
+
+        <div class="gallery__item reveal" data-category="corporativo">
+          <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&q=80&w=800&h=600" alt="Drinks autorais exclusivos" loading="lazy">
+          <div class="gallery__overlay">
+            <span class="gallery__overlay-text">Drinks Autorais Exclusivos</span>
+          </div>
+        </div>
+
+        <div class="gallery__item reveal" data-category="aniversario">
+          <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&q=80&w=800&h=600" alt="Experiência premium" loading="lazy">
+          <div class="gallery__overlay">
+            <span class="gallery__overlay-text">Experiência Premium</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SEÇÃO CARDÁPIO DE DRINKS
+  ============================================== -->
+
+  <section class="cardapio section">
+  <div class="container">
+
+    <h2 class="section__title">Cardápio Clássico</h2>
+
+    <ul class="menu-list">
+
+      <!-- ITEM -->
+      <li class="menu-item">
+        <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a" alt="Negroni">
+        <div class="menu-info">
+          <h3>Negroni</h3>
+          <p class="desc">Forte e amargo, com notas herbais marcantes.</p>
+          <p class="ingredients">Gin, Campari, Vermute Rosso</p>
+        </div>
+      </li>
+
+      <li class="menu-item">
+        <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187" alt="Old Fashioned">
+        <div class="menu-info">
+          <h3>Old Fashioned</h3>
+          <p class="desc">Intenso e levemente adocicado, clássico sofisticado.</p>
+          <p class="ingredients">Bourbon, açúcar, bitter</p>
+        </div>
+      </li>
+
+      <li class="menu-item">
+        <img src="https://images.unsplash.com/photo-1543253687-c931c8e01820" alt="Mojito">
+        <div class="menu-info">
+          <h3>Mojito</h3>
+          <p class="desc">Refrescante e cítrico, perfeito para dias quentes.</p>
+          <p class="ingredients">Rum, hortelã, limão, açúcar, soda</p>
+        </div>
+      </li>
+
+      <li class="menu-item">
+        <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b" alt="Margarita">
+        <div class="menu-info">
+          <h3>Margarita</h3>
+          <p class="desc">Cítrico e equilibrado com toque salgado.</p>
+          <p class="ingredients">Tequila, limão, triple sec</p>
+        </div>
+      </li>
+
+      <li class="menu-item">
+        <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813" alt="Cosmopolitan">
+        <div class="menu-info">
+          <h3>Cosmopolitan</h3>
+          <p class="desc">Leve, frutado e elegante.</p>
+          <p class="ingredients">Vodka, cranberry, limão</p>
+        </div>
+      </li>
+
+      <li class="menu-item">
+        <img src="https://images.unsplash.com/photo-1574096079513-d8259312b785" alt="Caipirinha">
+        <div class="menu-info">
+          <h3>Caipirinha</h3>
+          <p class="desc">Cítrica e intensa, clássico brasileiro.</p>
+          <p class="ingredients">Cachaça, limão, açúcar</p>
+        </div>
+      </li>
+
+      <li class="menu-item">
+        <img src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208" alt="Gin Tônica">
+        <div class="menu-info">
+          <h3>Gin Tônica</h3>
+          <p class="desc">Leve, aromático e refrescante.</p>
+          <p class="ingredients">Gin, água tônica, especiarias</p>
+        </div>
+      </li>
+
+      <li class="menu-item">
+        <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc" alt="Aperol Spritz">
+        <div class="menu-info">
+          <h3>Aperol Spritz</h3>
+          <p class="desc">Refrescante, levemente amargo e borbulhante.</p>
+          <p class="ingredients">Aperol, espumante, água com gás</p>
+        </div>
+      </li>
+
+      <li class="menu-item">
+        <img src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26" alt="Daiquiri">
+        <div class="menu-info">
+          <h3>Daiquiri</h3>
+          <p class="desc">Equilibrado entre doce e ácido.</p>
+          <p class="ingredients">Rum, limão, açúcar</p>
+        </div>
+      </li>
+
+      <li class="menu-item">
+        <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e" alt="Whiskey Sour">
+        <div class="menu-info">
+          <h3>Whiskey Sour</h3>
+          <p class="desc">Aveludado, cítrico e levemente doce.</p>
+          <p class="ingredients">Whiskey, limão, açúcar, clara de ovo</p>
+        </div>
+      </li>
+
+    </ul>
+
+  </div>
+</section>
+
+  <!-- =============================================
+       SEÇÃO DEPOIMENTOS
+  ============================================== -->
+  <section class="depoimentos section" id="depoimentos" aria-labelledby="depoimentos-titulo">
+    <div class="container">
+
+      <div class="section__header">
+        <span class="eyebrow">Clientes Satisfeitos</span>
+        <h2 class="section__title" id="depoimentos-titulo">Depoimentos</h2>
+        <p class="section__subtitle">
+          Experiências reais de quem confiou no nosso trabalho
+        </p>
+      </div>
+
+      <div class="depoimentos__grid">
+
+        <article class="depo reveal">
+          <div class="depo__stars" aria-label="5 estrelas">★★★★★</div>
+          <p class="depo__text">
+            "Simplesmente impecável. Os drinks foram o destaque do casamento, todos os convidados elogiaram muito."
+          </p>
+          <div class="depo__author">
+            <div class="depo__avatar" aria-hidden="true">A</div>
+            <div>
+              <span class="depo__name">Amanda Silva</span>
+              <span class="depo__event">Casamento · 120 convidados</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="depo reveal">
+          <div class="depo__stars" aria-label="5 estrelas">★★★★★</div>
+          <p class="depo__text">
+            "Equipe extremamente profissional. Elevou completamente o nível do nosso evento corporativo."
+          </p>
+          <div class="depo__author">
+            <div class="depo__avatar" aria-hidden="true">R</div>
+            <div>
+              <span class="depo__name">Ricardo Mendes</span>
+              <span class="depo__event">Evento Corporativo</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="depo reveal">
+          <div class="depo__stars" aria-label="5 estrelas">★★★★★</div>
+          <p class="depo__text">
+            "Os drinks autorais são incríveis. Atendimento perfeito do começo ao fim, superou todas as expectativas."
+          </p>
+          <div class="depo__author">
+            <div class="depo__avatar" aria-hidden="true">J</div>
+            <div>
+              <span class="depo__name">Juliana Costa</span>
+              <span class="depo__event">Aniversário Premium</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SEÇÃO CONTATO
+  ============================================== -->
+  <section class="contato section" id="contato" aria-labelledby="contato-titulo">
+    <div class="container">
+      <div class="contato__inner">
+
+        <!-- Texto e informações -->
+        <div class="contato__content reveal">
+          <span class="eyebrow">Fale Conosco</span>
+          <h2 class="contato__title" id="contato-titulo">
+            Transforme seu evento em uma<br>
+            <em>experiência inesquecível</em>
+          </h2>
+
+          <p class="contato__body">
+            Atendemos casamentos, eventos corporativos e aniversários com drinks exclusivos e atendimento premium.
+          </p>
+
+          <!-- Provas sociais -->
+          <div class="contato__badges">
+            <span>+150 eventos realizados</span>
+            <span>Atendimento rápido</span>
+            <span>100% personalizado</span>
+          </div>
+
+          <!-- Cards de contato: WhatsApp e Instagram -->
+          <div class="contato__canais">
+
+            <!-- WhatsApp Card -->
+            <a href="https://wa.me/5500000000000" class="canal-card canal-card--wa" target="_blank" rel="noopener noreferrer" aria-label="Chamar no WhatsApp">
+              <div class="canal-card__img-wrap">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/240px-WhatsApp.svg.png" alt="WhatsApp" width="56" height="56">
+                <div class="canal-card__img-shine" aria-hidden="true"></div>
+              </div>
+              <div class="canal-card__body">
+                <span class="canal-card__label">WhatsApp</span>
+                <span class="canal-card__value">(00) 00000-0000</span>
+                <span class="canal-card__action">Chamar agora →</span>
+              </div>
+            </a>
+
+            <!-- Instagram Card -->
+            <a href="https://instagram.com/masterdrinks" class="canal-card canal-card--ig" target="_blank" rel="noopener noreferrer" aria-label="Visitar Instagram">
+              <div class="canal-card__img-wrap">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/240px-Instagram_icon.png" alt="Instagram" width="56" height="56">
+                <div class="canal-card__img-shine" aria-hidden="true"></div>
+              </div>
+              <div class="canal-card__body">
+                <span class="canal-card__label">Instagram</span>
+                <span class="canal-card__value">@masterdrinks</span>
+                <span class="canal-card__action">Ver perfil →</span>
+              </div>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- Card CTA -->
+        <div class="contato__cta reveal">
+          <div class="contato__cta-card">
+            <h3>Solicite seu orçamento</h3>
+            <p>Retorno rápido em horário comercial.</p>
+            <a
+              href="https://wa.me/5500000000000?text=Olá! Quero solicitar um orçamento"
+              class="btn btn--primary btn--large btn--wa"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <span>Falar no WhatsApp</span>
+            </a>
+            <div class="contato__cta-extra">
+              <span>✔ Sem compromisso</span>
+              <span>✔ Atendimento personalizado</span>
+              <span>✔ Resposta rápida</span>
+            </div>
+            <p class="contato__cta-note">Jenifer &amp; Marcelo — Fundadores</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FOOTER
+  ============================================== -->
+  <footer class="footer">
+    <div class="container">
+
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">Master Drinks</span>
+          <p>Coquetelaria de Luxo para Eventos Sofisticados</p>
+        </div>
+        <nav class="footer__nav" aria-label="Links do rodapé">
+          <a href="#sobre">Sobre</a>
+          <a href="#servicos">Serviços</a>
+          <a href="#portfolio">Portfólio</a>
+          <a href="#cardapio">Cardápio</a>
+          <a href="#contato">Contato</a>
+        </nav>
+      </div>
+
+      <div class="footer__bottom">
+        <p>&copy; 2025 Master Drinks. Todos os direitos reservados.</p>
+        <p>Desenvolvido com <span aria-label="amor">♥</span> por Jenifer &amp; Marcelo</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- =============================================
+       SCRIPTS
+  ============================================== -->
+  <script>
+    // ─── HAMBURGER / MENU MOBILE ───────────────────────────────
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('nav');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      hamburger.classList.toggle('is-active', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    // Fecha o menu ao clicar num link
+    nav.querySelectorAll('.nav__link').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        hamburger.classList.remove('is-active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ─── SCROLL REVEAL ─────────────────────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Delay escalonado para grupos de elementos
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // ─── FILTRO DO PORTFÓLIO ───────────────────────────────────
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery__item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        galleryItems.forEach(item => {
+          const match = filter === 'all' || item.dataset.category === filter;
+          item.style.opacity = '0';
+          item.style.transform = 'scale(0.95)';
+
+          setTimeout(() => {
+            item.style.display = match ? 'block' : 'none';
+            if (match) {
+              requestAnimationFrame(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'scale(1)';
+              });
+            }
+          }, 200);
+        });
+      });
+    });
+
+    // ─── HEADER SCROLL STATE (fallback para browsers sem animation-timeline) ─
+    const header = document.getElementById('header');
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y > 80) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      lastScroll = y;
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
