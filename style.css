@@ -1065,60 +1065,503 @@ ul { list-style: none; }
    13. SEÇÃO CARDÁPIO
 ----------------------------------------------- */
 
-.menu-list {
-  list-style: none;
-  padding: 0;
-  margin: 40px 0;
+/* ============================================================
+   CARDÁPIO DE DRINKS — cardapio.css
+   Interatividade 100% CSS-only via :checked + seletores ~
+   Sem JavaScript. Sem CSS inline no HTML.
+   ============================================================
+
+   ÍNDICE
+   ──────────────────────────────────────────────────────────
+   1.  Variáveis (Custom Properties)
+   2.  Reset / Base
+   3.  Layout: seção e container
+   4.  Cabeçalho da seção
+   5.  Inputs de controle (ocultos visualmente)
+   6.  Barra de filtros
+   7.  Grupos de pacote
+   8.  Grid de itens
+   9.  Card de item
+  10.  Badges
+  11.  Estado ativo dos botões de filtro (CSS-only)
+  12.  Lógica de visibilidade: filtro por PACOTE (CSS-only)
+  13.  Lógica de visibilidade: filtro por DESTILADO (CSS-only)
+  14.  Responsivo
+   ============================================================ */
+
+
+/* ────────────────────────────────────────────────────────────
+   1. VARIÁVEIS (Custom Properties)
+   ──────────────────────────────────────────────────────────── */
+:root {
+  /* Paleta de cores */
+  --color-gold:        #c9a84c;
+  --color-gold-light:  #e8d08a;
+  --color-gold-dim:    #6b551e;
+  --color-dark:        #0d0d0d;
+  --color-dark-2:      #151515;
+  --color-dark-3:      #1e1e1e;
+  --color-dark-4:      #2a2a2a;
+  --color-text:        #e8e4dc;
+  --color-text-muted:  #8a857a;
+  --color-na-bg:       #1a2e1a;
+  --color-na-text:     #6fcf6f;
+
+  /* Tipografia */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  /* Layout */
+  --container-width: 1140px;
+  --radius-card:     10px;
+  --radius-pill:     30px;
+  --radius-badge:    4px;
+
+  /* Transições */
+  --transition-base: .22s cubic-bezier(.4, 0, .2, 1);
 }
 
+
+/* ────────────────────────────────────────────────────────────
+   2. RESET / BASE
+   ──────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-dark);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   3. LAYOUT: SEÇÃO E CONTAINER
+   ──────────────────────────────────────────────────────────── */
+.cardapio {
+  background: var(--color-dark);
+  padding: 80px 0 100px;
+}
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   4. CABEÇALHO DA SEÇÃO
+   ──────────────────────────────────────────────────────────── */
+.cardapio__header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.cardapio__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 400;
+  color: var(--color-gold);
+  letter-spacing: .03em;
+  margin-bottom: 6px;
+}
+
+.cardapio__subtitle {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   5. INPUTS DE CONTROLE (OCULTOS VISUALMENTE)
+   Os <input type="radio"> e <input type="checkbox"> ficam
+   fora do fluxo visual mas permanecem acessíveis ao CSS via
+   seletores :checked. Usamos clip-path para ocultar sem
+   remover do DOM.
+   ──────────────────────────────────────────────────────────── */
+.filter-radio,
+.filter-check {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   6. BARRA DE FILTROS
+   ──────────────────────────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--color-dark-4);
+}
+
+.filter-bar__label {
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-right: 4px;
+}
+
+.filter-bar__divider {
+  width: 1px;
+  height: 22px;
+  background: var(--color-dark-4);
+  margin: 0 6px;
+}
+
+/* ── Botão de filtro (label estilizado) ── */
+.filter-btn {
+  display: inline-block;
+  padding: 7px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-dark-4);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-base),
+    color       var(--transition-base),
+    background  var(--transition-base);
+  user-select: none;
+}
+
+.filter-btn:hover {
+  border-color: var(--color-gold-dim);
+  color: var(--color-gold-light);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   7. GRUPOS DE PACOTE
+   ──────────────────────────────────────────────────────────── */
+.pkg-group {
+  margin-bottom: 56px;
+}
+
+.pkg-group__header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.pkg-group__title {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  letter-spacing: .02em;
+}
+
+.pkg-group__desc {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.pkg-group__badge {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-gold-dim);
+  color: var(--color-gold-light);
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   8. GRID DE ITENS
+   ──────────────────────────────────────────────────────────── */
+.menu-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   9. CARD DE ITEM
+   ──────────────────────────────────────────────────────────── */
 .menu-item {
   display: flex;
-  gap: 20px;
-  align-items: center;
-  padding: 15px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  transition: 0.3s;
+  gap: 16px;
+  align-items: flex-start;
+  background: var(--color-dark-2);
+  border: 1px solid var(--color-dark-4);
+  border-radius: var(--radius-card);
+  padding: 16px;
+  transition:
+    border-color var(--transition-base),
+    transform    var(--transition-base);
 }
 
 .menu-item:hover {
-  transform: translateX(5px);
+  border-color: var(--color-gold-dim);
+  transform: translateY(-2px);
 }
 
-/* IMAGEM */
-.menu-item img {
-  width: 80px;
-  height: 80px;
+/* Imagem do drink */
+.menu-item__img {
+  width: 72px;
+  height: 72px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  filter: brightness(.88) saturate(.9);
+  transition: filter var(--transition-base);
 }
 
-/* TEXTO */
-.menu-info h3 {
-  margin: 0;
-  font-size: 1.2rem;
+.menu-item:hover .menu-item__img {
+  filter: brightness(1) saturate(1);
 }
 
-.menu-info .desc {
-  font-size: 0.9rem;
-  color: #aaa;
-  margin: 4px 0;
+/* Bloco de texto */
+.menu-item__info {
+  flex: 1;
+  min-width: 0;
 }
 
-.menu-info .ingredients {
-  font-size: 0.85rem;
-  color: #c59d5f;
+/* Nome do drink */
+.menu-item__name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
 }
 
-/* RESPONSIVO */
+/* Ingredientes */
+.menu-item__ingredients {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.menu-item__ingredients::before {
+  content: '— ';
+  color: var(--color-gold-dim);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   10. BADGES
+   ──────────────────────────────────────────────────────────── */
+
+/* Badge: "Autoral" */
+.badge--autoral {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: var(--color-gold-dim);
+  color: var(--color-gold-light);
+  padding: 2px 6px;
+  border-radius: var(--radius-badge);
+}
+
+/* Badge: "Sem álcool" */
+.badge--na {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .05em;
+  background: var(--color-na-bg);
+  color: var(--color-na-text);
+  padding: 2px 6px;
+  border-radius: var(--radius-badge);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   11. ESTADO ATIVO DOS BOTÕES DE FILTRO (CSS-only)
+
+   Quando um <input> está :checked, seu <label> associado
+   recebe o estilo "ativo" via seletores de irmão adjacente
+   combinados com :has() ou via a técnica de posicionamento
+   sibling.
+
+   Aqui usamos a abordagem mais amplamente suportada:
+   input:checked + (irmãos) label[for="..."]
+   — como os inputs vêm antes do .filter-bar no DOM, usamos
+   o seletor "~" para alcançar os labels dentro do nav.
+   ──────────────────────────────────────────────────────────── */
+
+/* ── Radios de PACOTE ── */
+#pkg-all:checked   ~ .filter-bar label[for="pkg-all"],
+#pkg-1:checked     ~ .filter-bar label[for="pkg-1"],
+#pkg-2:checked     ~ .filter-bar label[for="pkg-2"],
+#pkg-3:checked     ~ .filter-bar label[for="pkg-3"],
+#pkg-4:checked     ~ .filter-bar label[for="pkg-4"],
+#pkg-5:checked     ~ .filter-bar label[for="pkg-5"] {
+  background:   var(--color-gold);
+  border-color: var(--color-gold);
+  color:        var(--color-dark);
+  font-weight:  500;
+}
+
+/* ── Checkboxes de DESTILADO ── */
+#spirit-vodka:checked      ~ .filter-bar label[for="spirit-vodka"],
+#spirit-gin:checked        ~ .filter-bar label[for="spirit-gin"],
+#spirit-rum:checked        ~ .filter-bar label[for="spirit-rum"],
+#spirit-cachaça:checked    ~ .filter-bar label[for="spirit-cachaça"],
+#spirit-whisky:checked     ~ .filter-bar label[for="spirit-whisky"],
+#spirit-tequila:checked    ~ .filter-bar label[for="spirit-tequila"],
+#spirit-sem-alcool:checked ~ .filter-bar label[for="spirit-sem-alcool"] {
+  background:   var(--color-gold);
+  border-color: var(--color-gold);
+  color:        var(--color-dark);
+  font-weight:  500;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   12. LÓGICA DE VISIBILIDADE: FILTRO POR PACOTE (CSS-only)
+
+   Por padrão, todos os grupos estão visíveis.
+   Quando um radio de pacote específico é marcado, ocultamos
+   todos os grupos e exibimos somente o correspondente.
+   ──────────────────────────────────────────────────────────── */
+
+/* Quando pacote 1 está selecionado: ocultar 2, 3, 4, 5 */
+#pkg-1:checked ~ #group-pkg-2,
+#pkg-1:checked ~ #group-pkg-3,
+#pkg-1:checked ~ #group-pkg-4,
+#pkg-1:checked ~ #group-pkg-5 { display: none; }
+
+/* Quando pacote 2 está selecionado: ocultar 1, 3, 4, 5 */
+#pkg-2:checked ~ #group-pkg-1,
+#pkg-2:checked ~ #group-pkg-3,
+#pkg-2:checked ~ #group-pkg-4,
+#pkg-2:checked ~ #group-pkg-5 { display: none; }
+
+/* Quando pacote 3 está selecionado: ocultar 1, 2, 4, 5 */
+#pkg-3:checked ~ #group-pkg-1,
+#pkg-3:checked ~ #group-pkg-2,
+#pkg-3:checked ~ #group-pkg-4,
+#pkg-3:checked ~ #group-pkg-5 { display: none; }
+
+/* Quando pacote 4 está selecionado: ocultar 1, 2, 3, 5 */
+#pkg-4:checked ~ #group-pkg-1,
+#pkg-4:checked ~ #group-pkg-2,
+#pkg-4:checked ~ #group-pkg-3,
+#pkg-4:checked ~ #group-pkg-5 { display: none; }
+
+/* Quando pacote 5 está selecionado: ocultar 1, 2, 3, 4 */
+#pkg-5:checked ~ #group-pkg-1,
+#pkg-5:checked ~ #group-pkg-2,
+#pkg-5:checked ~ #group-pkg-3,
+#pkg-5:checked ~ #group-pkg-4 { display: none; }
+
+
+/* ────────────────────────────────────────────────────────────
+   13. LÓGICA DE VISIBILIDADE: FILTRO POR DESTILADO (CSS-only)
+
+   Quando um checkbox de destilado é marcado, ocultamos todos
+   os .menu-item cujo atributo data-spirits NÃO contenha o
+   valor selecionado.
+
+   Usamos o seletor de atributo [data-spirits~="valor"] que
+   corresponde a palavras completas separadas por espaço —
+   exatamente como o JS original usava .split(' ').includes().
+
+   A regra é: ocultar itens que NÃO possuem o destilado.
+   O seletor :not([data-spirits~="valor"]) faz esse trabalho.
+   ──────────────────────────────────────────────────────────── */
+
+/* Vodka marcada: ocultar tudo que não tem vodka */
+#spirit-vodka:checked ~ .pkg-group .menu-item:not([data-spirits~="vodka"]) {
+  display: none;
+}
+
+/* Gin marcado */
+#spirit-gin:checked ~ .pkg-group .menu-item:not([data-spirits~="gin"]) {
+  display: none;
+}
+
+/* Rum marcado */
+#spirit-rum:checked ~ .pkg-group .menu-item:not([data-spirits~="rum"]) {
+  display: none;
+}
+
+/* Cachaça marcada */
+#spirit-cachaça:checked ~ .pkg-group .menu-item:not([data-spirits~="cachaça"]) {
+  display: none;
+}
+
+/* Whisky marcado */
+#spirit-whisky:checked ~ .pkg-group .menu-item:not([data-spirits~="whisky"]) {
+  display: none;
+}
+
+/* Tequila marcada */
+#spirit-tequila:checked ~ .pkg-group .menu-item:not([data-spirits~="tequila"]) {
+  display: none;
+}
+
+/* Sem álcool marcado */
+#spirit-sem-alcool:checked ~ .pkg-group .menu-item:not([data-spirits~="sem-alcool"]) {
+  display: none;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   14. RESPONSIVO
+   ──────────────────────────────────────────────────────────── */
 @media (max-width: 600px) {
-  .menu-item {
-    flex-direction: column;
-    align-items: flex-start;
+  .filter-bar {
+    gap: 8px;
   }
 
-  .menu-item img {
-    width: 100%;
-    height: 180px;
+  .pkg-group__header {
+    flex-wrap: wrap;
+  }
+
+  .pkg-group__badge {
+    margin-left: 0;
+  }
+
+  .menu-list {
+    grid-template-columns: 1fr;
   }
 }
 

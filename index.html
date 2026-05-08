@@ -360,108 +360,695 @@
        SEÇÃO CARDÁPIO DE DRINKS
   ============================================== -->
 
-  <section class="cardapio section">
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardápio de Drinks</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="cardapio.css">
+</head>
+<body>
+
+<!-- ============================================================
+     SEÇÃO: CARDÁPIO DE DRINKS
+     Filtros por pacote funcionam via checkboxes/radio ocultos.
+     Toda a interatividade é CSS puro — sem JavaScript.
+============================================================ -->
+
+<section class="cardapio">
   <div class="container">
 
-    <h2 class="section__title">Cardápio Clássico</h2>
+    <!-- ── Cabeçalho ── -->
+    <header class="cardapio__header">
+      <h2 class="cardapio__title">Cardápio de Drinks</h2>
+      <p class="cardapio__subtitle">Selecione o pacote ideal para o seu evento</p>
+    </header>
 
-    <ul class="menu-list">
+    <!-- ══════════════════════════════════════════════════════
+         SISTEMA DE FILTROS (CSS-only via radio + checkboxes)
 
-      <!-- ITEM -->
-      <li class="menu-item">
-        <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a" alt="Negroni">
-        <div class="menu-info">
-          <h3>Negroni</h3>
-          <p class="desc">Forte e amargo, com notas herbais marcantes.</p>
-          <p class="ingredients">Gin, Campari, Vermute Rosso</p>
-        </div>
-      </li>
+         Como funciona:
+         • Um grupo de <input type="radio"> controla qual PACOTE
+           está visível (ou "todos").
+         • Um grupo de <input type="checkbox"> controla o filtro
+           de DESTILADO; marcar um oculta itens que não o possuem.
+         • As regras de visibilidade usam os seletores :checked ~
+           e combinadores de irmão/descendente no CSS.
+    ══════════════════════════════════════════════════════════ -->
 
-      <li class="menu-item">
-        <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187" alt="Old Fashioned">
-        <div class="menu-info">
-          <h3>Old Fashioned</h3>
-          <p class="desc">Intenso e levemente adocicado, clássico sofisticado.</p>
-          <p class="ingredients">Bourbon, açúcar, bitter</p>
-        </div>
-      </li>
+    <!-- Radios de PACOTE (ocultos visualmente) -->
+    <input class="filter-radio" type="radio" name="pkg" id="pkg-all"  value="all"  checked>
+    <input class="filter-radio" type="radio" name="pkg" id="pkg-1"    value="1">
+    <input class="filter-radio" type="radio" name="pkg" id="pkg-2"    value="2">
+    <input class="filter-radio" type="radio" name="pkg" id="pkg-3"    value="3">
+    <input class="filter-radio" type="radio" name="pkg" id="pkg-4"    value="4">
+    <input class="filter-radio" type="radio" name="pkg" id="pkg-5"    value="5">
 
-      <li class="menu-item">
-        <img src="https://images.unsplash.com/photo-1543253687-c931c8e01820" alt="Mojito">
-        <div class="menu-info">
-          <h3>Mojito</h3>
-          <p class="desc">Refrescante e cítrico, perfeito para dias quentes.</p>
-          <p class="ingredients">Rum, hortelã, limão, açúcar, soda</p>
-        </div>
-      </li>
+    <!-- Checkboxes de DESTILADO (ocultos visualmente) -->
+    <input class="filter-check" type="checkbox" id="spirit-vodka"      value="vodka">
+    <input class="filter-check" type="checkbox" id="spirit-gin"        value="gin">
+    <input class="filter-check" type="checkbox" id="spirit-rum"        value="rum">
+    <input class="filter-check" type="checkbox" id="spirit-cachaça"    value="cachaça">
+    <input class="filter-check" type="checkbox" id="spirit-whisky"     value="whisky">
+    <input class="filter-check" type="checkbox" id="spirit-tequila"    value="tequila">
+    <input class="filter-check" type="checkbox" id="spirit-sem-alcool" value="sem-alcool">
 
-      <li class="menu-item">
-        <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b" alt="Margarita">
-        <div class="menu-info">
-          <h3>Margarita</h3>
-          <p class="desc">Cítrico e equilibrado com toque salgado.</p>
-          <p class="ingredients">Tequila, limão, triple sec</p>
-        </div>
-      </li>
+    <!-- ── Barra de filtros ── -->
+    <nav class="filter-bar" aria-label="Filtros de cardápio">
 
-      <li class="menu-item">
-        <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813" alt="Cosmopolitan">
-        <div class="menu-info">
-          <h3>Cosmopolitan</h3>
-          <p class="desc">Leve, frutado e elegante.</p>
-          <p class="ingredients">Vodka, cranberry, limão</p>
-        </div>
-      </li>
+      <span class="filter-bar__label">Pacote</span>
 
-      <li class="menu-item">
-        <img src="https://images.unsplash.com/photo-1574096079513-d8259312b785" alt="Caipirinha">
-        <div class="menu-info">
-          <h3>Caipirinha</h3>
-          <p class="desc">Cítrica e intensa, clássico brasileiro.</p>
-          <p class="ingredients">Cachaça, limão, açúcar</p>
-        </div>
-      </li>
+      <label class="filter-btn" for="pkg-all">Todos</label>
+      <label class="filter-btn" for="pkg-1">Clássico</label>
+      <label class="filter-btn" for="pkg-2">Intermediário</label>
+      <label class="filter-btn" for="pkg-3">Premium</label>
+      <label class="filter-btn" for="pkg-4">Exclusivo</label>
+      <label class="filter-btn" for="pkg-5">Teen</label>
 
-      <li class="menu-item">
-        <img src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208" alt="Gin Tônica">
-        <div class="menu-info">
-          <h3>Gin Tônica</h3>
-          <p class="desc">Leve, aromático e refrescante.</p>
-          <p class="ingredients">Gin, água tônica, especiarias</p>
-        </div>
-      </li>
+      <div class="filter-bar__divider" role="separator"></div>
 
-      <li class="menu-item">
-        <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc" alt="Aperol Spritz">
-        <div class="menu-info">
-          <h3>Aperol Spritz</h3>
-          <p class="desc">Refrescante, levemente amargo e borbulhante.</p>
-          <p class="ingredients">Aperol, espumante, água com gás</p>
-        </div>
-      </li>
+      <span class="filter-bar__label">Destilado</span>
 
-      <li class="menu-item">
-        <img src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26" alt="Daiquiri">
-        <div class="menu-info">
-          <h3>Daiquiri</h3>
-          <p class="desc">Equilibrado entre doce e ácido.</p>
-          <p class="ingredients">Rum, limão, açúcar</p>
-        </div>
-      </li>
+      <label class="filter-btn filter-btn--spirit" for="spirit-vodka">Vodka</label>
+      <label class="filter-btn filter-btn--spirit" for="spirit-gin">Gin</label>
+      <label class="filter-btn filter-btn--spirit" for="spirit-rum">Rum</label>
+      <label class="filter-btn filter-btn--spirit" for="spirit-cachaça">Cachaça</label>
+      <label class="filter-btn filter-btn--spirit" for="spirit-whisky">Whisky</label>
+      <label class="filter-btn filter-btn--spirit" for="spirit-tequila">Tequila</label>
+      <label class="filter-btn filter-btn--spirit" for="spirit-sem-alcool">Sem álcool</label>
 
-      <li class="menu-item">
-        <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e" alt="Whiskey Sour">
-        <div class="menu-info">
-          <h3>Whiskey Sour</h3>
-          <p class="desc">Aveludado, cítrico e levemente doce.</p>
-          <p class="ingredients">Whiskey, limão, açúcar, clara de ovo</p>
-        </div>
-      </li>
+    </nav>
 
-    </ul>
+    <!-- ══════════════════════════════
+         1. MASTER CLÁSSICO
+    ══════════════════════════════════ -->
+    <div class="pkg-group" id="group-pkg-1" data-pkg="1">
+      <header class="pkg-group__header">
+        <span class="pkg-group__title">Master Clássico</span>
+        <span class="pkg-group__desc">Drinks tradicionais para todos os estilos de eventos.</span>
+        <span class="pkg-group__badge">Clássico</span>
+      </header>
 
-  </div>
+      <ul class="menu-list">
+
+        <li class="menu-item" data-spirits="vodka">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80"
+            alt="Lagoa Azul"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Lagoa Azul</h3>
+            <p class="menu-item__ingredients">Vodka, licor fino de curaçao blue, refrigerante e suco de limão</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="sem-alcool">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1606107538950-9b8d7b3b6b48?w=150&q=80"
+            alt="Soda Italiana"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">
+              Soda Italiana
+              <span class="badge badge--na">Sem álcool</span>
+            </h3>
+            <p class="menu-item__ingredients">Xaropes de variados sabores e água com gás</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="conhaque">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=150&q=80"
+            alt="Alexander"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Alexander</h3>
+            <p class="menu-item__ingredients">Conhaque, licor de cacau, creme de leite e leite condensado</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="vodka cachaça">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80"
+            alt="Caipirinhas"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Caipirinhas</h3>
+            <p class="menu-item__ingredients">Sabores Limão ou Abacaxi — Vodka ou Cachaça</p>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+    <!-- ══════════════════════════════
+         2. MASTER INTERMEDIÁRIO
+    ══════════════════════════════════ -->
+    <div class="pkg-group" id="group-pkg-2" data-pkg="2">
+      <header class="pkg-group__header">
+        <span class="pkg-group__title">Master Intermediário</span>
+        <span class="pkg-group__desc">Equilíbrio entre opções clássicas e modernas.</span>
+        <span class="pkg-group__badge">Intermediário</span>
+      </header>
+
+      <ul class="menu-list">
+
+        <li class="menu-item" data-spirits="vodka">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80"
+            alt="Sex on the Beach"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Sex on the Beach</h3>
+            <p class="menu-item__ingredients">Vodka, licor de pêssego, suco de laranja e xarope grenadine</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="gin">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80"
+            alt="Gin Tônica"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Gin Tônica</h3>
+            <p class="menu-item__ingredients">Gin, água tônica e especiarias</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="rum">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=150&q=80"
+            alt="Cuba Libre"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Cuba Libre</h3>
+            <p class="menu-item__ingredients">Rum, suco de limão e Coca-Cola</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="rum">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80"
+            alt="Piña Colada"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Piña Colada</h3>
+            <p class="menu-item__ingredients">Rum, leite de coco, leite condensado e suco de abacaxi</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="gin">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80"
+            alt="Gin Tropical"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Gin Tropical</h3>
+            <p class="menu-item__ingredients">Gin, energético tropical, laranja bahia, morango e limão</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="vodka cachaça saquê">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80"
+            alt="Caipirinhas"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Caipirinhas</h3>
+            <p class="menu-item__ingredients">Sabores Limão ou Morango — Vodka, Cachaça ou Saquê</p>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+    <!-- ══════════════════════════════
+         3. MASTER PREMIUM
+    ══════════════════════════════════ -->
+    <div class="pkg-group" id="group-pkg-3" data-pkg="3">
+      <header class="pkg-group__header">
+        <span class="pkg-group__title">Master Premium</span>
+        <span class="pkg-group__desc">Carta contemporânea com diversidade de sabores e opções autorais.</span>
+        <span class="pkg-group__badge">Premium</span>
+      </header>
+
+      <ul class="menu-list">
+
+        <li class="menu-item" data-spirits="vodka">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80"
+            alt="Moscow Mule"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Moscow Mule</h3>
+            <p class="menu-item__ingredients">Vodka, xarope de gengibre, limão e espuma</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="vodka">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80"
+            alt="Green Apple"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">
+              Green Apple
+              <span class="badge badge--autoral">Autoral</span>
+            </h3>
+            <p class="menu-item__ingredients">Vodka, xarope de maçã verde, limão e espuma</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="rum">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80"
+            alt="Mojito"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Mojito</h3>
+            <p class="menu-item__ingredients">Rum, água com gás, suco de limão, hortelã e açúcar</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="campari">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80"
+            alt="Garibaldi"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Garibaldi</h3>
+            <p class="menu-item__ingredients">Campari e suco de laranja</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="aperol">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80"
+            alt="Aperol Spritz"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Aperol Spritz</h3>
+            <p class="menu-item__ingredients">Aperol, espumante, água com gás e laranja bahia</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="rum">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80"
+            alt="Piña Colada"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Piña Colada</h3>
+            <p class="menu-item__ingredients">Rum, leite de coco, leite condensado e suco de abacaxi</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="tequila">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80"
+            alt="Tequila Sunrise"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Tequila Sunrise</h3>
+            <p class="menu-item__ingredients">Tequila, suco de laranja e xarope grenadine</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="gin">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80"
+            alt="Gin Grape"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">
+              Gin Grape
+              <span class="badge badge--autoral">Autoral</span>
+            </h3>
+            <p class="menu-item__ingredients">Gin, uva, limão, xarope de gengibre, tônica e espuma</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="vodka cachaça saquê rum">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80"
+            alt="Caipirinhas"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Caipirinhas</h3>
+            <p class="menu-item__ingredients">Sabores Limão, Morango ou Maracujá — Vodka, Cachaça, Saquê ou Rum</p>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+    <!-- ══════════════════════════════
+         4. MASTER EXCLUSIVO
+    ══════════════════════════════════ -->
+    <div class="pkg-group" id="group-pkg-4" data-pkg="4">
+      <header class="pkg-group__header">
+        <span class="pkg-group__title">Master Exclusivo</span>
+        <span class="pkg-group__desc">Drinks sofisticados e combinações diferenciadas.</span>
+        <span class="pkg-group__badge">Exclusivo</span>
+      </header>
+
+      <ul class="menu-list">
+
+        <li class="menu-item" data-spirits="gin">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80"
+            alt="Fitzgerald"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Fitzgerald</h3>
+            <p class="menu-item__ingredients">Gin, limão, xarope de açúcar e Angostura</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="vodka">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80"
+            alt="Cosmopolitan"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Cosmopolitan</h3>
+            <p class="menu-item__ingredients">Vodka, Triple Sec, xarope de Cranberry e limão</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="whisky">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=150&q=80"
+            alt="Whisky Sour"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Whisky Sour</h3>
+            <p class="menu-item__ingredients">Whisky, xarope de açúcar, limão e Angostura</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="whisky">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=150&q=80"
+            alt="Old Fashioned"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Old Fashioned</h3>
+            <p class="menu-item__ingredients">Bourbon, xarope de açúcar e Angostura</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="gin campari">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80"
+            alt="Negroni"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Negroni</h3>
+            <p class="menu-item__ingredients">Gin, Vermute e Campari</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="saquê">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80"
+            alt="Marajá"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">
+              Marajá
+              <span class="badge badge--autoral">Autoral</span>
+            </h3>
+            <p class="menu-item__ingredients">Saquê, maracujá, xarope de limão e espuma</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="whisky campari">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80"
+            alt="Boulevardier"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Boulevardier</h3>
+            <p class="menu-item__ingredients">Whisky, Campari e Vermute</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="gin">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80"
+            alt="Gin Red"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">
+              Gin Red
+              <span class="badge badge--autoral">Autoral</span>
+            </h3>
+            <p class="menu-item__ingredients">Gin, soda, limão, chá, xarope de frutas vermelhas e espuma</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="cachaça vodka saquê rum">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80"
+            alt="Caipirinhas Gourmet"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">Caipirinhas Gourmet</h3>
+            <p class="menu-item__ingredients">Morango com Limão e Maracujá; Melancia com Hortelã; Uva com Gengibre; entre outras</p>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+    <!-- ══════════════════════════════
+         5. MASTER TEEN
+    ══════════════════════════════════ -->
+    <div class="pkg-group" id="group-pkg-5" data-pkg="5">
+      <header class="pkg-group__header">
+        <span class="pkg-group__title">Master Teen</span>
+        <span class="pkg-group__desc">Opções focadas exclusivamente em versões sem álcool.</span>
+        <span class="pkg-group__badge">Sem álcool</span>
+      </header>
+
+      <ul class="menu-list">
+
+        <li class="menu-item" data-spirits="sem-alcool">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1606107538950-9b8d7b3b6b48?w=150&q=80"
+            alt="Soda Italiana"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">
+              Soda Italiana
+              <span class="badge badge--na">Sem álcool</span>
+            </h3>
+            <p class="menu-item__ingredients">Xaropes de variados sabores e água com gás</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="sem-alcool">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80"
+            alt="Green Apple"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">
+              Green Apple
+              <span class="badge badge--autoral">Autoral</span>
+            </h3>
+            <p class="menu-item__ingredients">Soda, xarope de maçã verde, limão e espuma</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="sem-alcool">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80"
+            alt="Mojito"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">
+              Mojito
+              <span class="badge badge--na">Sem álcool</span>
+            </h3>
+            <p class="menu-item__ingredients">Água com gás, suco de limão, hortelã e açúcar</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="sem-alcool">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80"
+            alt="Lagoa Azul"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">
+              Lagoa Azul
+              <span class="badge badge--na">Sem álcool</span>
+            </h3>
+            <p class="menu-item__ingredients">Soda, limão, xarope de curaçao blue e laranja</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="sem-alcool">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80"
+            alt="Tropical Blue"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">
+              Tropical Blue
+              <span class="badge badge--na">Sem álcool</span>
+            </h3>
+            <p class="menu-item__ingredients">Energético Tropical, frutas e xarope curaçao blue</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="sem-alcool">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80"
+            alt="Piña Colada"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">
+              Piña Colada
+              <span class="badge badge--na">Sem álcool</span>
+            </h3>
+            <p class="menu-item__ingredients">Suco de abacaxi, leite de coco e leite condensado</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="sem-alcool">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80"
+            alt="Pink Lemonade"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">
+              Pink Lemonade
+              <span class="badge badge--na">Sem álcool</span>
+            </h3>
+            <p class="menu-item__ingredients">Água, xarope de cranberry e suco de limão siciliano</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="sem-alcool">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80"
+            alt="Miami Beach"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">
+              Miami Beach
+              <span class="badge badge--na">Sem álcool</span>
+            </h3>
+            <p class="menu-item__ingredients">Suco de pêssego, suco de laranja e xarope grenadine</p>
+          </div>
+        </li>
+
+        <li class="menu-item" data-spirits="sem-alcool">
+          <img
+            class="menu-item__img"
+            src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80"
+            alt="Caipirinhas"
+            loading="lazy"
+          >
+          <div class="menu-item__info">
+            <h3 class="menu-item__name">
+              Caipirinhas
+              <span class="badge badge--na">Sem álcool</span>
+            </h3>
+            <p class="menu-item__ingredients">Limão, Morango ou Abacaxi — água com gás e açúcar</p>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+  </div><!-- /.container -->
 </section>
+
+</body>
+</html>
 
   <!-- =============================================
        SEÇÃO DEPOIMENTOS
