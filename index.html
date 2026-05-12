@@ -7,11 +7,1094 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <style>
+/* ═══════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold:    #ffffff;
+  --gold-lt: #cccccc;
+  --gold-dim:#888888;
+  --dark:    #0a0a0a;
+  --dark-2:  #111111;
+  --dark-3:  #191919;
+  --dark-4:  #222222;
+  --mid:     #2a2a2a;
+  --text:    #e8e8e8;
+  --muted:   #777;
+  --white:   #fff;
+  --radius:  4px;
+  --radius-lg: 8px;
+  --trans:   0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --trans-fast: 0.2s ease;
+  --glow: 0 0 40px rgba(255,255,255,0.04);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--dark);
+  color: var(--text);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom cursor */
+.cursor {
+  width: 8px; height: 8px;
+  background: #fff;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.12s ease;
+}
+body:hover .cursor { opacity: 1; }
+a:hover ~ .cursor, button:hover ~ .cursor { width: 16px; height: 16px; }
+
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+/* ═══════════════════════════════════════════════
+   NOISE TEXTURE OVERLAY
+═══════════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9997;
+}
+
+/* ═══════════════════════════════════════════════
+   EYEBROW
+═══════════════════════════════════════════════ */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: .65rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 1rem;
+}
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px; height: 1px;
+  background: var(--gold-dim);
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION
+═══════════════════════════════════════════════ */
+.section { padding: 8rem 0; }
+.section__header { text-align: center; max-width: 620px; margin: 0 auto 5rem; }
+.section__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.section__title em { font-style: italic; color: var(--gold); }
+.section__subtitle { color: var(--muted); margin-top: 1rem; font-size: .92rem; line-height: 1.8; }
+
+/* ═══════════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+              transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ═══════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .9rem 2.2rem;
+  border-radius: 2px;
+  font-family: 'Jost', sans-serif;
+  font-size: .78rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: var(--trans);
+}
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.08);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.btn:hover::after { transform: scaleX(1); }
+
+.btn--primary {
+  background: var(--gold);
+  color: var(--dark);
+  font-weight: 500;
+}
+.btn--primary:hover { background: var(--gold-lt); }
+.btn--primary::after { background: rgba(0,0,0,0.08); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,.2);
+}
+.btn--ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+.btn--large { padding: 1.1rem 2.8rem; font-size: .88rem; }
+
+/* ═══════════════════════════════════════════════
+   WHATSAPP FLOAT
+═══════════════════════════════════════════════ */
+.whatsapp-float {
+  position: fixed; bottom: 2.5rem; right: 2.5rem; z-index: 998;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: #25d366; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 24px rgba(37,211,102,.35);
+  transition: var(--trans);
+}
+.whatsapp-float::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(37,211,102,.3);
+  animation: waPulse 2.5s ease-in-out infinite;
+}
+@keyframes waPulse {
+  0%, 100% { transform: scale(1); opacity: .8; }
+  50% { transform: scale(1.2); opacity: 0; }
+}
+.whatsapp-float svg { width: 24px; height: 24px; }
+.whatsapp-float:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 8px 32px rgba(37,211,102,.5); }
+
+/* ═══════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════ */
+@keyframes header-scroll {
+  0%   { background: transparent; backdrop-filter: blur(0); box-shadow: none; padding: 1.8rem 0; }
+  10%  { background: rgba(10,10,10,.94); backdrop-filter: blur(20px); box-shadow: 0 1px 0 rgba(255,255,255,.05); padding: 1rem 0; }
+  100% { background: rgba(10,10,10,.94); backdrop-filter: blur(20px); box-shadow: 0 1px 0 rgba(255,255,255,.05); padding: 1rem 0; }
+}
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.8rem 0;
+  animation: header-scroll linear both;
+  animation-timeline: scroll();
+  animation-range: 0px 140px;
+}
+.header__inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo { display: flex; flex-direction: column; line-height: 1.1; }
+.logo__main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 600;
+  color: var(--gold); letter-spacing: .08em;
+}
+.logo__sub { font-size: .55rem; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); margin-top: .15rem; }
+
+.nav__list { display: flex; gap: 2.8rem; align-items: center; }
+.nav__link {
+  font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--muted); transition: color var(--trans); position: relative;
+}
+.nav__link::after {
+  content: '';
+  position: absolute; bottom: -5px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.nav__link:hover { color: var(--gold); }
+.nav__link:hover::after { width: 100%; }
+.nav__link--cta {
+  color: var(--gold);
+  border: 1px solid rgba(255,255,255,.25);
+  padding: .45rem 1.2rem;
+  border-radius: 2px;
+}
+.nav__link--cta:hover { background: var(--gold); color: var(--dark); }
+.nav__link--cta::after { display: none; }
+
+/* Mobile menu */
+#menu-toggle { display: none; }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+  position: relative; z-index: 200;
+}
+.hamburger span {
+  display: block; width: 22px; height: 1px;
+  background: var(--text); transition: var(--trans); border-radius: 1px;
+}
+
+@media(max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav {
+    position: fixed; inset: 0; background: var(--dark-2);
+    display: flex; align-items: center; justify-content: center;
+    transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+    z-index: 150;
+  }
+  #menu-toggle:checked ~ .header .nav { transform: translateX(0); }
+  #menu-toggle:checked ~ .header .hamburger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  #menu-toggle:checked ~ .header .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  #menu-toggle:checked ~ .header .hamburger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav__list { flex-direction: column; gap: 3rem; text-align: center; }
+  .nav__link { font-size: 1rem; }
+}
+
+/* ═══════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  background:
+    url('https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1800&q=80')
+    center center / cover no-repeat;
+  overflow: hidden;
+}
+
+.hero__overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(0,0,0,.75) 0%,
+    rgba(0,0,0,.5) 50%,
+    rgba(0,0,0,.85) 100%
+  );
+}
+
+/* Geometric lines decoration */
+.hero__lines {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+}
+.hero__lines::before {
+  content: '';
+  position: absolute;
+  top: 15%; left: 5%;
+  width: 1px; height: 60%;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,.12), transparent);
+  animation: lineReveal 2s 0.5s forwards;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+.hero__lines::after {
+  content: '';
+  position: absolute;
+  top: 8%; right: 8%;
+  width: 120px; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,.15), transparent);
+  animation: lineRevealH 1.5s 1s forwards;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+@keyframes lineReveal {
+  to { transform: scaleY(1); }
+}
+@keyframes lineRevealH {
+  to { transform: scaleX(1); }
+}
+
+.hero__corner {
+  position: absolute;
+  width: 60px; height: 60px;
+  pointer-events: none;
+}
+.hero__corner--tl { top: 2.5rem; left: 2.5rem; border-top: 1px solid rgba(255,255,255,.2); border-left: 1px solid rgba(255,255,255,.2); }
+.hero__corner--br { bottom: 2.5rem; right: 2.5rem; border-bottom: 1px solid rgba(255,255,255,.2); border-right: 1px solid rgba(255,255,255,.2); }
+
+/* Particles */
+.hero__particles { position: absolute; inset: 0; pointer-events: none; }
+.hero__particles span {
+  position: absolute; border-radius: 50%; opacity: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+  animation: float 10s ease-in-out infinite;
+}
+.hero__particles span:nth-child(1){ width:3px;height:3px;top:22%;left:18%;animation-delay:0s; }
+.hero__particles span:nth-child(2){ width:2px;height:2px;top:58%;left:78%;animation-delay:2.5s; }
+.hero__particles span:nth-child(3){ width:4px;height:4px;top:72%;left:32%;animation-delay:4.5s; }
+.hero__particles span:nth-child(4){ width:2px;height:2px;top:35%;left:68%;animation-delay:1.2s; }
+.hero__particles span:nth-child(5){ width:3px;height:3px;top:48%;left:52%;animation-delay:3.8s; }
+.hero__particles span:nth-child(6){ width:2px;height:2px;top:82%;left:62%;animation-delay:6s; }
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0; }
+  20% { opacity: .5; }
+  50% { transform: translateY(-30px) scale(1.3); opacity: .7; }
+  80% { opacity: .3; }
+}
+
+.hero__content {
+  position: relative; z-index: 2;
+  text-align: center; max-width: 820px; padding: 2rem;
+}
+.hero__tagline {
+  font-size: .68rem; letter-spacing: .4em; text-transform: uppercase;
+  color: rgba(255,255,255,.5); margin-bottom: 1.8rem;
+  opacity: 0; animation: fadeUp .8s .2s forwards;
+  display: flex; align-items: center; justify-content: center; gap: 1rem;
+}
+.hero__tagline::before,
+.hero__tagline::after {
+  content: '';
+  display: block;
+  width: 30px; height: 1px;
+  background: rgba(255,255,255,.3);
+}
+
+.hero__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.2rem, 8vw, 7rem);
+  font-weight: 300; line-height: 1.05;
+  margin-bottom: 1.8rem; letter-spacing: -0.02em;
+  opacity: 0; animation: fadeUp .9s .4s forwards;
+}
+.hero__title em { font-style: italic; color: var(--gold); font-weight: 400; }
+.hero__title strong { display: block; font-weight: 600; }
+
+.hero__description {
+  color: rgba(255,255,255,.5);
+  font-size: clamp(.88rem, 1.4vw, 1rem);
+  line-height: 2; margin-bottom: 3rem;
+  opacity: 0; animation: fadeUp .9s .6s forwards;
+}
+.hero__actions {
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp .9s .8s forwards;
+}
+
+.hero__scroll {
+  position: absolute; bottom: 3rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: .6rem;
+  opacity: 0; animation: fadeUp .9s 1.2s forwards;
+}
+.hero__scroll-line {
+  width: 1px; height: 60px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,.4), transparent);
+  animation: scrollPulse 2.5s ease-in-out infinite;
+}
+.hero__scroll-text { font-size: .58rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.35); }
+@keyframes scrollPulse {
+  0%, 100% { opacity: .4; transform: scaleY(.8); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ═══════════════════════════════════════════════
+   RIBBON
+═══════════════════════════════════════════════ */
+.ribbon { overflow: hidden; background: var(--dark-3); padding: .8rem 0; border-top: 1px solid rgba(255,255,255,.04); border-bottom: 1px solid rgba(255,255,255,.04); }
+.ribbon__track { overflow: hidden; }
+.ribbon__inner {
+  display: flex; gap: 4rem; white-space: nowrap;
+  animation: ribbonScroll 22s linear infinite;
+}
+.ribbon__inner span {
+  font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted); font-weight: 400;
+  display: flex; align-items: center; gap: 1rem;
+}
+.ribbon__inner span::before {
+  content: '◆';
+  font-size: .5rem; color: rgba(255,255,255,.2);
+}
+@keyframes ribbonScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ═══════════════════════════════════════════════
+   SOBRE
+═══════════════════════════════════════════════ */
+.sobre { background: var(--dark-2); position: relative; overflow: hidden; }
+.sobre::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(255,255,255,.02) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.sobre__layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: center;
+}
+@media(max-width: 900px) { .sobre__layout { grid-template-columns: 1fr; } }
+
+.sobre__img-wrapper { position: relative; }
+.sobre__img {
+  width: 100%; border-radius: 2px; display: block;
+  filter: contrast(1.05);
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.sobre__img-wrapper:hover .sobre__img { transform: scale(1.02); }
+
+.sobre__img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.4) 0%, transparent 50%);
+  border-radius: 2px; pointer-events: none;
+}
+.sobre__img-frame {
+  position: absolute;
+  top: -16px; left: -16px;
+  right: 16px; bottom: -16px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: -1;
+}
+.sobre__badge {
+  position: absolute; bottom: -2rem; right: -2rem;
+  background: var(--dark-3);
+  border: 1px solid rgba(255,255,255,.12);
+  padding: 1.4rem 1.6rem;
+  text-align: center; min-width: 100px;
+  backdrop-filter: blur(10px);
+}
+.sobre__badge-num {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem; font-weight: 700;
+  line-height: 1; color: var(--gold);
+}
+.sobre__badge-label {
+  font-size: .6rem; letter-spacing: .15em;
+  text-transform: uppercase; line-height: 1.5;
+  color: var(--muted); margin-top: .3rem;
+}
+
+.sobre__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 600; line-height: 1.2; margin-bottom: 1.8rem;
+}
+.sobre__title em { font-style: italic; color: var(--gold); }
+.sobre__paragrafos p { color: var(--muted); margin-bottom: 1.2rem; font-size: .95rem; line-height: 1.9; }
+
+.sobre__valores { display: flex; flex-direction: column; gap: 1.2rem; margin: 2.5rem 0; }
+.sobre__valor {
+  display: flex; gap: 1.2rem; align-items: flex-start;
+  padding: 1.2rem; background: var(--dark-3);
+  border: 1px solid rgba(255,255,255,.04);
+  transition: border-color var(--trans), transform var(--trans);
+}
+.sobre__valor:hover { border-color: rgba(255,255,255,.12); transform: translateX(4px); }
+.sobre__valor-icon { color: var(--gold-dim); font-size: .8rem; margin-top: .3rem; flex-shrink: 0; }
+.sobre__valor strong { display: block; margin-bottom: .3rem; font-size: .92rem; letter-spacing: .05em; }
+.sobre__valor p { color: var(--muted); font-size: .85rem; margin: 0; }
+
+.sobre__stats {
+  display: flex; gap: 0; margin-top: 3rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.sobre__stat {
+  flex: 1; text-align: center; padding: 1.5rem 1rem;
+  border-right: 1px solid rgba(255,255,255,.06);
+  position: relative;
+}
+.sobre__stat:last-child { border-right: none; }
+.sobre__stat-num {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem; font-weight: 700; color: var(--gold);
+  line-height: 1;
+  transition: transform var(--trans);
+}
+.sobre__stat:hover .sobre__stat-num { transform: translateY(-3px); }
+.sobre__stat-desc {
+  font-size: .68rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted);
+  margin-top: .4rem;
+}
+
+/* ═══════════════════════════════════════════════
+   SERVIÇOS
+═══════════════════════════════════════════════ */
+.servicos { background: var(--dark); position: relative; }
+.servicos::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px; height: 80px;
+  background: linear-gradient(to bottom, rgba(255,255,255,.08), transparent);
+}
+
+.servicos__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.05);
+}
+.servicos__card {
+  background: var(--dark);
+  padding: 2.5rem;
+  position: relative; overflow: hidden;
+  transition: background var(--trans);
+}
+.servicos__card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.03) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--trans);
+}
+.servicos__card:hover { background: var(--dark-3); }
+.servicos__card:hover::before { opacity: 1; }
+.servicos__card:hover { transform: none; }
+
+/* Hover border accent */
+.servicos__card::after {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 0; height: 2px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,.4), transparent);
+  transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.servicos__card:hover::after { width: 100%; }
+
+.servicos__card-top {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: 2rem;
+}
+.servicos__num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem; font-weight: 300;
+  color: rgba(255,255,255,.06); line-height: 1;
+  transition: color var(--trans);
+}
+.servicos__card:hover .servicos__num { color: rgba(255,255,255,.12); }
+
+.servicos__tag {
+  font-size: .58rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid rgba(255,255,255,.1);
+  padding: .3rem .8rem;
+}
+.servicos__card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 600; margin-bottom: .8rem;
+}
+.servicos__card-body { color: var(--muted); font-size: .88rem; line-height: 1.8; margin-bottom: 1.5rem; }
+.servicos__card-list { display: flex; flex-direction: column; gap: .5rem; }
+.servicos__card-list li {
+  font-size: .82rem; color: var(--muted);
+  padding-left: 1.2rem; position: relative;
+  transition: color var(--trans);
+}
+.servicos__card-list li::before {
+  content: '—'; position: absolute; left: 0;
+  color: rgba(255,255,255,.2);
+  transition: color var(--trans);
+}
+.servicos__card:hover .servicos__card-list li { color: var(--text); }
+.servicos__card:hover .servicos__card-list li::before { color: rgba(255,255,255,.4); }
+
+/* ═══════════════════════════════════════════════
+   PORTFOLIO
+═══════════════════════════════════════════════ */
+.portfolio { background: var(--dark-2); }
+.portfolio-radio { display: none; }
+
+.portfolio__filtros {
+  display: flex; gap: .5rem;
+  justify-content: center; flex-wrap: wrap;
+  margin-bottom: 3.5rem;
+}
+.filter-btn {
+  padding: .45rem 1.4rem;
+  border: 1px solid rgba(255,255,255,.1);
+  background: transparent; color: var(--muted);
+  font-family: 'Jost', sans-serif;
+  font-size: .68rem; letter-spacing: .15em; text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--trans);
+  display: inline-block;
+}
+.filter-btn:hover {
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+  border-color: rgba(255,255,255,.2);
+}
+
+#pf-all:checked  ~ .portfolio__filtros label[for="pf-all"],
+#pf-cas:checked  ~ .portfolio__filtros label[for="pf-cas"],
+#pf-cor:checked  ~ .portfolio__filtros label[for="pf-cor"],
+#pf-ani:checked  ~ .portfolio__filtros label[for="pf-ani"] {
+  background: var(--gold); color: var(--dark);
+  border-color: var(--gold);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+@media(max-width: 768px) { .gallery { grid-template-columns: 1fr 1fr; } }
+@media(max-width: 480px) { .gallery { grid-template-columns: 1fr; } }
+
+.gallery__item {
+  position: relative; overflow: hidden;
+  cursor: pointer; aspect-ratio: 4/3;
+  transition: opacity 0.4s ease;
+}
+.gallery__item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), filter 0.4s ease;
+  display: block;
+  filter: brightness(0.85);
+}
+.gallery__item:hover img {
+  transform: scale(1.08);
+  filter: brightness(1);
+}
+
+.gallery__overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.1) 50%, transparent 100%);
+  opacity: 0; transition: opacity 0.4s ease;
+  display: flex; align-items: flex-end; padding: 1.5rem;
+}
+.gallery__item:hover .gallery__overlay { opacity: 1; }
+
+.gallery__category {
+  display: block; font-size: .58rem; letter-spacing: .22em;
+  text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: .4rem;
+}
+.gallery__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; font-weight: 600; color: #fff;
+  margin-bottom: .3rem;
+  transform: translateY(8px);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.gallery__item:hover .gallery__title { transform: none; }
+.gallery__info { font-size: .75rem; color: rgba(255,255,255,.5); }
+
+#pf-cas:checked ~ .gallery .gallery__item[data-category="corporativo"],
+#pf-cas:checked ~ .gallery .gallery__item[data-category="aniversario"] { display: none; }
+#pf-cor:checked ~ .gallery .gallery__item[data-category="casamento"],
+#pf-cor:checked ~ .gallery .gallery__item[data-category="aniversario"] { display: none; }
+#pf-ani:checked ~ .gallery .gallery__item[data-category="casamento"],
+#pf-ani:checked ~ .gallery .gallery__item[data-category="corporativo"] { display: none; }
+
+/* ═══════════════════════════════════════════════
+   CARDÁPIO
+═══════════════════════════════════════════════ */
+.cardapio { background: var(--dark); padding: 8rem 0; }
+.filter-radio { display: none; }
+
+.filter-bar {
+  display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; justify-content: flex-start;
+}
+.filter-bar__label {
+  font-size: .6rem; letter-spacing: .25em; text-transform: uppercase;
+  color: var(--muted); margin-right: .5rem; min-width: 80px;
+}
+
+.filter-bars-wrap {
+  background: var(--dark-3);
+  border: 1px solid rgba(255,255,255,.06);
+  padding: 1.5rem 2rem;
+  margin-bottom: 4rem;
+}
+.filter-bar__divider-h {
+  width: 100%; height: 1px;
+  background: rgba(255,255,255,.05);
+  margin: 1rem 0;
+}
+
+/* Cardápio filter active states */
+#pkg-all:checked ~ .filter-bars-wrap .filter-bar label[for="pkg-all"],
+#pkg-1:checked   ~ .filter-bars-wrap .filter-bar label[for="pkg-1"],
+#pkg-2:checked   ~ .filter-bars-wrap .filter-bar label[for="pkg-2"],
+#pkg-3:checked   ~ .filter-bars-wrap .filter-bar label[for="pkg-3"],
+#pkg-4:checked   ~ .filter-bars-wrap .filter-bar label[for="pkg-4"],
+#pkg-5:checked   ~ .filter-bars-wrap .filter-bar label[for="pkg-5"],
+#sp-all:checked     ~ .filter-bars-wrap .filter-bar label[for="sp-all"],
+#sp-vodka:checked   ~ .filter-bars-wrap .filter-bar label[for="sp-vodka"],
+#sp-gin:checked     ~ .filter-bars-wrap .filter-bar label[for="sp-gin"],
+#sp-rum:checked     ~ .filter-bars-wrap .filter-bar label[for="sp-rum"],
+#sp-cachaca:checked ~ .filter-bars-wrap .filter-bar label[for="sp-cachaca"],
+#sp-whisky:checked  ~ .filter-bars-wrap .filter-bar label[for="sp-whisky"],
+#sp-tequila:checked ~ .filter-bars-wrap .filter-bar label[for="sp-tequila"],
+#sp-campari:checked ~ .filter-bars-wrap .filter-bar label[for="sp-campari"],
+#sp-aperol:checked  ~ .filter-bars-wrap .filter-bar label[for="sp-aperol"],
+#sp-saque:checked   ~ .filter-bars-wrap .filter-bar label[for="sp-saque"],
+#sp-sem:checked     ~ .filter-bars-wrap .filter-bar label[for="sp-sem"] {
+  background: var(--gold); color: var(--dark); border-color: var(--gold);
+}
+
+/* Package groups */
+.pkg-group { margin-bottom: 3rem; }
+
+#pkg-1:checked ~ .filter-bars-wrap ~ .pkg-group:not([data-pkg="1"]) { display: none; }
+#pkg-2:checked ~ .filter-bars-wrap ~ .pkg-group:not([data-pkg="2"]) { display: none; }
+#pkg-3:checked ~ .filter-bars-wrap ~ .pkg-group:not([data-pkg="3"]) { display: none; }
+#pkg-4:checked ~ .filter-bars-wrap ~ .pkg-group:not([data-pkg="4"]) { display: none; }
+#pkg-5:checked ~ .filter-bars-wrap ~ .pkg-group:not([data-pkg="5"]) { display: none; }
+
+#sp-vodka:checked   ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="vodka"])     { display: none; }
+#sp-gin:checked     ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="gin"])       { display: none; }
+#sp-rum:checked     ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="rum"])       { display: none; }
+#sp-cachaca:checked ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="cacha"])     { display: none; }
+#sp-whisky:checked  ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="whisky"])    { display: none; }
+#sp-tequila:checked ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="tequila"])   { display: none; }
+#sp-campari:checked ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="campari"])   { display: none; }
+#sp-aperol:checked  ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="aperol"])    { display: none; }
+#sp-saque:checked   ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="saq"])       { display: none; }
+#sp-sem:checked     ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="sem-alcool"])  { display: none; }
+
+.pkg-group__header {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 1rem;
+  padding: 1.4rem 2rem;
+  background: var(--dark-3);
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 2px solid rgba(255,255,255,.2);
+  border-bottom: none;
+}
+.pkg-group__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 600; color: var(--gold);
+}
+.pkg-group__desc { color: var(--muted); font-size: .85rem; flex: 1; }
+.pkg-group__badge {
+  font-size: .6rem; letter-spacing: .15em; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,.1);
+  color: var(--muted); padding: .3rem .8rem;
+}
+
+.menu-list {
+  display: flex; flex-direction: column;
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 2px solid rgba(255,255,255,.06);
+  overflow: hidden;
+}
+.menu-item {
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: 1.2rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  transition: background var(--trans);
+  position: relative;
+}
+.menu-item::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 0;
+  background: rgba(255,255,255,.04);
+  transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.menu-item:hover::before { width: 100%; }
+.menu-item:last-child { border-bottom: none; }
+.menu-item__img {
+  width: 52px; height: 52px; border-radius: 50%;
+  object-fit: cover; flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,.1);
+  transition: transform var(--trans), border-color var(--trans);
+}
+.menu-item:hover .menu-item__img {
+  transform: scale(1.05);
+  border-color: rgba(255,255,255,.25);
+}
+.menu-item__name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.08rem; font-weight: 600;
+  margin-bottom: .2rem;
+  display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
+}
+.menu-item__ingredients { font-size: .8rem; color: var(--muted); }
+.badge {
+  font-size: .56rem; letter-spacing: .1em; text-transform: uppercase;
+  padding: .2rem .5rem;
+  font-family: 'Jost', sans-serif; font-weight: 400;
+}
+.badge--na { background: rgba(100,200,100,.1); color: #6dc96d; border: 1px solid rgba(100,200,100,.2); }
+.badge--autoral { background: rgba(255,255,255,.08); color: var(--muted); border: 1px solid rgba(255,255,255,.1); }
+
+/* ═══════════════════════════════════════════════
+   DEPOIMENTOS
+═══════════════════════════════════════════════ */
+.depoimentos { background: var(--dark-2); }
+
+.depoimentos__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.depo {
+  background: var(--dark-3);
+  border: 1px solid rgba(255,255,255,.05);
+  padding: 2.5rem;
+  position: relative; overflow: hidden;
+  transition: border-color var(--trans), transform var(--trans);
+}
+.depo::before {
+  content: '"';
+  position: absolute; top: -1rem; right: 1.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 8rem; font-weight: 700;
+  color: rgba(255,255,255,.03); line-height: 1;
+  pointer-events: none;
+  transition: color var(--trans);
+}
+.depo:hover { border-color: rgba(255,255,255,.12); transform: translateY(-4px); }
+.depo:hover::before { color: rgba(255,255,255,.06); }
+
+.depo__stars {
+  color: var(--gold); font-size: .85rem;
+  margin-bottom: 1.2rem; letter-spacing: .15em;
+}
+.depo__text {
+  color: var(--muted); font-size: .9rem; line-height: 1.9;
+  margin-bottom: 2rem; font-style: italic;
+  position: relative; z-index: 1;
+}
+.depo__author { display: flex; align-items: center; gap: 1rem; }
+.depo__avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  color: var(--text);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .85rem; font-weight: 500; flex-shrink: 0;
+}
+.depo__name { display: block; font-size: .88rem; font-weight: 500; }
+.depo__event { display: block; font-size: .72rem; color: var(--muted); margin-top: .1rem; }
+
+/* ═══════════════════════════════════════════════
+   CONTATO
+═══════════════════════════════════════════════ */
+.contato { background: var(--dark); position: relative; overflow: hidden; }
+.contato::before {
+  content: '';
+  position: absolute; bottom: -300px; left: -300px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(255,255,255,.015) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.contato__inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: center;
+}
+@media(max-width: 900px) { .contato__inner { grid-template-columns: 1fr; } }
+
+.contato__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  font-weight: 600; line-height: 1.2; margin: 1rem 0 1.5rem;
+}
+.contato__title em { font-style: italic; color: var(--gold); }
+.contato__body { color: var(--muted); margin-bottom: 2rem; font-size: .95rem; line-height: 1.9; }
+
+.contato__badges {
+  display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2.5rem;
+}
+.contato__badges span {
+  font-size: .65rem; letter-spacing: .1em; text-transform: uppercase;
+  padding: .35rem .9rem;
+  border: 1px solid rgba(255,255,255,.1);
+  color: var(--muted);
+}
+
+.contato__canais { display: flex; flex-direction: column; gap: .8rem; }
+.canal-card {
+  display: flex; align-items: center; gap: 1.2rem;
+  padding: 1.2rem 1.5rem;
+  border: 1px solid rgba(255,255,255,.07);
+  background: var(--dark-3);
+  transition: var(--trans);
+  position: relative; overflow: hidden;
+}
+.canal-card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(255,255,255,.02);
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.canal-card:hover::after { transform: translateX(0); }
+.canal-card:hover { transform: translateX(4px); }
+.canal-card--wa:hover { border-color: rgba(37,211,102,.3); }
+.canal-card--ig:hover { border-color: rgba(225,48,108,.3); }
+.canal-card__img-wrap { position: relative; width: 48px; height: 48px; flex-shrink: 0; }
+.canal-card__img-wrap img { width: 100%; height: 100%; object-fit: contain; }
+.canal-card__img-shine {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.2), transparent 60%);
+  pointer-events: none;
+}
+.canal-card__label {
+  display: block; font-size: .62rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--muted);
+}
+.canal-card__value { display: block; font-size: .95rem; font-weight: 500; }
+.canal-card__action { display: block; font-size: .75rem; color: var(--gold-dim); margin-top: .2rem; }
+
+.contato__cta-card {
+  background: var(--dark-3);
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 3rem 2.5rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.contato__cta-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,.2), transparent);
+}
+.contato__cta-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem; margin-bottom: .6rem; font-weight: 600;
+}
+.contato__cta-card > p {
+  color: var(--muted); margin-bottom: 2rem; font-size: .88rem;
+}
+.btn--wa { background: #25d366; color: #fff; }
+.btn--wa:hover { background: #1fba58; }
+.contato__cta-extra {
+  display: flex; flex-direction: column; gap: .4rem; margin-top: 2rem;
+}
+.contato__cta-extra span {
+  font-size: .75rem; color: var(--muted);
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+}
+.contato__cta-extra span::before { content: '✓'; color: rgba(255,255,255,.3); }
+.contato__cta-note {
+  font-size: .72rem; color: var(--muted); margin-top: 1.5rem;
+  letter-spacing: .05em;
+}
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+.footer {
+  background: var(--dark-2);
+  padding: 4rem 0 2rem;
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+.footer__inner {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 2rem; flex-wrap: wrap;
+  margin-bottom: 3rem; padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.footer__logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; color: var(--gold);
+  display: block; margin-bottom: .5rem; letter-spacing: .05em;
+}
+.footer__brand p { color: var(--muted); font-size: .82rem; }
+.footer__nav { display: flex; gap: 2.5rem; flex-wrap: wrap; align-items: center; }
+.footer__nav a {
+  font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--muted); transition: color var(--trans);
+  position: relative;
+}
+.footer__nav a::after {
+  content: '';
+  position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px; background: var(--gold-dim);
+  transition: width 0.3s ease;
+}
+.footer__nav a:hover { color: var(--gold); }
+.footer__nav a:hover::after { width: 100%; }
+
+.footer__bottom {
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer__bottom p { font-size: .72rem; color: var(--muted); }
+
+/* ═══════════════════════════════════════════════
+   DIVIDER LINE
+═══════════════════════════════════════════════ */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,.08), transparent);
+}
+
+/* ═══════════════════════════════════════════════
+   PAGE PROGRESS BAR
+═══════════════════════════════════════════════ */
+.progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 1px;
+  background: rgba(255,255,255,.4);
+  z-index: 9999;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.1s linear;
+}
+
+  </style>
 </head>
 <body>
 
-  <!-- Checkbox oculto para controle do menu mobile -->
+  <!-- Cursor personalizado -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Barra de progresso de leitura -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Checkbox menu mobile -->
   <input type="checkbox" id="menu-toggle" />
 
   <!-- WHATSAPP FLUTUANTE -->
@@ -47,18 +1130,21 @@
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__lines" aria-hidden="true"></div>
+    <div class="hero__corner hero__corner--tl" aria-hidden="true"></div>
+    <div class="hero__corner hero__corner--br" aria-hidden="true"></div>
     <div class="hero__particles" aria-hidden="true">
       <span></span><span></span><span></span>
       <span></span><span></span><span></span>
     </div>
     <div class="hero__content">
-      <p class="hero__tagline fade-up">Desde 2020</p>
-      <h1 class="hero__title fade-up">A Arte de <em>Encantar</em><br>em Cada Dose</h1>
-      <p class="hero__description fade-up">
+      <p class="hero__tagline">Desde 2020</p>
+      <h1 class="hero__title">A Arte de <em>Encantar</em><br><strong>em Cada Dose</strong></h1>
+      <p class="hero__description">
         Experiências únicas em coquetelaria para eventos sofisticados.<br>
         Elegância, sabor e profissionalismo em perfeita harmonia.
       </p>
-      <div class="hero__actions fade-up">
+      <div class="hero__actions">
         <a href="#servicos" class="btn btn--primary">Nossos Serviços</a>
         <a href="#contato"  class="btn btn--ghost">Solicitar Orçamento</a>
       </div>
@@ -73,16 +1159,16 @@
   <div class="ribbon" aria-hidden="true">
     <div class="ribbon__track">
       <div class="ribbon__inner">
-        <span>✦ Atendimento Premium</span>
-        <span>✦ Equipe Qualificada</span>
-        <span>✦ Organização Impecável</span>
-        <span>✦ Experiência Personalizada</span>
-        <span>✦ Desde 2020</span>
-        <span>✦ Atendimento Premium</span>
-        <span>✦ Equipe Qualificada</span>
-        <span>✦ Organização Impecável</span>
-        <span>✦ Experiência Personalizada</span>
-        <span>✦ Desde 2020</span>
+        <span>Atendimento Premium</span>
+        <span>Equipe Qualificada</span>
+        <span>Organização Impecável</span>
+        <span>Experiência Personalizada</span>
+        <span>Desde 2020</span>
+        <span>Atendimento Premium</span>
+        <span>Equipe Qualificada</span>
+        <span>Organização Impecável</span>
+        <span>Experiência Personalizada</span>
+        <span>Desde 2020</span>
       </div>
     </div>
   </div>
@@ -92,19 +1178,17 @@
     <div class="container">
       <div class="sobre__layout">
 
-        <!-- VISUAL -->
-        <div class="sobre__visual">
+        <div class="sobre__visual reveal">
           <div class="sobre__img-wrapper">
             <img
               src="https://www.decortiles.com/blog/wp-content/uploads/2021/02/a-glass-of-strawberry-cold-cocktail-with-fresh-rosemary-leaves-and-pipes-732x1024.jpg"
               alt="Jhenefer e Marcelo preparando coquetéis artesanais"
               class="sobre__img"
               loading="lazy"
-              width="600"
-              height="750"
+              width="600" height="750"
             />
             <div class="sobre__img-overlay" aria-hidden="true"></div>
-            <div class="sobre__img-border" aria-hidden="true"></div>
+            <div class="sobre__img-frame" aria-hidden="true"></div>
             <div class="sobre__badge">
               <span class="sobre__badge-num">+5</span>
               <span class="sobre__badge-label">Anos de<br>Excelência</span>
@@ -112,13 +1196,12 @@
           </div>
         </div>
 
-        <!-- CONTENT -->
         <div class="sobre__content">
-          <span class="eyebrow">Nossa História</span>
-          <h2 class="sobre__title" id="sobre-titulo">
+          <span class="eyebrow reveal">Nossa História</span>
+          <h2 class="sobre__title reveal reveal-delay-1" id="sobre-titulo">
             Paixão que se<br><em>transforma em arte</em>
           </h2>
-          <div class="sobre__paragrafos">
+          <div class="sobre__paragrafos reveal reveal-delay-2">
             <p>
               Fundada em 2020 por <strong>Jhenefer e Marcelo</strong>,
               a Master Drinks nasceu do sonho de transformar cada evento
@@ -130,33 +1213,33 @@
               da escolha dos ingredientes premium à apresentação final de cada drinque.
             </p>
           </div>
-          <div class="sobre__valores">
+          <div class="sobre__valores reveal reveal-delay-3">
             <div class="sobre__valor">
-              <span class="sobre__valor-icon">✦</span>
+              <span class="sobre__valor-icon">◆</span>
               <div>
                 <strong>Excelência</strong>
                 <p>Ingredientes selecionados e técnicas refinadas.</p>
               </div>
             </div>
             <div class="sobre__valor">
-              <span class="sobre__valor-icon">✦</span>
+              <span class="sobre__valor-icon">◆</span>
               <div>
                 <strong>Personalização</strong>
                 <p>Cardápio exclusivo criado sob medida para você.</p>
               </div>
             </div>
           </div>
-          <div class="sobre__stats">
+          <div class="sobre__stats reveal reveal-delay-4">
             <div class="sobre__stat">
-              <span class="sobre__stat-num">200+</span>
+              <span class="sobre__stat-num" data-count="200">0</span>
               <span class="sobre__stat-desc">Eventos</span>
             </div>
             <div class="sobre__stat">
-              <span class="sobre__stat-num">98%</span>
-              <span class="sobre__stat-desc">Satisfeitos</span>
+              <span class="sobre__stat-num" data-count="98">0</span>
+              <span class="sobre__stat-desc">% Satisfeitos</span>
             </div>
             <div class="sobre__stat">
-              <span class="sobre__stat-num">50+</span>
+              <span class="sobre__stat-num" data-count="50">0</span>
               <span class="sobre__stat-desc">Drinks</span>
             </div>
           </div>
@@ -166,16 +1249,18 @@
     </div>
   </section>
 
+  <div class="section-divider"></div>
+
   <!-- SERVIÇOS -->
   <section class="servicos section" id="servicos" aria-labelledby="servicos-titulo">
     <div class="container">
       <div class="section__header">
-        <span class="eyebrow">O que oferecemos</span>
-        <h2 class="section__title" id="servicos-titulo">Nossos <em>Serviços</em></h2>
-        <p class="section__subtitle">Atendimento personalizado para cada tipo de evento, com profissionalismo e sofisticação em cada detalhe.</p>
+        <span class="eyebrow reveal">O que oferecemos</span>
+        <h2 class="section__title reveal reveal-delay-1" id="servicos-titulo">Nossos <em>Serviços</em></h2>
+        <p class="section__subtitle reveal reveal-delay-2">Atendimento personalizado para cada tipo de evento, com profissionalismo e sofisticação em cada detalhe.</p>
       </div>
       <div class="servicos__grid">
-        <article class="servicos__card">
+        <article class="servicos__card reveal reveal-delay-1">
           <div class="servicos__card-top"><span class="servicos__num" aria-hidden="true">01</span><span class="servicos__tag">Casamentos</span></div>
           <h3 class="servicos__card-title">Casamentos</h3>
           <p class="servicos__card-body">Transforme o dia mais especial em uma experiência sensorial única. Drinks personalizados que contam a história do casal, com apresentação impecável.</p>
@@ -185,7 +1270,7 @@
             <li>Bartenders treinados</li>
           </ul>
         </article>
-        <article class="servicos__card">
+        <article class="servicos__card reveal reveal-delay-2">
           <div class="servicos__card-top"><span class="servicos__num" aria-hidden="true">02</span><span class="servicos__tag">Empresarial</span></div>
           <h3 class="servicos__card-title">Eventos Corporativos</h3>
           <p class="servicos__card-body">Impressione clientes e colaboradores com serviço de drinks sofisticado e profissional, ideal para networking e celebrações empresariais.</p>
@@ -195,7 +1280,7 @@
             <li>Estrutura completa</li>
           </ul>
         </article>
-        <article class="servicos__card">
+        <article class="servicos__card reveal reveal-delay-3">
           <div class="servicos__card-top"><span class="servicos__num" aria-hidden="true">03</span><span class="servicos__tag">Festas</span></div>
           <h3 class="servicos__card-title">Aniversários</h3>
           <p class="servicos__card-body">Deixe sua festa ainda mais memorável com drinks exclusivos e um bar completo que combina com o seu estilo e tema da comemoração.</p>
@@ -205,7 +1290,7 @@
             <li>Opções com e sem álcool</li>
           </ul>
         </article>
-        <article class="servicos__card">
+        <article class="servicos__card reveal reveal-delay-4">
           <div class="servicos__card-top"><span class="servicos__num" aria-hidden="true">04</span><span class="servicos__tag">Exclusivo</span></div>
           <h3 class="servicos__card-title">Eventos Privados</h3>
           <p class="servicos__card-body">Atendemos festas exclusivas, confraternizações e encontros especiais com serviço personalizado e sofisticado de alto padrão.</p>
@@ -219,35 +1304,30 @@
     </div>
   </section>
 
+  <div class="section-divider"></div>
+
   <!-- PORTFOLIO -->
-  <!-- FIX: os radios precisam ser irmãos anteriores da .gallery no mesmo pai -->
   <section class="portfolio section" id="portfolio" aria-labelledby="portfolio-titulo">
     <div class="container">
-
       <div class="section__header">
-        <span class="eyebrow">Nosso Trabalho</span>
-        <h2 class="section__title" id="portfolio-titulo">Experiências Memoráveis</h2>
-        <p class="section__subtitle">Cada evento é planejado para criar uma atmosfera sofisticada, elegante e inesquecível.</p>
+        <span class="eyebrow reveal">Nosso Trabalho</span>
+        <h2 class="section__title reveal reveal-delay-1" id="portfolio-titulo">Experiências <em>Memoráveis</em></h2>
+        <p class="section__subtitle reveal reveal-delay-2">Cada evento é planejado para criar uma atmosfera sofisticada, elegante e inesquecível.</p>
       </div>
 
-      <!-- RADIOS DE FILTRO (antes dos filtros e da galeria) -->
       <input class="portfolio-radio" type="radio" name="portfolio-filter" id="pf-all" checked>
       <input class="portfolio-radio" type="radio" name="portfolio-filter" id="pf-cas">
       <input class="portfolio-radio" type="radio" name="portfolio-filter" id="pf-cor">
       <input class="portfolio-radio" type="radio" name="portfolio-filter" id="pf-ani">
 
-      <!-- FILTROS -->
-      <div class="portfolio__filtros">
+      <div class="portfolio__filtros reveal">
         <label class="filter-btn" for="pf-all">Todos</label>
         <label class="filter-btn" for="pf-cas">Casamentos</label>
         <label class="filter-btn" for="pf-cor">Corporativo</label>
         <label class="filter-btn" for="pf-ani">Aniversários</label>
       </div>
 
-      <!-- GALERIA -->
-      <!-- FIX: substituído class="casamento/corporativo/aniversario" por data-category="..." -->
-      <div class="gallery">
-
+      <div class="gallery reveal reveal-delay-2">
         <div class="gallery__item" data-category="casamento">
           <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=1200" alt="Casamento Luxo" loading="lazy">
           <div class="gallery__overlay">
@@ -258,7 +1338,6 @@
             </div>
           </div>
         </div>
-
         <div class="gallery__item" data-category="corporativo">
           <img src="https://images.unsplash.com/photo-1574096079513-d8259312b785?auto=format&fit=crop&q=80&w=1200" alt="Evento Corporativo" loading="lazy">
           <div class="gallery__overlay">
@@ -269,7 +1348,6 @@
             </div>
           </div>
         </div>
-
         <div class="gallery__item" data-category="aniversario">
           <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=1200" alt="Aniversário Premium" loading="lazy">
           <div class="gallery__overlay">
@@ -280,7 +1358,6 @@
             </div>
           </div>
         </div>
-
         <div class="gallery__item" data-category="casamento">
           <img src="https://images.unsplash.com/photo-1525268323446-0505b6fe7778?auto=format&fit=crop&q=80&w=1200" alt="Equipe de Bartenders" loading="lazy">
           <div class="gallery__overlay">
@@ -291,7 +1368,6 @@
             </div>
           </div>
         </div>
-
         <div class="gallery__item" data-category="corporativo">
           <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&q=80&w=1200" alt="Drinks Autorais" loading="lazy">
           <div class="gallery__overlay">
@@ -302,7 +1378,6 @@
             </div>
           </div>
         </div>
-
         <div class="gallery__item" data-category="aniversario">
           <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&q=80&w=1200" alt="Experiência Premium" loading="lazy">
           <div class="gallery__overlay">
@@ -313,30 +1388,27 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
+  <div class="section-divider"></div>
+
   <!-- CARDÁPIO -->
   <section class="cardapio" id="cardapio" aria-labelledby="cardapio-titulo">
     <div class="container">
-
-      <div class="cardapio__header section__header">
-        <span class="eyebrow">Nossa Carta</span>
-        <h2 class="section__title" id="cardapio-titulo">Cardápio de <em>Drinks</em></h2>
-        <p class="section__subtitle">Selecione o pacote ideal para o seu evento</p>
+      <div class="section__header cardapio__header">
+        <span class="eyebrow reveal">Nossa Carta</span>
+        <h2 class="section__title reveal reveal-delay-1" id="cardapio-titulo">Cardápio de <em>Drinks</em></h2>
+        <p class="section__subtitle reveal reveal-delay-2">Selecione o pacote ideal para o seu evento</p>
       </div>
 
-      <!-- RADIOS DE PACOTE -->
       <input class="filter-radio" type="radio" name="pkg" id="pkg-all" value="all" checked>
       <input class="filter-radio" type="radio" name="pkg" id="pkg-1"   value="1">
       <input class="filter-radio" type="radio" name="pkg" id="pkg-2"   value="2">
       <input class="filter-radio" type="radio" name="pkg" id="pkg-3"   value="3">
       <input class="filter-radio" type="radio" name="pkg" id="pkg-4"   value="4">
       <input class="filter-radio" type="radio" name="pkg" id="pkg-5"   value="5">
-
-      <!-- RADIOS DE DESTILADO -->
       <input class="filter-radio" type="radio" name="spirit" id="sp-all"       value="all" checked>
       <input class="filter-radio" type="radio" name="spirit" id="sp-vodka"     value="vodka">
       <input class="filter-radio" type="radio" name="spirit" id="sp-gin"       value="gin">
@@ -349,8 +1421,7 @@
       <input class="filter-radio" type="radio" name="spirit" id="sp-saque"     value="saquê">
       <input class="filter-radio" type="radio" name="spirit" id="sp-sem"       value="sem-alcool">
 
-      <!-- BARRA DE FILTROS -->
-      <div class="filter-bars-wrap">
+      <div class="filter-bars-wrap reveal">
         <nav class="filter-bar" aria-label="Filtrar por pacote">
           <span class="filter-bar__label">Pacote</span>
           <label class="filter-btn" for="pkg-all">Todos</label>
@@ -377,8 +1448,8 @@
         </nav>
       </div>
 
-      <!-- PACOTE 1: MASTER CLÁSSICO -->
-      <div class="pkg-group" data-pkg="1">
+      <!-- PACOTE 1 -->
+      <div class="pkg-group reveal" data-pkg="1">
         <header class="pkg-group__header">
           <span class="pkg-group__title">Master Clássico</span>
           <span class="pkg-group__desc">Drinks tradicionais para todos os estilos de eventos.</span>
@@ -416,197 +1487,98 @@
         </ul>
       </div>
 
-      <!-- PACOTE 2: MASTER INTERMEDIÁRIO -->
-      <div class="pkg-group" data-pkg="2">
+      <!-- PACOTE 2 -->
+      <div class="pkg-group reveal" data-pkg="2">
         <header class="pkg-group__header">
           <span class="pkg-group__title">Master Intermediário</span>
           <span class="pkg-group__desc">Equilíbrio entre opções clássicas e modernas.</span>
           <span class="pkg-group__badge">Intermediário</span>
         </header>
         <ul class="menu-list">
-          <li class="menu-item" data-spirits="vodka">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80" alt="Sex on the Beach" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Sex on the Beach</h3><p class="menu-item__ingredients">Vodka, licor de pêssego, suco de laranja e xarope grenadine</p></div>
-          </li>
-          <li class="menu-item" data-spirits="gin">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80" alt="Gin Tônica" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Gin Tônica</h3><p class="menu-item__ingredients">Gin, água tônica e especiarias</p></div>
-          </li>
-          <li class="menu-item" data-spirits="rum">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=150&q=80" alt="Cuba Libre" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Cuba Libre</h3><p class="menu-item__ingredients">Rum, suco de limão e Coca-Cola</p></div>
-          </li>
-          <li class="menu-item" data-spirits="rum">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80" alt="Piña Colada" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Piña Colada</h3><p class="menu-item__ingredients">Rum, leite de coco, leite condensado e suco de abacaxi</p></div>
-          </li>
-          <li class="menu-item" data-spirits="gin">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80" alt="Gin Tropical" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Gin Tropical</h3><p class="menu-item__ingredients">Gin, energético tropical, laranja bahia, morango e limão</p></div>
-          </li>
-          <!-- FIX: data-spirits="saquê" (com acento) para bater com o seletor *="saq" -->
-          <li class="menu-item" data-spirits="vodka cachaça saquê">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80" alt="Caipirinhas" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Caipirinhas</h3><p class="menu-item__ingredients">Sabores Limão ou Morango — Vodka, Cachaça ou Saquê</p></div>
-          </li>
+          <li class="menu-item" data-spirits="vodka"><img class="menu-item__img" src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80" alt="Sex on the Beach" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Sex on the Beach</h3><p class="menu-item__ingredients">Vodka, licor de pêssego, suco de laranja e xarope grenadine</p></div></li>
+          <li class="menu-item" data-spirits="gin"><img class="menu-item__img" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80" alt="Gin Tônica" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Gin Tônica</h3><p class="menu-item__ingredients">Gin, água tônica e especiarias</p></div></li>
+          <li class="menu-item" data-spirits="rum"><img class="menu-item__img" src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=150&q=80" alt="Cuba Libre" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Cuba Libre</h3><p class="menu-item__ingredients">Rum, suco de limão e Coca-Cola</p></div></li>
+          <li class="menu-item" data-spirits="rum"><img class="menu-item__img" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80" alt="Piña Colada" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Piña Colada</h3><p class="menu-item__ingredients">Rum, leite de coco, leite condensado e suco de abacaxi</p></div></li>
+          <li class="menu-item" data-spirits="gin"><img class="menu-item__img" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80" alt="Gin Tropical" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Gin Tropical</h3><p class="menu-item__ingredients">Gin, energético tropical, laranja bahia, morango e limão</p></div></li>
+          <li class="menu-item" data-spirits="vodka cachaça saquê"><img class="menu-item__img" src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80" alt="Caipirinhas" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Caipirinhas</h3><p class="menu-item__ingredients">Sabores Limão ou Morango — Vodka, Cachaça ou Saquê</p></div></li>
         </ul>
       </div>
 
-      <!-- PACOTE 3: MASTER PREMIUM -->
-      <div class="pkg-group" data-pkg="3">
+      <!-- PACOTE 3 -->
+      <div class="pkg-group reveal" data-pkg="3">
         <header class="pkg-group__header">
           <span class="pkg-group__title">Master Premium</span>
           <span class="pkg-group__desc">Carta contemporânea com diversidade de sabores e opções autorais.</span>
           <span class="pkg-group__badge">Premium</span>
         </header>
         <ul class="menu-list">
-          <li class="menu-item" data-spirits="vodka">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80" alt="Moscow Mule" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Moscow Mule</h3><p class="menu-item__ingredients">Vodka, xarope de gengibre, limão e espuma</p></div>
-          </li>
-          <li class="menu-item" data-spirits="vodka">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80" alt="Green Apple" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Green Apple <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Vodka, xarope de maçã verde, limão e espuma</p></div>
-          </li>
-          <li class="menu-item" data-spirits="rum">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80" alt="Mojito" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Mojito</h3><p class="menu-item__ingredients">Rum, água com gás, suco de limão, hortelã e açúcar</p></div>
-          </li>
-          <li class="menu-item" data-spirits="campari">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80" alt="Garibaldi" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Garibaldi</h3><p class="menu-item__ingredients">Campari e suco de laranja</p></div>
-          </li>
-          <li class="menu-item" data-spirits="aperol">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80" alt="Aperol Spritz" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Aperol Spritz</h3><p class="menu-item__ingredients">Aperol, espumante, água com gás e laranja bahia</p></div>
-          </li>
-          <li class="menu-item" data-spirits="rum">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80" alt="Piña Colada" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Piña Colada</h3><p class="menu-item__ingredients">Rum, leite de coco, leite condensado e suco de abacaxi</p></div>
-          </li>
-          <li class="menu-item" data-spirits="tequila">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80" alt="Tequila Sunrise" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Tequila Sunrise</h3><p class="menu-item__ingredients">Tequila, suco de laranja e xarope grenadine</p></div>
-          </li>
-          <li class="menu-item" data-spirits="gin">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80" alt="Gin Grape" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Gin Grape <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Gin, uva, limão, xarope de gengibre, tônica e espuma</p></div>
-          </li>
-          <li class="menu-item" data-spirits="vodka cachaça saquê rum">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80" alt="Caipirinhas" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Caipirinhas</h3><p class="menu-item__ingredients">Sabores Limão, Morango ou Maracujá — Vodka, Cachaça, Saquê ou Rum</p></div>
-          </li>
+          <li class="menu-item" data-spirits="vodka"><img class="menu-item__img" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80" alt="Moscow Mule" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Moscow Mule</h3><p class="menu-item__ingredients">Vodka, xarope de gengibre, limão e espuma</p></div></li>
+          <li class="menu-item" data-spirits="vodka"><img class="menu-item__img" src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80" alt="Green Apple" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Green Apple <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Vodka, xarope de maçã verde, limão e espuma</p></div></li>
+          <li class="menu-item" data-spirits="rum"><img class="menu-item__img" src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80" alt="Mojito" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Mojito</h3><p class="menu-item__ingredients">Rum, água com gás, suco de limão, hortelã e açúcar</p></div></li>
+          <li class="menu-item" data-spirits="campari"><img class="menu-item__img" src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80" alt="Garibaldi" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Garibaldi</h3><p class="menu-item__ingredients">Campari e suco de laranja</p></div></li>
+          <li class="menu-item" data-spirits="aperol"><img class="menu-item__img" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80" alt="Aperol Spritz" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Aperol Spritz</h3><p class="menu-item__ingredients">Aperol, espumante, água com gás e laranja bahia</p></div></li>
+          <li class="menu-item" data-spirits="rum"><img class="menu-item__img" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80" alt="Piña Colada" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Piña Colada</h3><p class="menu-item__ingredients">Rum, leite de coco, leite condensado e suco de abacaxi</p></div></li>
+          <li class="menu-item" data-spirits="tequila"><img class="menu-item__img" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80" alt="Tequila Sunrise" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Tequila Sunrise</h3><p class="menu-item__ingredients">Tequila, suco de laranja e xarope grenadine</p></div></li>
+          <li class="menu-item" data-spirits="gin"><img class="menu-item__img" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80" alt="Gin Grape" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Gin Grape <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Gin, uva, limão, xarope de gengibre, tônica e espuma</p></div></li>
+          <li class="menu-item" data-spirits="vodka cachaça saquê rum"><img class="menu-item__img" src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80" alt="Caipirinhas" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Caipirinhas</h3><p class="menu-item__ingredients">Sabores Limão, Morango ou Maracujá — Vodka, Cachaça, Saquê ou Rum</p></div></li>
         </ul>
       </div>
 
-      <!-- PACOTE 4: MASTER EXCLUSIVO -->
-      <div class="pkg-group" data-pkg="4">
+      <!-- PACOTE 4 -->
+      <div class="pkg-group reveal" data-pkg="4">
         <header class="pkg-group__header">
           <span class="pkg-group__title">Master Exclusivo</span>
           <span class="pkg-group__desc">Drinks sofisticados e combinações diferenciadas.</span>
           <span class="pkg-group__badge">Exclusivo</span>
         </header>
         <ul class="menu-list">
-          <li class="menu-item" data-spirits="gin">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80" alt="Fitzgerald" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Fitzgerald</h3><p class="menu-item__ingredients">Gin, limão, xarope de açúcar e Angostura</p></div>
-          </li>
-          <li class="menu-item" data-spirits="vodka">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80" alt="Cosmopolitan" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Cosmopolitan</h3><p class="menu-item__ingredients">Vodka, Triple Sec, xarope de Cranberry e limão</p></div>
-          </li>
-          <li class="menu-item" data-spirits="whisky">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=150&q=80" alt="Whisky Sour" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Whisky Sour</h3><p class="menu-item__ingredients">Whisky, xarope de açúcar, limão e Angostura</p></div>
-          </li>
-          <li class="menu-item" data-spirits="whisky">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=150&q=80" alt="Old Fashioned" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Old Fashioned</h3><p class="menu-item__ingredients">Bourbon, xarope de açúcar e Angostura</p></div>
-          </li>
-          <li class="menu-item" data-spirits="gin campari">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80" alt="Negroni" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Negroni</h3><p class="menu-item__ingredients">Gin, Vermute e Campari</p></div>
-          </li>
-          <li class="menu-item" data-spirits="saquê">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80" alt="Marajá" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Marajá <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Saquê, maracujá, xarope de limão e espuma</p></div>
-          </li>
-          <li class="menu-item" data-spirits="whisky campari">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80" alt="Boulevardier" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Boulevardier</h3><p class="menu-item__ingredients">Whisky, Campari e Vermute</p></div>
-          </li>
-          <li class="menu-item" data-spirits="gin">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80" alt="Gin Red" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Gin Red <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Gin, soda, limão, chá, xarope de frutas vermelhas e espuma</p></div>
-          </li>
-          <!-- FIX: "cachaça" com ç minúsculo consistente -->
-          <li class="menu-item" data-spirits="cachaça vodka saquê rum">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80" alt="Caipirinhas Gourmet" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Caipirinhas Gourmet</h3><p class="menu-item__ingredients">Morango com Limão e Maracujá; Melancia com Hortelã; Uva com Gengibre; entre outras</p></div>
-          </li>
+          <li class="menu-item" data-spirits="gin"><img class="menu-item__img" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80" alt="Fitzgerald" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Fitzgerald</h3><p class="menu-item__ingredients">Gin, limão, xarope de açúcar e Angostura</p></div></li>
+          <li class="menu-item" data-spirits="vodka"><img class="menu-item__img" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80" alt="Cosmopolitan" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Cosmopolitan</h3><p class="menu-item__ingredients">Vodka, Triple Sec, xarope de Cranberry e limão</p></div></li>
+          <li class="menu-item" data-spirits="whisky"><img class="menu-item__img" src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=150&q=80" alt="Whisky Sour" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Whisky Sour</h3><p class="menu-item__ingredients">Whisky, xarope de açúcar, limão e Angostura</p></div></li>
+          <li class="menu-item" data-spirits="whisky"><img class="menu-item__img" src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=150&q=80" alt="Old Fashioned" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Old Fashioned</h3><p class="menu-item__ingredients">Bourbon, xarope de açúcar e Angostura</p></div></li>
+          <li class="menu-item" data-spirits="gin campari"><img class="menu-item__img" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80" alt="Negroni" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Negroni</h3><p class="menu-item__ingredients">Gin, Vermute e Campari</p></div></li>
+          <li class="menu-item" data-spirits="saquê"><img class="menu-item__img" src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80" alt="Marajá" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Marajá <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Saquê, maracujá, xarope de limão e espuma</p></div></li>
+          <li class="menu-item" data-spirits="whisky campari"><img class="menu-item__img" src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80" alt="Boulevardier" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Boulevardier</h3><p class="menu-item__ingredients">Whisky, Campari e Vermute</p></div></li>
+          <li class="menu-item" data-spirits="gin"><img class="menu-item__img" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80" alt="Gin Red" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Gin Red <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Gin, soda, limão, chá, xarope de frutas vermelhas e espuma</p></div></li>
+          <li class="menu-item" data-spirits="cachaça vodka saquê rum"><img class="menu-item__img" src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80" alt="Caipirinhas Gourmet" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Caipirinhas Gourmet</h3><p class="menu-item__ingredients">Morango com Limão e Maracujá; Melancia com Hortelã; Uva com Gengibre; entre outras</p></div></li>
         </ul>
       </div>
 
-      <!-- PACOTE 5: MASTER TEEN -->
-      <div class="pkg-group" data-pkg="5">
+      <!-- PACOTE 5 -->
+      <div class="pkg-group reveal" data-pkg="5">
         <header class="pkg-group__header">
           <span class="pkg-group__title">Master Teen</span>
           <span class="pkg-group__desc">Opções focadas exclusivamente em versões sem álcool.</span>
           <span class="pkg-group__badge">Sem álcool</span>
         </header>
         <ul class="menu-list">
-          <li class="menu-item" data-spirits="sem-alcool">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1606107538950-9b8d7b3b6b48?w=150&q=80" alt="Soda Italiana" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Soda Italiana <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Xaropes de variados sabores e água com gás</p></div>
-          </li>
-          <li class="menu-item" data-spirits="sem-alcool">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80" alt="Green Apple" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Green Apple <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Soda, xarope de maçã verde, limão e espuma</p></div>
-          </li>
-          <li class="menu-item" data-spirits="sem-alcool">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80" alt="Mojito" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Mojito <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Água com gás, suco de limão, hortelã e açúcar</p></div>
-          </li>
-          <li class="menu-item" data-spirits="sem-alcool">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80" alt="Lagoa Azul" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Lagoa Azul <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Soda, limão, xarope de curaçao blue e laranja</p></div>
-          </li>
-          <li class="menu-item" data-spirits="sem-alcool">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80" alt="Tropical Blue" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Tropical Blue <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Energético Tropical, frutas e xarope curaçao blue</p></div>
-          </li>
-          <li class="menu-item" data-spirits="sem-alcool">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80" alt="Piña Colada" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Piña Colada <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Suco de abacaxi, leite de coco e leite condensado</p></div>
-          </li>
-          <li class="menu-item" data-spirits="sem-alcool">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80" alt="Pink Lemonade" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Pink Lemonade <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Água, xarope de cranberry e suco de limão siciliano</p></div>
-          </li>
-          <li class="menu-item" data-spirits="sem-alcool">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80" alt="Miami Beach" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Miami Beach <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Suco de pêssego, suco de laranja e xarope grenadine</p></div>
-          </li>
-          <li class="menu-item" data-spirits="sem-alcool">
-            <img class="menu-item__img" src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80" alt="Caipirinhas" loading="lazy">
-            <div class="menu-item__info"><h3 class="menu-item__name">Caipirinhas <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Limão, Morango ou Abacaxi — água com gás e açúcar</p></div>
-          </li>
+          <li class="menu-item" data-spirits="sem-alcool"><img class="menu-item__img" src="https://images.unsplash.com/photo-1606107538950-9b8d7b3b6b48?w=150&q=80" alt="Soda Italiana" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Soda Italiana <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Xaropes de variados sabores e água com gás</p></div></li>
+          <li class="menu-item" data-spirits="sem-alcool"><img class="menu-item__img" src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80" alt="Green Apple" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Green Apple <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Soda, xarope de maçã verde, limão e espuma</p></div></li>
+          <li class="menu-item" data-spirits="sem-alcool"><img class="menu-item__img" src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80" alt="Mojito" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Mojito <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Água com gás, suco de limão, hortelã e açúcar</p></div></li>
+          <li class="menu-item" data-spirits="sem-alcool"><img class="menu-item__img" src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80" alt="Lagoa Azul" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Lagoa Azul <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Soda, limão, xarope de curaçao blue e laranja</p></div></li>
+          <li class="menu-item" data-spirits="sem-alcool"><img class="menu-item__img" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80" alt="Tropical Blue" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Tropical Blue <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Energético Tropical, frutas e xarope curaçao blue</p></div></li>
+          <li class="menu-item" data-spirits="sem-alcool"><img class="menu-item__img" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80" alt="Piña Colada" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Piña Colada <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Suco de abacaxi, leite de coco e leite condensado</p></div></li>
+          <li class="menu-item" data-spirits="sem-alcool"><img class="menu-item__img" src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80" alt="Pink Lemonade" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Pink Lemonade <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Água, xarope de cranberry e suco de limão siciliano</p></div></li>
+          <li class="menu-item" data-spirits="sem-alcool"><img class="menu-item__img" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80" alt="Miami Beach" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Miami Beach <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Suco de pêssego, suco de laranja e xarope grenadine</p></div></li>
+          <li class="menu-item" data-spirits="sem-alcool"><img class="menu-item__img" src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80" alt="Caipirinhas" loading="lazy"><div class="menu-item__info"><h3 class="menu-item__name">Caipirinhas <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Limão, Morango ou Abacaxi — água com gás e açúcar</p></div></li>
         </ul>
       </div>
 
     </div>
   </section>
 
+  <div class="section-divider"></div>
+
   <!-- DEPOIMENTOS -->
   <section class="depoimentos section" id="depoimentos" aria-labelledby="depoimentos-titulo">
     <div class="container">
       <div class="section__header">
-        <span class="eyebrow">Clientes Satisfeitos</span>
-        <h2 class="section__title" id="depoimentos-titulo">Depoimentos</h2>
-        <p class="section__subtitle">Experiências reais de quem confiou no nosso trabalho</p>
+        <span class="eyebrow reveal">Clientes Satisfeitos</span>
+        <h2 class="section__title reveal reveal-delay-1" id="depoimentos-titulo"><em>Depoimentos</em></h2>
+        <p class="section__subtitle reveal reveal-delay-2">Experiências reais de quem confiou no nosso trabalho</p>
       </div>
       <div class="depoimentos__grid">
-        <article class="depo">
+        <article class="depo reveal reveal-delay-1">
           <div class="depo__stars" aria-label="5 estrelas">★★★★★</div>
           <p class="depo__text">"Simplesmente impecável. Os drinks foram o destaque do casamento, todos os convidados elogiaram muito."</p>
           <div class="depo__author">
@@ -614,7 +1586,7 @@
             <div><span class="depo__name">Amanda Silva</span><span class="depo__event">Casamento · 120 convidados</span></div>
           </div>
         </article>
-        <article class="depo">
+        <article class="depo reveal reveal-delay-2">
           <div class="depo__stars" aria-label="5 estrelas">★★★★★</div>
           <p class="depo__text">"Equipe extremamente profissional. Elevou completamente o nível do nosso evento corporativo."</p>
           <div class="depo__author">
@@ -622,7 +1594,7 @@
             <div><span class="depo__name">Ricardo Mendes</span><span class="depo__event">Evento Corporativo</span></div>
           </div>
         </article>
-        <article class="depo">
+        <article class="depo reveal reveal-delay-3">
           <div class="depo__stars" aria-label="5 estrelas">★★★★★</div>
           <p class="depo__text">"Os drinks autorais são incríveis. Atendimento perfeito do começo ao fim, superou todas as expectativas."</p>
           <div class="depo__author">
@@ -634,11 +1606,13 @@
     </div>
   </section>
 
+  <div class="section-divider"></div>
+
   <!-- CONTATO -->
   <section class="contato section" id="contato" aria-labelledby="contato-titulo">
     <div class="container">
       <div class="contato__inner">
-        <div class="contato__content">
+        <div class="contato__content reveal">
           <span class="eyebrow">Fale Conosco</span>
           <h2 class="contato__title" id="contato-titulo">Transforme seu evento em uma<br><em>experiência inesquecível</em></h2>
           <p class="contato__body">Atendemos casamentos, eventos corporativos e aniversários com drinks exclusivos e atendimento premium.</p>
@@ -650,7 +1624,7 @@
           <div class="contato__canais">
             <a href="https://wa.me/5500000000000" class="canal-card canal-card--wa" target="_blank" rel="noopener noreferrer" aria-label="Chamar no WhatsApp">
               <div class="canal-card__img-wrap">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="56" height="56">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="48" height="48">
                 <div class="canal-card__img-shine" aria-hidden="true"></div>
               </div>
               <div class="canal-card__body">
@@ -661,7 +1635,7 @@
             </a>
             <a href="https://instagram.com/masterdrinks" class="canal-card canal-card--ig" target="_blank" rel="noopener noreferrer" aria-label="Visitar Instagram">
               <div class="canal-card__img-wrap">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" width="56" height="56">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" width="48" height="48">
                 <div class="canal-card__img-shine" aria-hidden="true"></div>
               </div>
               <div class="canal-card__body">
@@ -672,20 +1646,20 @@
             </a>
           </div>
         </div>
-        <div class="contato__cta">
+        <div class="contato__cta reveal reveal-delay-2">
           <div class="contato__cta-card">
             <h3>Solicite seu orçamento</h3>
             <p>Retorno rápido em horário comercial.</p>
             <a href="https://wa.me/5500000000000?text=Olá! Quero solicitar um orçamento" class="btn btn--primary btn--large btn--wa" target="_blank" rel="noopener noreferrer">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
               </svg>
               <span>Falar no WhatsApp</span>
             </a>
             <div class="contato__cta-extra">
-              <span>✔ Sem compromisso</span>
-              <span>✔ Atendimento personalizado</span>
-              <span>✔ Resposta rápida</span>
+              <span>Sem compromisso</span>
+              <span>Atendimento personalizado</span>
+              <span>Resposta rápida</span>
             </div>
             <p class="contato__cta-note">Jhenefer &amp; Marcelo — Fundadores</p>
           </div>
@@ -717,5 +1691,91 @@
     </div>
   </footer>
 
+  <script>
+    // ── Cursor padrão do navegador ──────────────
+
+// Garante que o cursor padrão seja usado
+document.body.style.cursor = 'default';
+
+// Cursor de clique em botões e links
+document.querySelectorAll('a, button, label').forEach(el => {
+  el.style.cursor = 'pointer';
+});
+
+    // ── Barra de progresso ─────────────────────
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollTop / docHeight;
+      progressBar.style.transform = `scaleX(${progress})`;
+    });
+
+    // ── Scroll Reveal ──────────────────────────
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // ── Contador animado ───────────────────────
+    function animateCount(el, target, suffix = '') {
+      const duration = 1800;
+      const start = performance.now();
+      const update = (time) => {
+        const elapsed = time - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(eased * target);
+        el.textContent = current + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    }
+
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.count);
+          const isPercent = el.nextElementSibling?.textContent?.includes('%');
+          animateCount(el, target, isPercent ? '%' : '+');
+          statObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('[data-count]').forEach(el => statObserver.observe(el));
+
+    // ── Active nav link ────────────────────────
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav__link:not(.nav__link--cta)');
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            link.style.color = link.getAttribute('href') === `#${id}` ? 'var(--gold)' : '';
+          });
+        }
+      });
+    }, { threshold: 0.4 });
+
+    sections.forEach(s => sectionObserver.observe(s));
+
+    // ── Fechar menu mobile ao clicar num link ──
+    document.querySelectorAll('.nav__link').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('menu-toggle').checked = false;
+      });
+    });
+  </script>
 </body>
 </html>
