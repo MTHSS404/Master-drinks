@@ -1,2087 +1,486 @@
-/* ================================================
-   MASTER DRINKS — style.css
-   Tema: Luxo Monocromático | Preto & Branco
-   Versão: 2.0 — Revisão completa
-   ================================================ */
-
-/* -----------------------------------------------
-   1. CUSTOM PROPERTIES (Variáveis CSS)
-   Paleta monocromática com toque dourado mínimo
------------------------------------------------ */
+/* ── RESET & BASE ───────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  /* Paleta principal — preto, branco, cinzas */
-  --black:         #000000;
-  --near-black:    #080808;
-  --dark-1:        #0d0d0d;
-  --dark-2:        #111111;
-  --dark-3:        #181818;
-  --dark-4:        #222222;
-  --mid:           #3a3a3a;
-  --muted:         #666666;
-  --subtle:        #888888;
-  --light:         #bbbbbb;
-  --off-white:     #e8e8e8;
-  --white:         #f5f5f5;
-  --pure-white:    #ffffff;
-
-  /* Toque dourado — MUITO sutil, usado com parcimônia */
-  --gold:          #c8a96e;
-  --gold-dim:      rgba(200, 169, 110, 0.18);
-  --gold-border:   rgba(200, 169, 110, 0.25);
-
-  /* Tipografia */
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body:    'Jost', sans-serif;
-
-  /* Espaçamentos */
-  --section-pad:   120px;
-  --container-max: 1200px;
-  --gutter:        24px;
-
-  /* Bordas */
-  --radius:        2px;
-  --radius-md:     6px;
-  --border:        1px solid rgba(255,255,255,0.08);
-  --border-light:  1px solid rgba(255,255,255,0.14);
-
-  /* Sombras */
-  --shadow-sm:     0 4px 16px rgba(0,0,0,0.4);
-  --shadow-md:     0 12px 40px rgba(0,0,0,0.6);
-  --shadow-lg:     0 24px 64px rgba(0,0,0,0.7);
-
-  /* Transições */
-  --ease:          cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --ease-out:      cubic-bezier(0.0, 0.0, 0.2, 1);
-  --transition:    0.35s var(--ease);
-  --transition-slow: 0.6s var(--ease);
+  --gold:    #ffffff;
+  --gold-lt: #cccccc;
+  --dark:    #0d0d0d;
+  --dark-2:  #141414;
+  --dark-3:  #1c1c1c;
+  --mid:     #2a2a2a;
+  --text:    #e8e8e8;
+  --muted:   #888;
+  --white:   #fff;
+  --radius:  6px;
+  --trans:   0.35s ease;
 }
-
-
-/* -----------------------------------------------
-   2. RESET E BASE
------------------------------------------------ */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-  font-size: 16px;
-}
-
+html { scroll-behavior: smooth; }
 body {
-  font-family: var(--font-body);
+  font-family: 'Jost', sans-serif;
+  background: var(--dark);
+  color: var(--text);
   font-weight: 300;
-  background-color: var(--near-black);
-  color: var(--off-white);
   line-height: 1.7;
   overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
-
-/* Seleção de texto */
-::selection {
-  background: var(--white);
-  color: var(--black);
-}
-
-/* Links base */
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: color var(--transition);
-}
-
-/* Imagens responsivas */
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-/* Listas sem estilo padrão */
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 
-
-/* -----------------------------------------------
-   3. UTILITÁRIOS
------------------------------------------------ */
-
-/* Container centralizado */
-.container {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-}
-
-/* Padding de seção */
-.section {
-  padding: var(--section-pad) 0;
-}
-
-/* Eyebrow label (texto pequeno sobre títulos) */
+/* ── EYEBROW ────────────────────────────────── */
 .eyebrow {
-  display: block;
-  font-family: var(--font-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.4em;
+  display: inline-block;
+  font-size: .7rem;
+  letter-spacing: .25em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 18px;
+  margin-bottom: .8rem;
 }
 
-/* Cabeçalho de seção centralizado */
-.section__header {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 80px;
-}
+/* ── SECTION HEADER ────────────────────────── */
+.section { padding: 7rem 0; }
+.section__header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+.section__title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,4vw,3rem); font-weight: 600; line-height: 1.2; }
+.section__title em { font-style: italic; color: var(--gold); }
+.section__subtitle { color: var(--muted); margin-top: 1rem; font-size: .95rem; }
 
-.section__title {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(2.4rem, 5vw, 3.4rem);
-  line-height: 1.15;
-  color: var(--white);
-  margin-bottom: 18px;
-}
-
-.section__title em {
-  font-style: italic;
-  color: var(--light);
-}
-
-.section__subtitle {
-  font-size: 0.9rem;
-  color: var(--subtle);
-  line-height: 1.9;
-  max-width: 460px;
-  margin: 0 auto;
-}
-
-
-/* -----------------------------------------------
-   4. BOTÕES
------------------------------------------------ */
-
+/* ── BUTTONS ────────────────────────────────── */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 38px;
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: all var(--transition);
-  position: relative;
-  overflow: hidden;
-  border: none;
-  white-space: nowrap;
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .85rem 2rem; border-radius: var(--radius);
+  font-family: 'Jost', sans-serif; font-size: .85rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  cursor: pointer; border: none;
+  transition: var(--trans);
 }
+.btn--primary { background: var(--gold); color: var(--dark); font-weight: 500; }
+.btn--primary:hover { background: var(--gold-lt); }
+.btn--ghost { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,.25); }
+.btn--ghost:hover { border-color: var(--gold); color: var(--gold); }
+.btn--large { padding: 1rem 2.5rem; font-size: .95rem; }
 
-/* Botão primário — branco sólido */
-.btn--primary {
-  background: var(--white);
-  color: var(--black);
-}
-
-.btn--primary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--pure-white);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--transition);
-}
-
-.btn--primary:hover::before {
-  transform: scaleX(1);
-}
-
-.btn--primary:hover {
-  box-shadow: 0 8px 32px rgba(255,255,255,0.15);
-}
-
-.btn--primary > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* Botão fantasma — contorno branco */
-.btn--ghost {
-  background: transparent;
-  color: var(--white);
-  border: 1px solid rgba(255,255,255,0.28);
-}
-
-.btn--ghost:hover {
-  border-color: var(--white);
-  background: rgba(255,255,255,0.05);
-}
-
-/* Botão grande */
-.btn--large {
-  padding: 17px 44px;
-  font-size: 0.78rem;
-}
-
-
-/* -----------------------------------------------
-   5. ANIMAÇÕES DE REVEAL (Scroll)
------------------------------------------------ */
-
-/* Estado inicial */
-.reveal {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
-}
-
-/* Estado visível — aplicado via JS */
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Hero — anima ao carregar */
-.fade-up {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 1s var(--ease) forwards;
-}
-
-.fade-up:nth-child(1) { animation-delay: 0.2s; }
-.fade-up:nth-child(2) { animation-delay: 0.45s; }
-.fade-up:nth-child(3) { animation-delay: 0.65s; }
-.fade-up:nth-child(4) { animation-delay: 0.85s; }
-
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-
-/* -----------------------------------------------
-   6. WHATSAPP FLUTUANTE
------------------------------------------------ */
-
+/* ── WHATSAPP FLOAT ─────────────────────────── */
 .whatsapp-float {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-  z-index: 1000;
-  width: 56px;
-  height: 56px;
-  background: #25D366;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35);
-  transition: transform var(--transition), box-shadow var(--transition);
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #25d366; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,.45);
+  transition: var(--trans);
 }
+.whatsapp-float svg { width: 28px; height: 28px; }
+.whatsapp-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,.6); }
 
-.whatsapp-float svg {
-  width: 27px;
-  height: 27px;
-  color: #fff;
+/* ── HEADER ─────────────────────────────────── */
+@keyframes header-scroll {
+  0%   { background: rgba(13,13,13,0);   backdrop-filter: blur(0px);  box-shadow: none;                      padding: 1.5rem 0; }
+  10%  { background: rgba(13,13,13,.96); backdrop-filter: blur(12px); box-shadow: 0 2px 24px rgba(0,0,0,.5); padding: 1rem 0; }
+  100% { background: rgba(13,13,13,.96); backdrop-filter: blur(12px); box-shadow: 0 2px 24px rgba(0,0,0,.5); padding: 1rem 0; }
 }
-
-.whatsapp-float:hover {
-  transform: scale(1.08) translateY(-2px);
-  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
-}
-
-/* Pulso sutil */
-.whatsapp-float::before {
-  content: '';
-  position: absolute;
-  inset: -5px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(37, 211, 102, 0.6);
-  animation: waPulse 2.8s ease infinite;
-}
-
-@keyframes waPulse {
-  0%   { opacity: 0.7; transform: scale(1); }
-  70%  { opacity: 0;   transform: scale(1.45); }
-  100% { opacity: 0;   transform: scale(1.45); }
-}
-
-
-/* -----------------------------------------------
-   7. HEADER / NAVEGAÇÃO
------------------------------------------------ */
-
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 900;
-  padding: 24px 0;
-  transition: padding var(--transition), background var(--transition),
-              border-color var(--transition), box-shadow var(--transition),
-              backdrop-filter var(--transition);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.5rem 0;
+  background: rgba(13,13,13,0);
+  animation: header-scroll linear both;
+  animation-timeline: scroll();
+  animation-range: 0px 120px;
 }
-
-/* Estado após scroll — adicionado via JS */
-.header.scrolled {
-  padding: 14px 0;
-  background: rgba(8, 8, 8, 0.96);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-}
-
 .header__inner {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
 }
+.logo { display: flex; flex-direction: column; line-height: 1.1; }
+.logo__main { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--gold); letter-spacing: .05em; }
+.logo__sub { font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.nav__list { display: flex; gap: 2.5rem; align-items: center; }
+.nav__link { font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text); transition: color var(--trans); position: relative; }
+.nav__link::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--gold); transition: width var(--trans); }
+.nav__link:hover { color:var(--gold); }
+.nav__link:hover::after { width:100%; }
+.nav__link--cta { color:var(--gold); border:1px solid var(--gold); padding:.4rem 1rem; border-radius:var(--radius); }
+.nav__link--cta:hover { background:var(--gold); color:var(--dark); }
+.nav__link--cta::after { display:none; }
 
-/* Logo */
-.logo {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  flex-shrink: 0;
-}
-
-.logo__main {
-  font-family: var(--font-display);
-  font-size: 1.45rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--white);
-  line-height: 1;
-}
-
-.logo__sub {
-  font-size: 0.58rem;
-  font-weight: 300;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-/* Navegação — lista desktop */
-.nav__list {
-  display: flex;
-  align-items: center;
-  gap: 36px;
-  list-style: none;
-}
-
-.nav__link {
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(245,245,245,0.75);
-  position: relative;
-  transition: color var(--transition);
-}
-
-/* Sublinhado animado */
-.nav__link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 0;
-  height: 1px;
-  background: var(--white);
-  transition: width var(--transition);
-}
-
-.nav__link:hover {
-  color: var(--white);
-}
-
-.nav__link:hover::after {
-  width: 100%;
-}
-
-/* Link CTA na nav */
-.nav__link--cta {
-  padding: 9px 22px;
-  border: 1px solid rgba(245,245,245,0.3);
-  border-radius: var(--radius);
-  color: var(--white) !important;
-}
-
-.nav__link--cta::after { display: none; }
-
-.nav__link--cta:hover {
-  background: var(--white);
-  color: var(--black) !important;
-  border-color: var(--white);
-}
-
-/* Hamburguer */
+/* ── MENU MOBILE (CSS-only checkbox hack) ──── */
+#menu-toggle { display: none; }
 .hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 6px;
-  z-index: 1001;
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+  position: relative; z-index: 200;
 }
-
 .hamburger span {
-  display: block;
-  width: 24px;
-  height: 1.5px;
-  background: var(--white);
-  transition: all 0.3s var(--ease);
-  transform-origin: center;
+  display: block; width: 24px; height: 2px;
+  background: var(--text); transition: var(--trans); border-radius: 2px;
 }
 
-/* Ícone X quando aberto */
-.hamburger.is-active span:nth-child(1) {
-  transform: translateY(7.5px) rotate(45deg);
-}
-.hamburger.is-active span:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0);
-}
-.hamburger.is-active span:nth-child(3) {
-  transform: translateY(-7.5px) rotate(-45deg);
-}
-
-
-/* -----------------------------------------------
-   8. SEÇÃO HERO
------------------------------------------------ */
-
-.hero {
-  position: relative;
-  height: 100vh;
-  min-height: 640px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-image: url('https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=1920&q=80');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  overflow: hidden;
-}
-
-/* Overlay preto gradiente — reforça o tema monocromático */
-.hero__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0,0,0,0.25) 0%,
-    rgba(0,0,0,0.55) 50%,
-    rgba(0,0,0,0.92) 100%
-  );
-  z-index: 1;
-}
-
-/* Partículas decorativas */
-.hero__particles {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.hero__particles span {
-  position: absolute;
-  width: 1px;
-  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4), transparent);
-  animation: particle 7s ease-in-out infinite;
-  opacity: 0;
-}
-
-.hero__particles span:nth-child(1) { left: 12%; height: 80px; animation-delay: 0s; }
-.hero__particles span:nth-child(2) { left: 33%; height: 50px; animation-delay: 1.4s; }
-.hero__particles span:nth-child(3) { left: 52%; height: 100px; animation-delay: 0.6s; }
-.hero__particles span:nth-child(4) { left: 68%; height: 60px; animation-delay: 2.2s; }
-.hero__particles span:nth-child(5) { left: 82%; height: 80px; animation-delay: 1.0s; }
-.hero__particles span:nth-child(6) { left: 5%;  height: 70px; animation-delay: 1.8s; }
-
-@keyframes particle {
-  0%   { opacity: 0; top: 85%; }
-  30%  { opacity: 0.5; }
-  100% { opacity: 0; top: 8%; }
-}
-
-/* Conteúdo centralizado */
-.hero__content {
-  position: relative;
-  z-index: 2;
-  max-width: 800px;
-  padding: 0 var(--gutter);
-}
-
-/* Tagline "Desde 2020" */
-.hero__tagline {
-  display: inline-block;
-  font-size: 0.65rem;
-  letter-spacing: 0.45em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid var(--gold-border);
-  padding: 7px 24px;
-  margin-bottom: 36px;
-}
-
-/* Título principal */
-.hero__title {
-  font-family: var(--font-display);
-  font-size: clamp(2.8rem, 7.5vw, 5.5rem);
-  font-weight: 300;
-  color: var(--white);
-  line-height: 1.1;
-  margin-bottom: 24px;
-  letter-spacing: -0.01em;
-}
-
-.hero__title em {
-  font-style: italic;
-  color: var(--off-white);
-}
-
-/* Descrição */
-.hero__description {
-  font-size: 0.95rem;
-  color: rgba(245,245,245,0.65);
-  line-height: 1.8;
-  margin-bottom: 48px;
-}
-
-/* Botões */
-.hero__actions {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* Indicador de scroll */
-.hero__scroll {
-  position: absolute;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.hero__scroll-line {
-  display: block;
-  width: 1px;
-  height: 48px;
-  background: linear-gradient(to bottom, var(--white), transparent);
-  animation: scrollLine 2.2s ease-in-out infinite;
-}
-
-.hero__scroll-text {
-  font-size: 0.58rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(245,245,245,0.5);
-}
-
-@keyframes scrollLine {
-  0%   { transform: scaleY(0); transform-origin: top; }
-  50%  { transform: scaleY(1); transform-origin: top; }
-  51%  { transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
-}
-
-
-/* -----------------------------------------------
-   9. FAIXA DECORATIVA (RIBBON)
------------------------------------------------ */
-
-.ribbon {
-  background: var(--white);
-  overflow: hidden;
-  padding: 13px 0;
-}
-
-.ribbon__track {
-  overflow: hidden;
-}
-
-.ribbon__inner {
-  display: flex;
-  gap: 60px;
-  width: max-content;
-  animation: ribbonScroll 30s linear infinite;
-}
-
-.ribbon__inner span {
-  font-family: var(--font-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--black);
-  white-space: nowrap;
-}
-
-@keyframes ribbonScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-
-/* -----------------------------------------------
-   10. SEÇÃO SOBRE
------------------------------------------------ */
-
-.sobre {
-  background: var(--dark-1);
-}
-
-.sobre__layout {
-  display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 88px;
-  align-items: center;
-}
-
-/* Visual / Imagem */
-.sobre__visual {
-  position: relative;
-}
-
-.sobre__img-wrapper {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  max-width: 480px;
-}
-
-.sobre__img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  filter: brightness(0.82) contrast(1.08) grayscale(0.2);
-  position: relative;
-  z-index: 2;
-  transition: filter var(--transition-slow);
-}
-
-.sobre__visual:hover .sobre__img {
-  filter: brightness(0.88) contrast(1.05) grayscale(0);
-}
-
-/* Borda decorativa deslocada */
-.sobre__img-border {
-  position: absolute;
-  top: 24px;
-  left: -24px;
-  width: 100%;
-  height: 100%;
-  border: 1px solid rgba(255,255,255,0.15);
-  z-index: 1;
-  transition: border-color var(--transition);
-}
-
-.sobre__visual:hover .sobre__img-border {
-  border-color: var(--gold-border);
-}
-
-/* Badge de estatística flutuante */
-.sobre__badge {
-  position: absolute;
-  bottom: -18px;
-  right: -18px;
-  z-index: 3;
-  background: var(--white);
-  color: var(--black);
-  padding: 18px 24px;
-  text-align: center;
-  box-shadow: var(--shadow-md);
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.sobre__badge-num {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
-  font-weight: 600;
-  line-height: 1;
-}
-
-.sobre__badge-label {
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  line-height: 1.4;
-}
-
-/* Conteúdo textual */
-.sobre__content {
-  padding-left: 8px;
-}
-
-.sobre__title {
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
-  font-weight: 300;
-  line-height: 1.15;
-  color: var(--white);
-  margin-bottom: 28px;
-}
-
-.sobre__title em {
-  font-style: italic;
-  color: var(--light);
-}
-
-.sobre__paragrafos p {
-  color: var(--subtle);
-  line-height: 1.9;
-  margin-bottom: 16px;
-  font-size: 0.95rem;
-}
-
-/* Valores (excelência, personalização) */
-.sobre__valores {
-  margin: 36px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.sobre__valor {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-}
-
-.sobre__valor-icon {
-  color: var(--gold);
-  font-size: 1.1rem;
-  flex-shrink: 0;
-  line-height: 1.6;
-}
-
-.sobre__valor strong {
-  display: block;
-  color: var(--white);
-  font-weight: 400;
-  font-size: 0.92rem;
-  letter-spacing: 0.04em;
-  margin-bottom: 3px;
-}
-
-.sobre__valor p {
-  font-size: 0.85rem;
-  color: var(--subtle);
-  margin: 0;
-}
-
-/* Estatísticas */
-.sobre__stats {
-  display: flex;
-  gap: 40px;
-  padding-top: 36px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-.sobre__stat-num {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 2.2rem;
-  font-weight: 300;
-  color: var(--white);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.sobre__stat-desc {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--muted);
-}
-
-
-/* -----------------------------------------------
-   11. SEÇÃO SERVIÇOS
------------------------------------------------ */
-
-.servicos {
-  background: var(--near-black);
-}
-
-/* Grid 2x2 */
-.servicos__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-/* Card */
-.servicos__card {
-  background: var(--dark-2);
-  padding: 44px 40px;
-  display: flex;
-  flex-direction: column;
-  transition: background var(--transition);
-  position: relative;
-}
-
-.servicos__card:hover {
-  background: var(--dark-3);
-}
-
-/* Linha decorativa no hover */
-.servicos__card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--white);
-  transition: width var(--transition-slow);
-}
-
-.servicos__card:hover::before {
-  width: 100%;
-}
-
-/* Topo do card */
-.servicos__card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 28px;
-}
-
-/* Número decorativo */
-.servicos__num {
-  font-family: var(--font-display);
-  font-size: 3rem;
-  font-weight: 300;
-  color: rgba(255,255,255,0.06);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  transition: color var(--transition);
-}
-
-.servicos__card:hover .servicos__num {
-  color: rgba(255,255,255,0.1);
-}
-
-/* Tag */
-.servicos__tag {
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid var(--gold-border);
-  padding: 4px 12px;
-}
-
-/* Título */
-.servicos__card-title {
-  font-family: var(--font-display);
-  font-size: 1.65rem;
-  font-weight: 300;
-  color: var(--white);
-  margin-bottom: 14px;
-  line-height: 1.2;
-}
-
-/* Descrição */
-.servicos__card-body {
-  font-size: 0.88rem;
-  color: var(--subtle);
-  line-height: 1.8;
-  margin-bottom: 24px;
-}
-
-/* Lista de benefícios */
-.servicos__card-list {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.servicos__card-list li {
-  font-size: 0.82rem;
-  color: var(--light);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.servicos__card-list li::before {
-  content: '';
-  display: block;
-  width: 16px;
-  height: 1px;
-  background: var(--muted);
-  flex-shrink: 0;
-  transition: background var(--transition), width var(--transition);
-}
-
-.servicos__card:hover .servicos__card-list li::before {
-  background: var(--white);
-  width: 22px;
-}
-
-
-/* -----------------------------------------------
-   12. SEÇÃO PORTFÓLIO / GALERIA
------------------------------------------------ */
-
-.portfolio {
-  background: var(--dark-1);
-}
-
-/* Botões de filtro */
-.portfolio__filtros {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 52px;
-}
-
-.filter-btn {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.15);
-  color: var(--subtle);
-  padding: 9px 22px;
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: var(--radius);
-  transition: all var(--transition);
-}
-
-.filter-btn:hover {
-  border-color: var(--white);
-  color: var(--white);
-}
-
-.filter-btn.active {
-  background: var(--white);
-  border-color: var(--white);
-  color: var(--black);
-}
-
-/* Grade da galeria */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-/* Item da galeria */
-.gallery__item {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  background: var(--dark-4);
-  cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.gallery__item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s var(--ease);
-  filter: grayscale(0.3);
-}
-
-.gallery__item:hover img {
-  transform: scale(1.05);
-  filter: grayscale(0);
-}
-
-/* Overlay da galeria */
-.gallery__overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.65);
-  display: flex;
-  align-items: flex-end;
-  padding: 24px;
-  opacity: 0;
-  transition: opacity var(--transition);
-}
-
-.gallery__item:hover .gallery__overlay {
-  opacity: 1;
-}
-
-.gallery__overlay-text {
-  font-size: 0.78rem;
-  font-weight: 300;
-  letter-spacing: 0.08em;
-  color: var(--white);
-  border-left: 2px solid var(--white);
-  padding-left: 12px;
-  line-height: 1.4;
-}
-
-
-/* -----------------------------------------------
-   13. SEÇÃO CARDÁPIO
------------------------------------------------ */
-
-/* ============================================================
-   CARDÁPIO DE DRINKS — cardapio.css
-   Interatividade 100% CSS-only via :checked + seletores ~
-   Sem JavaScript. Sem CSS inline no HTML.
-   ============================================================
-
-   ÍNDICE
-   ──────────────────────────────────────────────────────────
-   1.  Variáveis (Custom Properties)
-   2.  Reset / Base
-   3.  Layout: seção e container
-   4.  Cabeçalho da seção
-   5.  Inputs de controle (ocultos visualmente)
-   6.  Barra de filtros
-   7.  Grupos de pacote
-   8.  Grid de itens
-   9.  Card de item
-  10.  Badges
-  11.  Estado ativo dos botões de filtro (CSS-only)
-  12.  Lógica de visibilidade: filtro por PACOTE (CSS-only)
-  13.  Lógica de visibilidade: filtro por DESTILADO (CSS-only)
-  14.  Responsivo
-   ============================================================ */
-
-
-/* ────────────────────────────────────────────────────────────
-   1. VARIÁVEIS (Custom Properties)
-   ──────────────────────────────────────────────────────────── */
-:root {
-  /* Paleta de cores */
-  --color-gold:        #c9a84c;
-  --color-gold-light:  #e8d08a;
-  --color-gold-dim:    #6b551e;
-  --color-dark:        #0d0d0d;
-  --color-dark-2:      #151515;
-  --color-dark-3:      #1e1e1e;
-  --color-dark-4:      #2a2a2a;
-  --color-text:        #e8e4dc;
-  --color-text-muted:  #8a857a;
-  --color-na-bg:       #1a2e1a;
-  --color-na-text:     #6fcf6f;
-
-  /* Tipografia */
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body:    'DM Sans', sans-serif;
-
-  /* Layout */
-  --container-width: 1140px;
-  --radius-card:     10px;
-  --radius-pill:     30px;
-  --radius-badge:    4px;
-
-  /* Transições */
-  --transition-base: .22s cubic-bezier(.4, 0, .2, 1);
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   2. RESET / BASE
-   ──────────────────────────────────────────────────────────── */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: var(--color-dark);
-  color: var(--color-text);
-  font-family: var(--font-body);
-}
-
-ul {
-  list-style: none;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   3. LAYOUT: SEÇÃO E CONTAINER
-   ──────────────────────────────────────────────────────────── */
-.cardapio {
-  background: var(--color-dark);
-  padding: 80px 0 100px;
-}
-
-.container {
-  max-width: var(--container-width);
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   4. CABEÇALHO DA SEÇÃO
-   ──────────────────────────────────────────────────────────── */
-.cardapio__header {
-  text-align: center;
-  margin-bottom: 48px;
-}
-
-.cardapio__title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  font-weight: 400;
-  color: var(--color-gold);
-  letter-spacing: .03em;
-  margin-bottom: 6px;
-}
-
-.cardapio__subtitle {
-  font-size: 14px;
-  color: var(--color-text-muted);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   5. INPUTS DE CONTROLE (OCULTOS VISUALMENTE)
-   Os <input type="radio"> e <input type="checkbox"> ficam
-   fora do fluxo visual mas permanecem acessíveis ao CSS via
-   seletores :checked. Usamos clip-path para ocultar sem
-   remover do DOM.
-   ──────────────────────────────────────────────────────────── */
-.filter-radio,
-.filter-check {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   6. BARRA DE FILTROS
-   ──────────────────────────────────────────────────────────── */
-.filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 48px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--color-dark-4);
-}
-
-.filter-bar__label {
-  font-size: 11px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-  margin-right: 4px;
-}
-
-.filter-bar__divider {
-  width: 1px;
-  height: 22px;
-  background: var(--color-dark-4);
-  margin: 0 6px;
-}
-
-/* ── Botão de filtro (label estilizado) ── */
-.filter-btn {
-  display: inline-block;
-  padding: 7px 18px;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--color-dark-4);
-  background: transparent;
-  color: var(--color-text-muted);
-  font-family: var(--font-body);
-  font-size: 13px;
-  line-height: 1;
-  cursor: pointer;
-  transition:
-    border-color var(--transition-base),
-    color       var(--transition-base),
-    background  var(--transition-base);
-  user-select: none;
-}
-
-.filter-btn:hover {
-  border-color: var(--color-gold-dim);
-  color: var(--color-gold-light);
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   7. GRUPOS DE PACOTE
-   ──────────────────────────────────────────────────────────── */
-.pkg-group {
-  margin-bottom: 56px;
-}
-
-.pkg-group__header {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.pkg-group__title {
-  font-family: var(--font-display);
-  font-size: 1.55rem;
-  font-weight: 600;
-  color: var(--color-gold);
-  letter-spacing: .02em;
-}
-
-.pkg-group__desc {
-  font-size: 13px;
-  color: var(--color-text-muted);
-}
-
-.pkg-group__badge {
-  display: inline-block;
-  font-size: 10px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  border: 1px solid var(--color-gold-dim);
-  color: var(--color-gold-light);
-  padding: 3px 9px;
-  border-radius: var(--radius-pill);
-  margin-left: auto;
-  white-space: nowrap;
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   8. GRID DE ITENS
-   ──────────────────────────────────────────────────────────── */
-.menu-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   9. CARD DE ITEM
-   ──────────────────────────────────────────────────────────── */
-.menu-item {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  background: var(--color-dark-2);
-  border: 1px solid var(--color-dark-4);
-  border-radius: var(--radius-card);
-  padding: 16px;
-  transition:
-    border-color var(--transition-base),
-    transform    var(--transition-base);
-}
-
-.menu-item:hover {
-  border-color: var(--color-gold-dim);
-  transform: translateY(-2px);
-}
-
-/* Imagem do drink */
-.menu-item__img {
-  width: 72px;
-  height: 72px;
-  object-fit: cover;
-  border-radius: 6px;
-  flex-shrink: 0;
-  filter: brightness(.88) saturate(.9);
-  transition: filter var(--transition-base);
-}
-
-.menu-item:hover .menu-item__img {
-  filter: brightness(1) saturate(1);
-}
-
-/* Bloco de texto */
-.menu-item__info {
-  flex: 1;
-  min-width: 0;
-}
-
-/* Nome do drink */
-.menu-item__name {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--color-text);
-  margin: 0 0 4px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  flex-wrap: wrap;
-}
-
-/* Ingredientes */
-.menu-item__ingredients {
-  font-size: 12px;
-  color: var(--color-text-muted);
-  line-height: 1.5;
-}
-
-.menu-item__ingredients::before {
-  content: '— ';
-  color: var(--color-gold-dim);
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   10. BADGES
-   ──────────────────────────────────────────────────────────── */
-
-/* Badge: "Autoral" */
-.badge--autoral {
-  display: inline-block;
-  font-family: var(--font-body);
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  background: var(--color-gold-dim);
-  color: var(--color-gold-light);
-  padding: 2px 6px;
-  border-radius: var(--radius-badge);
-}
-
-/* Badge: "Sem álcool" */
-.badge--na {
-  display: inline-block;
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: .05em;
-  background: var(--color-na-bg);
-  color: var(--color-na-text);
-  padding: 2px 6px;
-  border-radius: var(--radius-badge);
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   11. ESTADO ATIVO DOS BOTÕES DE FILTRO (CSS-only)
-
-   Quando um <input> está :checked, seu <label> associado
-   recebe o estilo "ativo" via seletores de irmão adjacente
-   combinados com :has() ou via a técnica de posicionamento
-   sibling.
-
-   Aqui usamos a abordagem mais amplamente suportada:
-   input:checked + (irmãos) label[for="..."]
-   — como os inputs vêm antes do .filter-bar no DOM, usamos
-   o seletor "~" para alcançar os labels dentro do nav.
-   ──────────────────────────────────────────────────────────── */
-
-/* ── Radios de PACOTE ── */
-#pkg-all:checked   ~ .filter-bar label[for="pkg-all"],
-#pkg-1:checked     ~ .filter-bar label[for="pkg-1"],
-#pkg-2:checked     ~ .filter-bar label[for="pkg-2"],
-#pkg-3:checked     ~ .filter-bar label[for="pkg-3"],
-#pkg-4:checked     ~ .filter-bar label[for="pkg-4"],
-#pkg-5:checked     ~ .filter-bar label[for="pkg-5"] {
-  background:   var(--color-gold);
-  border-color: var(--color-gold);
-  color:        var(--color-dark);
-  font-weight:  500;
-}
-
-/* ── Checkboxes de DESTILADO ── */
-#spirit-vodka:checked      ~ .filter-bar label[for="spirit-vodka"],
-#spirit-gin:checked        ~ .filter-bar label[for="spirit-gin"],
-#spirit-rum:checked        ~ .filter-bar label[for="spirit-rum"],
-#spirit-cachaça:checked    ~ .filter-bar label[for="spirit-cachaça"],
-#spirit-whisky:checked     ~ .filter-bar label[for="spirit-whisky"],
-#spirit-tequila:checked    ~ .filter-bar label[for="spirit-tequila"],
-#spirit-sem-alcool:checked ~ .filter-bar label[for="spirit-sem-alcool"] {
-  background:   var(--color-gold);
-  border-color: var(--color-gold);
-  color:        var(--color-dark);
-  font-weight:  500;
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   12. LÓGICA DE VISIBILIDADE: FILTRO POR PACOTE (CSS-only)
-
-   Por padrão, todos os grupos estão visíveis.
-   Quando um radio de pacote específico é marcado, ocultamos
-   todos os grupos e exibimos somente o correspondente.
-   ──────────────────────────────────────────────────────────── */
-
-/* Quando pacote 1 está selecionado: ocultar 2, 3, 4, 5 */
-#pkg-1:checked ~ #group-pkg-2,
-#pkg-1:checked ~ #group-pkg-3,
-#pkg-1:checked ~ #group-pkg-4,
-#pkg-1:checked ~ #group-pkg-5 { display: none; }
-
-/* Quando pacote 2 está selecionado: ocultar 1, 3, 4, 5 */
-#pkg-2:checked ~ #group-pkg-1,
-#pkg-2:checked ~ #group-pkg-3,
-#pkg-2:checked ~ #group-pkg-4,
-#pkg-2:checked ~ #group-pkg-5 { display: none; }
-
-/* Quando pacote 3 está selecionado: ocultar 1, 2, 4, 5 */
-#pkg-3:checked ~ #group-pkg-1,
-#pkg-3:checked ~ #group-pkg-2,
-#pkg-3:checked ~ #group-pkg-4,
-#pkg-3:checked ~ #group-pkg-5 { display: none; }
-
-/* Quando pacote 4 está selecionado: ocultar 1, 2, 3, 5 */
-#pkg-4:checked ~ #group-pkg-1,
-#pkg-4:checked ~ #group-pkg-2,
-#pkg-4:checked ~ #group-pkg-3,
-#pkg-4:checked ~ #group-pkg-5 { display: none; }
-
-/* Quando pacote 5 está selecionado: ocultar 1, 2, 3, 4 */
-#pkg-5:checked ~ #group-pkg-1,
-#pkg-5:checked ~ #group-pkg-2,
-#pkg-5:checked ~ #group-pkg-3,
-#pkg-5:checked ~ #group-pkg-4 { display: none; }
-
-
-/* ────────────────────────────────────────────────────────────
-   13. LÓGICA DE VISIBILIDADE: FILTRO POR DESTILADO (CSS-only)
-
-   Quando um checkbox de destilado é marcado, ocultamos todos
-   os .menu-item cujo atributo data-spirits NÃO contenha o
-   valor selecionado.
-
-   Usamos o seletor de atributo [data-spirits~="valor"] que
-   corresponde a palavras completas separadas por espaço —
-   exatamente como o JS original usava .split(' ').includes().
-
-   A regra é: ocultar itens que NÃO possuem o destilado.
-   O seletor :not([data-spirits~="valor"]) faz esse trabalho.
-   ──────────────────────────────────────────────────────────── */
-
-/* Vodka marcada: ocultar tudo que não tem vodka */
-#spirit-vodka:checked ~ .pkg-group .menu-item:not([data-spirits~="vodka"]) {
-  display: none;
-}
-
-/* Gin marcado */
-#spirit-gin:checked ~ .pkg-group .menu-item:not([data-spirits~="gin"]) {
-  display: none;
-}
-
-/* Rum marcado */
-#spirit-rum:checked ~ .pkg-group .menu-item:not([data-spirits~="rum"]) {
-  display: none;
-}
-
-/* Cachaça marcada */
-#spirit-cachaça:checked ~ .pkg-group .menu-item:not([data-spirits~="cachaça"]) {
-  display: none;
-}
-
-/* Whisky marcado */
-#spirit-whisky:checked ~ .pkg-group .menu-item:not([data-spirits~="whisky"]) {
-  display: none;
-}
-
-/* Tequila marcada */
-#spirit-tequila:checked ~ .pkg-group .menu-item:not([data-spirits~="tequila"]) {
-  display: none;
-}
-
-/* Sem álcool marcado */
-#spirit-sem-alcool:checked ~ .pkg-group .menu-item:not([data-spirits~="sem-alcool"]) {
-  display: none;
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   14. RESPONSIVO
-   ──────────────────────────────────────────────────────────── */
-@media (max-width: 600px) {
-  .filter-bar {
-    gap: 8px;
-  }
-
-  .pkg-group__header {
-    flex-wrap: wrap;
-  }
-
-  .pkg-group__badge {
-    margin-left: 0;
-  }
-
-  .menu-list {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-
-/* -----------------------------------------------
-   14. SEÇÃO DEPOIMENTOS
------------------------------------------------ */
-
-.depoimentos {
-  background: var(--dark-2);
-}
-
-/* Grid 3 colunas */
-.depoimentos__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-/* Card de depoimento */
-.depo {
-  background: var(--dark-3);
-  border: var(--border);
-  padding: 36px 32px;
-  position: relative;
-  transition: transform var(--transition), border-color var(--transition);
-}
-
-.depo:hover {
-  transform: translateY(-6px);
-  border-color: rgba(255,255,255,0.2);
-}
-
-/* Aspas decorativas */
-.depo::before {
-  content: '\201C';
-  position: absolute;
-  top: 12px;
-  left: 20px;
-  font-family: var(--font-display);
-  font-size: 5rem;
-  line-height: 1;
-  color: rgba(255,255,255,0.04);
-  pointer-events: none;
-}
-
-/* Estrelas */
-.depo__stars {
-  color: var(--gold);
-  letter-spacing: 2px;
-  font-size: 0.85rem;
-  margin-bottom: 18px;
-}
-
-/* Texto do depoimento */
-.depo__text {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-style: italic;
-  font-weight: 300;
-  color: var(--off-white);
-  line-height: 1.75;
-  margin-bottom: 28px;
-}
-
-/* Autor */
-.depo__author {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-/* Avatar */
-.depo__avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: var(--dark-4);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: var(--off-white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-  font-weight: 400;
-  flex-shrink: 0;
-}
-
-.depo__name {
-  display: block;
-  color: var(--white);
-  font-size: 0.88rem;
-  font-weight: 400;
-  margin-bottom: 2px;
-}
-
-.depo__event {
-  display: block;
-  color: var(--muted);
-  font-size: 0.75rem;
-}
-
-
-/* -----------------------------------------------
-   15. SEÇÃO CONTATO
------------------------------------------------ */
-
-.contato {
-  background: var(--dark-1);
-}
-
-/* Layout de 2 colunas */
-.contato__inner {
-  display: grid;
-  grid-template-columns: 1.1fr 420px;
-  gap: 72px;
-  align-items: center;
-}
-
-/* Título da seção de contato */
-.contato__title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 300;
-  color: var(--white);
-  line-height: 1.2;
-  margin-bottom: 20px;
-}
-
-.contato__title em {
-  font-style: italic;
-  color: var(--light);
-}
-
-.contato__body {
-  font-size: 0.9rem;
-  color: var(--subtle);
-  line-height: 1.8;
-  margin-bottom: 32px;
-}
-
-/* Badges de prova social */
-.contato__badges {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
-}
-
-.contato__badges span {
-  background: rgba(255,255,255,0.05);
-  color: var(--light);
-  border: var(--border);
-  padding: 6px 14px;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-}
-
-/* Informações de contato */
-.contato__info {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-
-.info-item {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-}
-
-.info-item__icon {
-  font-size: 18px;
-  flex-shrink: 0;
-  line-height: 1.4;
-}
-
-.info-item__label {
-  display: block;
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 3px;
-}
-
-.info-item__value {
-  color: var(--off-white);
-  font-size: 0.9rem;
-  transition: color var(--transition);
-}
-
-.info-item__value:hover {
-  color: var(--white);
-}
-
-/* Card CTA */
-.contato__cta-card {
-  background: var(--dark-3);
-  border: var(--border-light);
-  padding: 44px 40px;
-  text-align: center;
-  transition: border-color var(--transition);
-}
-
-.contato__cta-card:hover {
-  border-color: rgba(255,255,255,0.25);
-}
-
-.contato__cta-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 300;
-  color: var(--white);
-  margin-bottom: 8px;
-}
-
-.contato__cta-card > p {
-  font-size: 0.85rem;
-  color: var(--subtle);
-  margin-bottom: 28px;
-}
-
-/* Lista de benefícios do CTA */
-.contato__cta-extra {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 24px;
-  font-size: 0.78rem;
-  color: var(--subtle);
-  line-height: 1.6;
-}
-
-.contato__cta-extra span {
-  display: block;
-}
-
-.contato__cta-note {
-  margin-top: 24px;
-  font-size: 0.72rem;
-  color: var(--muted);
-  letter-spacing: 0.06em;
-}
-
-
-/* -----------------------------------------------
-   16. FOOTER
------------------------------------------------ */
-
-.footer {
-  background: var(--black);
-  border-top: var(--border);
-  padding: 64px 0 32px;
-}
-
-.footer__inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 40px;
-  margin-bottom: 48px;
-  flex-wrap: wrap;
-}
-
-.footer__brand {
-  max-width: 300px;
-}
-
-/* Logo no footer */
-.footer__logo {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--white);
-  margin-bottom: 12px;
-  letter-spacing: 0.05em;
-}
-
-.footer__brand p {
-  font-size: 0.82rem;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-/* Navegação do footer */
-.footer__nav {
-  display: flex;
-  gap: 28px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.footer__nav a {
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  color: var(--subtle);
-  text-transform: uppercase;
-  position: relative;
-  transition: color var(--transition);
-}
-
-.footer__nav a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  width: 0;
-  height: 1px;
-  background: var(--white);
-  transition: width var(--transition);
-}
-
-.footer__nav a:hover {
-  color: var(--white);
-}
-
-.footer__nav a:hover::after {
-  width: 100%;
-}
-
-/* Linha inferior do footer */
-.footer__bottom {
-  padding-top: 24px;
-  border-top: var(--border);
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.footer__bottom p {
-  font-size: 0.72rem;
-  color: var(--muted);
-}
-
-.footer__bottom span {
-  color: var(--off-white);
-}
-
-
-/* -----------------------------------------------
-   17. RESPONSIVIDADE
------------------------------------------------ */
-
-/* Tablet grande */
-@media (max-width: 1100px) {
-  .servicos__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .gallery {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Tablet */
-@media (max-width: 900px) {
-  :root {
-    --section-pad: 80px;
-  }
-
-  /* Header — mostra hamburguer */
+@media(max-width:768px){
+  .hamburger { display: flex; }
   .nav {
-    display: none;
+    position: fixed; inset: 0; background: var(--dark-2);
+    display: flex; align-items: center; justify-content: center;
+    transform: translateX(100%); transition: transform .4s ease;
+    z-index: 150;
   }
-  .hamburger {
-    display: flex;
-  }
-
-  /* Menu mobile fullscreen */
-  .nav.open {
-    display: flex;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.97);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    align-items: center;
-    justify-content: center;
-    z-index: 800;
-  }
-
-  .nav.open .nav__list {
-    flex-direction: column;
-    gap: 36px;
-    text-align: center;
-  }
-
-  .nav.open .nav__link {
-    font-size: 1.1rem;
-    letter-spacing: 0.2em;
-    color: var(--white);
-  }
-
-  .nav.open .nav__link--cta {
-    padding: 14px 36px;
-    border-color: rgba(255,255,255,0.3);
-  }
-
-  /* Hero */
-  .hero {
-    background-attachment: scroll;
-  }
-
-  /* Sobre */
-  .sobre__layout {
-    grid-template-columns: 1fr;
-    gap: 56px;
-  }
-
-  .sobre__img-wrapper {
-    max-width: 100%;
-  }
-
-  .sobre__img-border {
-    left: -16px;
-    top: 16px;
-  }
-
-  /* Serviços */
-  .servicos__grid {
-    grid-template-columns: 1fr;
-  }
-
-  /* Galeria */
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* Cardápio */
-  .cardapio__grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .menu-divider { display: none; }
-
-  /* Depoimentos */
-  .depoimentos__grid {
-    grid-template-columns: 1fr;
-    max-width: 520px;
-    margin: 0 auto;
-  }
-
-  /* Contato */
-  .contato__inner {
-    grid-template-columns: 1fr;
-    gap: 52px;
-  }
-
-  /* Footer */
-  .footer__inner {
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .footer__bottom {
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-  }
+  #menu-toggle:checked ~ .header .nav { transform: translateX(0); }
+  #menu-toggle:checked ~ .header .hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  #menu-toggle:checked ~ .header .hamburger span:nth-child(2) { opacity: 0; }
+  #menu-toggle:checked ~ .header .hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav__list { flex-direction: column; gap: 2.5rem; text-align: center; }
+  .nav__link { font-size: 1.1rem; }
 }
 
-/* Mobile */
-@media (max-width: 600px) {
-  :root {
-    --section-pad: 64px;
-    --gutter: 20px;
-  }
+/* ── HERO ───────────────────────────────────── */
+.hero {
+  min-height: 100vh; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  background:
+    url('https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1800&q=80')
+    center center / cover no-repeat;
+  overflow: hidden;
+}
+.hero__overlay {
+  position:absolute; inset:0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.65) 0%, rgba(0,0,0,.55) 60%, rgba(0,0,0,.8) 100%);
+}
+.hero__particles { position:absolute; inset:0; pointer-events:none; }
+.hero__particles span {
+  position:absolute; border-radius:50%; opacity:.35;
+  background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+  animation: float 8s ease-in-out infinite;
+}
+.hero__particles span:nth-child(1){ width:6px;height:6px;top:20%;left:15%;animation-delay:0s; }
+.hero__particles span:nth-child(2){ width:4px;height:4px;top:60%;left:80%;animation-delay:2s; }
+.hero__particles span:nth-child(3){ width:8px;height:8px;top:75%;left:30%;animation-delay:4s; }
+.hero__particles span:nth-child(4){ width:3px;height:3px;top:30%;left:70%;animation-delay:1s; }
+.hero__particles span:nth-child(5){ width:5px;height:5px;top:50%;left:50%;animation-delay:3s; }
+.hero__particles span:nth-child(6){ width:4px;height:4px;top:85%;left:65%;animation-delay:5s; }
+@keyframes float {
+  0%,100%{ transform:translateY(0) scale(1); opacity:.35; }
+  50%{ transform:translateY(-20px) scale(1.2); opacity:.6; }
+}
+.hero__content { position:relative; z-index:2; text-align:center; max-width:780px; padding:2rem; }
+.hero__tagline { font-size:.75rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:1.5rem; }
+.hero__title {
+  font-family:'Cormorant Garamond',serif; font-size:clamp(3rem,7vw,6rem);
+  font-weight:300; line-height:1.1; margin-bottom:1.5rem;
+}
+.hero__title em { font-style:italic; color:var(--gold); font-weight:400; }
+.hero__description { color:var(--muted); font-size:clamp(.9rem,1.5vw,1.05rem); line-height:1.8; margin-bottom:2.5rem; }
+.hero__actions { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+.hero__scroll { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.5rem; }
+.hero__scroll-line { width:1px; height:50px; background:linear-gradient(to bottom,var(--gold),transparent); animation:scrollPulse 2s ease-in-out infinite; }
+.hero__scroll-text { font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+@keyframes scrollPulse { 0%,100%{opacity:.4;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.1)} }
 
-  .hero__title {
-    font-size: 2.6rem;
-  }
+/* fade-up no carregamento */
+.fade-up { opacity:0; transform:translateY(30px); animation:fadeUp .8s forwards; }
+.fade-up:nth-child(1){animation-delay:.2s}
+.fade-up:nth-child(2){animation-delay:.4s}
+.fade-up:nth-child(3){animation-delay:.6s}
+.fade-up:nth-child(4){animation-delay:.8s}
+@keyframes fadeUp{ to{opacity:1;transform:none} }
 
-  .hero__actions {
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
+/* ── RIBBON ─────────────────────────────────── */
+.ribbon { overflow:hidden; background:var(--gold); padding:.7rem 0; }
+.ribbon__track { overflow:hidden; }
+.ribbon__inner {
+  display:flex; gap:3rem; white-space:nowrap;
+  animation:ribbonScroll 18s linear infinite;
+}
+.ribbon__inner span { font-size:.75rem; letter-spacing:.15em; text-transform:uppercase; color:var(--dark); font-weight:500; }
+@keyframes ribbonScroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-  .gallery {
-    grid-template-columns: 1fr;
-  }
+/* ── SOBRE ──────────────────────────────────── */
+.sobre { background:var(--dark-2); }
+.sobre__layout { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+@media(max-width:900px){ .sobre__layout{grid-template-columns:1fr} }
+.sobre__img-wrapper { position:relative; display:inline-block; }
+.sobre__img { width:100%; border-radius:var(--radius); display:block; }
 
-  .sobre__stats {
-    gap: 24px;
-    flex-wrap: wrap;
-  }
+/* FIX: overlay e border definidos */
+.sobre__img-overlay {
+  position:absolute; inset:0;
+  background: linear-gradient(to top, rgba(0,0,0,.3) 0%, transparent 60%);
+  border-radius:var(--radius); pointer-events:none;
+}
+.sobre__img-border {
+  position:absolute; inset:-12px; border:1px solid rgba(255,255,255,.3);
+  border-radius:calc(var(--radius)+4px); pointer-events:none;
+}
+.sobre__badge {
+  position:absolute; bottom:-1.5rem; right:-1.5rem;
+  background:var(--gold); color:var(--dark); padding:1rem 1.2rem;
+  border-radius:var(--radius); text-align:center; min-width:90px;
+}
+.sobre__badge-num { display:block; font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:700; line-height:1; }
+.sobre__badge-label { font-size:.65rem; letter-spacing:.1em; text-transform:uppercase; line-height:1.3; }
+.sobre__title { font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,3vw,2.6rem); font-weight:600; line-height:1.2; margin-bottom:1.5rem; }
+.sobre__title em { font-style:italic; color:var(--gold); }
+.sobre__paragrafos p { color:var(--muted); margin-bottom:1rem; }
+.sobre__valores { display:flex; flex-direction:column; gap:1rem; margin:2rem 0; }
+.sobre__valor { display:flex; gap:1rem; align-items:flex-start; }
+.sobre__valor-icon { color:var(--gold); font-size:1.2rem; margin-top:.1rem; flex-shrink:0; }
+.sobre__valor strong { display:block; margin-bottom:.2rem; }
+.sobre__valor p { color:var(--muted); font-size:.9rem; margin:0; }
+.sobre__stats { display:flex; gap:2rem; margin-top:2.5rem; padding-top:2rem; border-top:1px solid rgba(255,255,255,.08); }
+.sobre__stat { text-align:center; }
+.sobre__stat-num { display:block; font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:700; color:var(--gold); }
+.sobre__stat-desc { font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
 
-  .depo {
-    padding: 28px 24px;
-  }
+/* ── SERVIÇOS ───────────────────────────────── */
+.servicos { background:var(--dark); }
+.servicos__grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1.5rem; }
+.servicos__card {
+  background:var(--dark-3); border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--radius); padding:2rem;
+  transition:border-color var(--trans), transform var(--trans);
+}
+.servicos__card:hover { border-color:rgba(255,255,255,.4); transform:translateY(-4px); }
+.servicos__card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; }
+.servicos__num { font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; color:rgba(255,255,255,.2); line-height:1; }
+.servicos__tag { font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); background:rgba(255,255,255,.1); padding:.3rem .7rem; border-radius:20px; }
+.servicos__card-title { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:600; margin-bottom:.8rem; }
+.servicos__card-body { color:var(--muted); font-size:.9rem; line-height:1.7; margin-bottom:1.2rem; }
+.servicos__card-list { display:flex; flex-direction:column; gap:.4rem; }
+.servicos__card-list li { font-size:.85rem; color:var(--muted); padding-left:1rem; position:relative; }
+.servicos__card-list li::before { content:'—'; position:absolute; left:0; color:var(--gold); }
 
-  .contato__cta-card {
-    padding: 36px 28px;
-  }
+/* ── PORTFOLIO ──────────────────────────────── */
+.portfolio { background:var(--dark-2); }
 
-  .whatsapp-float {
-    bottom: 20px;
-    right: 20px;
-  }
+/* Esconde os radios do filtro */
+.portfolio-radio { display:none; }
 
-  .footer__nav {
-    gap: 16px;
-  }
+.portfolio__filtros { display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap; margin-bottom:3rem; }
+.filter-btn {
+  padding:.5rem 1.2rem; border-radius:20px; border:1px solid rgba(255,255,255,.15);
+  background:transparent; color:var(--muted); font-family:'Jost',sans-serif;
+  font-size:.78rem; letter-spacing:.08em; text-transform:uppercase;
+  cursor:pointer; transition:var(--trans);
+  display: inline-block; /* necessário pois são <label> */
+}
+.filter-btn:hover { background:var(--gold); color:var(--dark); border-color:var(--gold); }
+
+/* Label ativo por padrão: Todos */
+#pf-all:checked  ~ .portfolio__filtros label[for="pf-all"],
+#pf-cas:checked  ~ .portfolio__filtros label[for="pf-cas"],
+#pf-cor:checked  ~ .portfolio__filtros label[for="pf-cor"],
+#pf-ani:checked  ~ .portfolio__filtros label[for="pf-ani"] {
+  background:var(--gold); color:var(--dark); border-color:var(--gold);
 }
 
+.gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+@media(max-width:768px){ .gallery{grid-template-columns:1fr 1fr} }
+@media(max-width:480px){ .gallery{grid-template-columns:1fr} }
 
-/* -----------------------------------------------
-   18. ACESSIBILIDADE — foco visível
------------------------------------------------ */
+.gallery__item {
+  position:relative; overflow:hidden; border-radius:var(--radius);
+  cursor:pointer; aspect-ratio:4/3;
+  transition:opacity .2s, transform .2s;
+}
+.gallery__item img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; display:block; }
+.gallery__item:hover img { transform:scale(1.06); }
 
-:focus-visible {
-  outline: 2px solid var(--white);
-  outline-offset: 4px;
-  border-radius: var(--radius);
+/* FIX: overlay e textos da galeria definidos */
+.gallery__overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 60%);
+  opacity:0; transition:opacity var(--trans);
+  display:flex; align-items:flex-end; padding:1.2rem;
+}
+.gallery__item:hover .gallery__overlay { opacity:1; }
+.gallery__category {
+  display:block; font-size:.65rem; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:.3rem;
+}
+.gallery__title {
+  font-family:'Cormorant Garamond',serif; font-size:1.1rem;
+  font-weight:600; color:#fff; margin-bottom:.2rem;
+}
+.gallery__info { font-size:.78rem; color:rgba(255,255,255,.65); }
+
+/* FIX: filtros do portfólio usando data-category (alinhado com o HTML corrigido) */
+#pf-cas:checked ~ .gallery .gallery__item[data-category="corporativo"],
+#pf-cas:checked ~ .gallery .gallery__item[data-category="aniversario"] { display:none; }
+
+#pf-cor:checked ~ .gallery .gallery__item[data-category="casamento"],
+#pf-cor:checked ~ .gallery .gallery__item[data-category="aniversario"] { display:none; }
+
+#pf-ani:checked ~ .gallery .gallery__item[data-category="casamento"],
+#pf-ani:checked ~ .gallery .gallery__item[data-category="corporativo"] { display:none; }
+
+/* ── CARDÁPIO ───────────────────────────────── */
+.cardapio { background:var(--dark); padding:7rem 0; }
+
+/* Esconde os controles de filtro */
+.filter-radio { display:none; }
+
+/* Filter bar */
+.filter-bar {
+  display:flex; flex-wrap:wrap; gap:.5rem; align-items:center;
+  justify-content:center;
+}
+.filter-bar__label { font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin:0 .5rem; }
+
+/* Wrapper das duas barras */
+.filter-bars-wrap {
+  display: flex; flex-direction: column; gap: 0;
+  background: var(--dark-3); border: 1px solid rgba(255,255,255,.07);
+  border-radius: var(--radius); padding: 1.2rem 1.5rem;
+  margin-bottom: 3rem;
+}
+.filter-bar__divider-h {
+  width: 100%; height: 1px;
+  background: rgba(255,255,255,.07);
+  margin: .8rem 0;
 }
 
-/* Remove outline para mouse, mantém para teclado */
-:focus:not(:focus-visible) {
-  outline: none;
+/* Estado ativo: PACOTE */
+#pkg-all:checked ~ .filter-bars-wrap .filter-bar label[for="pkg-all"],
+#pkg-1:checked   ~ .filter-bars-wrap .filter-bar label[for="pkg-1"],
+#pkg-2:checked   ~ .filter-bars-wrap .filter-bar label[for="pkg-2"],
+#pkg-3:checked   ~ .filter-bars-wrap .filter-bar label[for="pkg-3"],
+#pkg-4:checked   ~ .filter-bars-wrap .filter-bar label[for="pkg-4"],
+#pkg-5:checked   ~ .filter-bars-wrap .filter-bar label[for="pkg-5"] {
+  background: var(--gold); color: var(--dark); border-color: var(--gold);
 }
+
+/* Estado ativo: DESTILADO */
+#sp-all:checked     ~ .filter-bars-wrap .filter-bar label[for="sp-all"],
+#sp-vodka:checked   ~ .filter-bars-wrap .filter-bar label[for="sp-vodka"],
+#sp-gin:checked     ~ .filter-bars-wrap .filter-bar label[for="sp-gin"],
+#sp-rum:checked     ~ .filter-bars-wrap .filter-bar label[for="sp-rum"],
+#sp-cachaca:checked ~ .filter-bars-wrap .filter-bar label[for="sp-cachaca"],
+#sp-whisky:checked  ~ .filter-bars-wrap .filter-bar label[for="sp-whisky"],
+#sp-tequila:checked ~ .filter-bars-wrap .filter-bar label[for="sp-tequila"],
+#sp-campari:checked ~ .filter-bars-wrap .filter-bar label[for="sp-campari"],
+#sp-aperol:checked  ~ .filter-bars-wrap .filter-bar label[for="sp-aperol"],
+#sp-saque:checked   ~ .filter-bars-wrap .filter-bar label[for="sp-saque"],
+#sp-sem:checked     ~ .filter-bars-wrap .filter-bar label[for="sp-sem"] {
+  background: var(--gold); color: var(--dark); border-color: var(--gold);
+}
+
+/* Pacotes: por padrão todos visíveis */
+.pkg-group { margin-bottom: 4rem; }
+
+/* Ocultar PACOTES por filtro de pacote */
+#pkg-1:checked ~ .filter-bars-wrap ~ .pkg-group:not([data-pkg="1"]) { display:none; }
+#pkg-2:checked ~ .filter-bars-wrap ~ .pkg-group:not([data-pkg="2"]) { display:none; }
+#pkg-3:checked ~ .filter-bars-wrap ~ .pkg-group:not([data-pkg="3"]) { display:none; }
+#pkg-4:checked ~ .filter-bars-wrap ~ .pkg-group:not([data-pkg="4"]) { display:none; }
+#pkg-5:checked ~ .filter-bars-wrap ~ .pkg-group:not([data-pkg="5"]) { display:none; }
+
+/* Ocultar ITENS por filtro de destilado */
+#sp-vodka:checked   ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="vodka"])     { display:none; }
+#sp-gin:checked     ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="gin"])       { display:none; }
+#sp-rum:checked     ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="rum"])       { display:none; }
+#sp-cachaca:checked ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="cacha"])     { display:none; }
+#sp-whisky:checked  ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="whisky"])    { display:none; }
+#sp-tequila:checked ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="tequila"])   { display:none; }
+#sp-campari:checked ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="campari"])   { display:none; }
+#sp-aperol:checked  ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="aperol"])    { display:none; }
+#sp-saque:checked   ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="saq"])       { display:none; }
+#sp-sem:checked     ~ .filter-bars-wrap ~ .pkg-group .menu-item:not([data-spirits*="sem-alcool"]){ display:none; }
+
+/* Cabeçalho do pacote */
+.pkg-group__header {
+  display:flex; flex-wrap:wrap; align-items:center; gap:1rem;
+  padding:1.2rem 1.5rem;
+  background:var(--dark-3); border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--radius) var(--radius) 0 0;
+}
+.pkg-group__title { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:600; color:var(--gold); }
+.pkg-group__desc { color:var(--muted); font-size:.88rem; flex:1; }
+.pkg-group__badge { font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; background:rgba(255,255,255,.15); color:var(--gold); padding:.3rem .8rem; border-radius:20px; }
+
+/* Lista de drinks */
+.menu-list {
+  display:flex; flex-direction:column;
+  border:1px solid rgba(255,255,255,.06); border-top:none;
+  border-radius:0 0 var(--radius) var(--radius); overflow:hidden;
+}
+.menu-item {
+  display:flex; align-items:center; gap:1.2rem;
+  padding:1rem 1.5rem; border-bottom:1px solid rgba(255,255,255,.04);
+  transition:background var(--trans);
+}
+.menu-item:last-child { border-bottom:none; }
+.menu-item:hover { background:rgba(255,255,255,.05); }
+.menu-item__img { width:56px; height:56px; border-radius:50%; object-fit:cover; flex-shrink:0; border:1px solid rgba(255,255,255,.2); }
+.menu-item__name { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-weight:600; margin-bottom:.25rem; display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+.menu-item__ingredients { font-size:.82rem; color:var(--muted); }
+.badge { font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; padding:.2rem .5rem; border-radius:10px; font-family:'Jost',sans-serif; font-weight:400; }
+.badge--na { background:rgba(100,200,100,.15); color:#6dc96d; }
+.badge--autoral { background:rgba(255,255,255,.15); color:var(--gold); }
+
+/* ── CARDÁPIO HEADER ────────────────────────── */
+.cardapio__header { text-align:center; margin-bottom:3rem; }
+.cardapio__title { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3rem); font-weight:600; color:var(--text); }
+.cardapio__title em { font-style:italic; color:var(--gold); }
+.cardapio__subtitle { color:var(--muted); margin-top:.8rem; }
+
+/* ── DEPOIMENTOS ────────────────────────────── */
+.depoimentos { background:var(--dark-2); }
+.depoimentos__grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.5rem; }
+.depo { background:var(--dark-3); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:2rem; transition:border-color var(--trans); }
+.depo:hover { border-color:rgba(255,255,255,.3); }
+.depo__stars { color:var(--gold); font-size:1rem; margin-bottom:1rem; letter-spacing:.1em; }
+.depo__text { color:var(--muted); font-size:.92rem; line-height:1.7; margin-bottom:1.5rem; font-style:italic; }
+.depo__author { display:flex; align-items:center; gap:.8rem; }
+.depo__avatar { width:40px; height:40px; border-radius:50%; background:var(--gold); color:var(--dark); display:flex; align-items:center; justify-content:center; font-weight:600; flex-shrink:0; }
+.depo__name { display:block; font-size:.9rem; font-weight:500; }
+.depo__event { display:block; font-size:.75rem; color:var(--muted); }
+
+/* ── CONTATO ────────────────────────────────── */
+.contato { background:var(--dark); }
+.contato__inner { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+@media(max-width:900px){ .contato__inner{grid-template-columns:1fr} }
+.contato__title { font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,3vw,2.5rem); font-weight:600; line-height:1.2; margin:1rem 0; }
+.contato__title em { font-style:italic; color:var(--gold); }
+.contato__body { color:var(--muted); margin-bottom:1.5rem; }
+.contato__badges { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:2rem; }
+.contato__badges span { font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; padding:.3rem .8rem; border-radius:20px; border:1px solid rgba(255,255,255,.3); color:var(--gold); }
+.contato__canais { display:flex; flex-direction:column; gap:1rem; }
+.canal-card {
+  display:flex; align-items:center; gap:1rem;
+  padding:1.2rem 1.5rem; border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,.1); background:var(--dark-3);
+  transition:var(--trans);
+}
+.canal-card:hover { transform:translateY(-2px); }
+.canal-card--wa:hover { border-color:#25d366; }
+.canal-card--ig:hover { border-color:#e1306c; }
+.canal-card__img-wrap { position:relative; width:56px; height:56px; flex-shrink:0; }
+.canal-card__img-wrap img { width:100%; height:100%; object-fit:contain; }
+
+/* FIX: shine decorativo (era referenciado no HTML mas sem estilo) */
+.canal-card__img-shine {
+  position:absolute; inset:0; border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 60%);
+  pointer-events:none;
+}
+.canal-card__label { display:block; font-size:.7rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
+.canal-card__value { display:block; font-size:1rem; font-weight:500; }
+.canal-card__action { display:block; font-size:.78rem; color:var(--gold); margin-top:.2rem; }
+.contato__cta-card {
+  background:var(--dark-3); border:1px solid rgba(255,255,255,.2);
+  border-radius:var(--radius); padding:2.5rem; text-align:center;
+}
+.contato__cta-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.6rem; margin-bottom:.5rem; }
+.contato__cta-card p { color:var(--muted); margin-bottom:1.5rem; font-size:.9rem; }
+.btn--wa { background:#25d366; color:#fff; }
+.btn--wa:hover { background:#1fba58; }
+.contato__cta-extra { display:flex; flex-direction:column; gap:.3rem; margin-top:1.5rem; }
+.contato__cta-extra span { font-size:.78rem; color:var(--muted); }
+.contato__cta-note { font-size:.78rem; color:var(--muted); margin-top:1.2rem; }
+
+/* ── FOOTER ─────────────────────────────────── */
+.footer { background:var(--dark-2); padding:3rem 0 2rem; border-top:1px solid rgba(255,255,255,.06); }
+.footer__inner { display:flex; justify-content:space-between; align-items:flex-start; gap:2rem; flex-wrap:wrap; margin-bottom:2rem; }
+.footer__logo { font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--gold); display:block; margin-bottom:.4rem; }
+.footer__brand p { color:var(--muted); font-size:.85rem; }
+.footer__nav { display:flex; gap:2rem; flex-wrap:wrap; }
+.footer__nav a { font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); transition:color var(--trans); }
+.footer__nav a:hover { color:var(--gold); }
+.footer__bottom { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,.05); }
+.footer__bottom p { font-size:.78rem; color:var(--muted); }

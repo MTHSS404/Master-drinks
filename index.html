@@ -4,102 +4,72 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Master Drinks | Coquetelaria de Luxo</title>
-  <link rel="stylesheet" href="style.css" />
-  <!-- Google Fonts: Cormorant Garamond (display) + Jost (corpo) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- =============================================
-       BOTÃO FLUTUANTE DO WHATSAPP
-  ============================================== -->
-  <a
-    href="https://wa.me/5500000000000"
-    class="whatsapp-float"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Fale conosco pelo WhatsApp"
-  >
+  <!-- Checkbox oculto para controle do menu mobile -->
+  <input type="checkbox" id="menu-toggle" />
+
+  <!-- WHATSAPP FLUTUANTE -->
+  <a href="https://wa.me/5500000000000" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
     </svg>
   </a>
 
-  <!-- =============================================
-       HEADER / NAVEGAÇÃO FIXA
-  ============================================== -->
+  <!-- HEADER -->
   <header class="header" id="header">
     <div class="header__inner">
-
-      <!-- Logo -->
       <a href="#hero" class="logo">
         <span class="logo__main">Master Drinks</span>
-        <span class="logo__sub">Coquetelaria de Luxo</span>
+        <span class="logo__sub">Open bar premium para eventos</span>
       </a>
-
-      <!-- Navegação principal (desktop) -->
       <nav class="nav" id="nav" aria-label="Navegação principal">
         <ul class="nav__list">
-          <li><a href="#sobre" class="nav__link">Sobre</a></li>
-          <li><a href="#servicos" class="nav__link">Serviços</a></li>
-          <li><a href="#portfolio" class="nav__link">Portfólio</a></li>
-          <li><a href="#cardapio" class="nav__link">Cardápio</a></li>
+          <li><a href="#sobre"       class="nav__link">Sobre</a></li>
+          <li><a href="#servicos"    class="nav__link">Serviços</a></li>
+          <li><a href="#portfolio"   class="nav__link">Portfólio</a></li>
+          <li><a href="#cardapio"    class="nav__link">Cardápio</a></li>
           <li><a href="#depoimentos" class="nav__link">Depoimentos</a></li>
-          <li><a href="#contato" class="nav__link nav__link--cta">Contato</a></li>
+          <li><a href="#contato"     class="nav__link nav__link--cta">Contato</a></li>
         </ul>
       </nav>
-
-      <!-- Botão hamburguer (mobile) -->
-      <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <label for="menu-toggle" class="hamburger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </label>
     </div>
   </header>
 
-  <!-- =============================================
-       SEÇÃO HERO
-  ============================================== -->
+  <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero__overlay" aria-hidden="true"></div>
-
-    <!-- Partículas decorativas sutis -->
     <div class="hero__particles" aria-hidden="true">
       <span></span><span></span><span></span>
       <span></span><span></span><span></span>
     </div>
-
     <div class="hero__content">
       <p class="hero__tagline fade-up">Desde 2020</p>
-
-      <h1 class="hero__title fade-up">
-        A Arte de <em>Encantar</em><br>em Cada Dose
-      </h1>
-
+      <h1 class="hero__title fade-up">A Arte de <em>Encantar</em><br>em Cada Dose</h1>
       <p class="hero__description fade-up">
         Experiências únicas em coquetelaria para eventos sofisticados.<br>
         Elegância, sabor e profissionalismo em perfeita harmonia.
       </p>
-
       <div class="hero__actions fade-up">
         <a href="#servicos" class="btn btn--primary">Nossos Serviços</a>
-        <a href="#contato" class="btn btn--ghost">Solicitar Orçamento</a>
+        <a href="#contato"  class="btn btn--ghost">Solicitar Orçamento</a>
       </div>
     </div>
-
-    <!-- Indicador de scroll -->
     <div class="hero__scroll" aria-hidden="true">
       <span class="hero__scroll-line"></span>
       <span class="hero__scroll-text">Scroll</span>
     </div>
   </section>
 
-  <!-- =============================================
-       FAIXA DECORATIVA COM DIFERENCIAIS
-  ============================================== -->
+  <!-- RIBBON -->
   <div class="ribbon" aria-hidden="true">
     <div class="ribbon__track">
       <div class="ribbon__inner">
@@ -108,7 +78,6 @@
         <span>✦ Organização Impecável</span>
         <span>✦ Experiência Personalizada</span>
         <span>✦ Desde 2020</span>
-        <!-- Duplicado para loop contínuo sem JS -->
         <span>✦ Atendimento Premium</span>
         <span>✦ Equipe Qualificada</span>
         <span>✦ Organização Impecável</span>
@@ -118,24 +87,23 @@
     </div>
   </div>
 
-  <!-- =============================================
-       SEÇÃO SOBRE A EMPRESA
-  ============================================== -->
+  <!-- SOBRE -->
   <section class="sobre section" id="sobre" aria-labelledby="sobre-titulo">
     <div class="container">
       <div class="sobre__layout">
 
-        <!-- Visual -->
-        <div class="sobre__visual reveal">
+        <!-- VISUAL -->
+        <div class="sobre__visual">
           <div class="sobre__img-wrapper">
             <img
-              src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=1200&auto=format&fit=crop"
-              alt="Jenifer e Marcelo preparando coquetéis artesanais"
+              src="https://www.decortiles.com/blog/wp-content/uploads/2021/02/a-glass-of-strawberry-cold-cocktail-with-fresh-rosemary-leaves-and-pipes-732x1024.jpg"
+              alt="Jhenefer e Marcelo preparando coquetéis artesanais"
               class="sobre__img"
               loading="lazy"
               width="600"
               height="750"
             />
+            <div class="sobre__img-overlay" aria-hidden="true"></div>
             <div class="sobre__img-border" aria-hidden="true"></div>
             <div class="sobre__badge">
               <span class="sobre__badge-num">+5</span>
@@ -144,41 +112,40 @@
           </div>
         </div>
 
-        <!-- Conteúdo -->
-        <div class="sobre__content reveal">
+        <!-- CONTENT -->
+        <div class="sobre__content">
           <span class="eyebrow">Nossa História</span>
           <h2 class="sobre__title" id="sobre-titulo">
             Paixão que se<br><em>transforma em arte</em>
           </h2>
-
           <div class="sobre__paragrafos">
             <p>
-              Fundada em 2020 por <strong>Jenifer e Marcelo</strong>, a Master Drinks nasceu do sonho de transformar cada evento em uma experiência verdadeiramente inesquecível.
+              Fundada em 2020 por <strong>Jhenefer e Marcelo</strong>,
+              a Master Drinks nasceu do sonho de transformar cada evento
+              em uma experiência verdadeiramente inesquecível.
             </p>
             <p>
-              Unimos gastronomia, mixologia e gestão de alto padrão para criar um serviço onde cada detalhe é pensado com cuidado — da escolha dos ingredientes premium à apresentação final de cada drinque.
+              Unimos gastronomia, mixologia e gestão de alto padrão para criar
+              um serviço onde cada detalhe é pensado com cuidado —
+              da escolha dos ingredientes premium à apresentação final de cada drinque.
             </p>
           </div>
-
-          <!-- Valores -->
           <div class="sobre__valores">
             <div class="sobre__valor">
-              <span class="sobre__valor-icon" aria-hidden="true">✧</span>
+              <span class="sobre__valor-icon">✦</span>
               <div>
                 <strong>Excelência</strong>
                 <p>Ingredientes selecionados e técnicas refinadas.</p>
               </div>
             </div>
             <div class="sobre__valor">
-              <span class="sobre__valor-icon" aria-hidden="true">✧</span>
+              <span class="sobre__valor-icon">✦</span>
               <div>
                 <strong>Personalização</strong>
                 <p>Cardápio exclusivo criado sob medida para você.</p>
               </div>
             </div>
           </div>
-
-          <!-- Estatísticas -->
           <div class="sobre__stats">
             <div class="sobre__stat">
               <span class="sobre__stat-num">200+</span>
@@ -199,156 +166,151 @@
     </div>
   </section>
 
-  <!-- =============================================
-       SEÇÃO SERVIÇOS
-  ============================================== -->
+  <!-- SERVIÇOS -->
   <section class="servicos section" id="servicos" aria-labelledby="servicos-titulo">
     <div class="container">
-
       <div class="section__header">
         <span class="eyebrow">O que oferecemos</span>
         <h2 class="section__title" id="servicos-titulo">Nossos <em>Serviços</em></h2>
-        <p class="section__subtitle">
-          Atendimento personalizado para cada tipo de evento, com profissionalismo e sofisticação em cada detalhe.
-        </p>
+        <p class="section__subtitle">Atendimento personalizado para cada tipo de evento, com profissionalismo e sofisticação em cada detalhe.</p>
       </div>
-
       <div class="servicos__grid">
-
-        <!-- Casamentos -->
-        <article class="servicos__card reveal">
-          <div class="servicos__card-top">
-            <span class="servicos__num" aria-hidden="true">01</span>
-            <span class="servicos__tag">Casamentos</span>
-          </div>
+        <article class="servicos__card">
+          <div class="servicos__card-top"><span class="servicos__num" aria-hidden="true">01</span><span class="servicos__tag">Casamentos</span></div>
           <h3 class="servicos__card-title">Casamentos</h3>
-          <p class="servicos__card-body">
-            Transforme o dia mais especial em uma experiência sensorial única. Drinks personalizados que contam a história do casal, com apresentação impecável.
-          </p>
+          <p class="servicos__card-body">Transforme o dia mais especial em uma experiência sensorial única. Drinks personalizados que contam a história do casal, com apresentação impecável.</p>
           <ul class="servicos__card-list">
             <li>Open bar completo</li>
             <li>Drinks personalizados</li>
             <li>Bartenders treinados</li>
           </ul>
         </article>
-
-        <!-- Eventos Corporativos -->
-        <article class="servicos__card reveal">
-          <div class="servicos__card-top">
-            <span class="servicos__num" aria-hidden="true">02</span>
-            <span class="servicos__tag">Empresarial</span>
-          </div>
+        <article class="servicos__card">
+          <div class="servicos__card-top"><span class="servicos__num" aria-hidden="true">02</span><span class="servicos__tag">Empresarial</span></div>
           <h3 class="servicos__card-title">Eventos Corporativos</h3>
-          <p class="servicos__card-body">
-            Impressione clientes e colaboradores com serviço de drinks sofisticado e profissional, ideal para networking e celebrações empresariais.
-          </p>
+          <p class="servicos__card-body">Impressione clientes e colaboradores com serviço de drinks sofisticado e profissional, ideal para networking e celebrações empresariais.</p>
           <ul class="servicos__card-list">
             <li>Atendimento profissional</li>
             <li>Cardápio personalizado</li>
             <li>Estrutura completa</li>
           </ul>
         </article>
-
-        <!-- Aniversários -->
-        <article class="servicos__card reveal">
-          <div class="servicos__card-top">
-            <span class="servicos__num" aria-hidden="true">03</span>
-            <span class="servicos__tag">Festas</span>
-          </div>
+        <article class="servicos__card">
+          <div class="servicos__card-top"><span class="servicos__num" aria-hidden="true">03</span><span class="servicos__tag">Festas</span></div>
           <h3 class="servicos__card-title">Aniversários</h3>
-          <p class="servicos__card-body">
-            Deixe sua festa ainda mais memorável com drinks exclusivos e um bar completo que combina com o seu estilo e tema da comemoração.
-          </p>
+          <p class="servicos__card-body">Deixe sua festa ainda mais memorável com drinks exclusivos e um bar completo que combina com o seu estilo e tema da comemoração.</p>
           <ul class="servicos__card-list">
             <li>Drinks personalizados</li>
             <li>Open bar flexível</li>
             <li>Opções com e sem álcool</li>
           </ul>
         </article>
-
-        <!-- Eventos Privados -->
-        <article class="servicos__card reveal">
-          <div class="servicos__card-top">
-            <span class="servicos__num" aria-hidden="true">04</span>
-            <span class="servicos__tag">Exclusivo</span>
-          </div>
+        <article class="servicos__card">
+          <div class="servicos__card-top"><span class="servicos__num" aria-hidden="true">04</span><span class="servicos__tag">Exclusivo</span></div>
           <h3 class="servicos__card-title">Eventos Privados</h3>
-          <p class="servicos__card-body">
-            Atendemos festas exclusivas, confraternizações e encontros especiais com serviço personalizado e sofisticado de alto padrão.
-          </p>
+          <p class="servicos__card-body">Atendemos festas exclusivas, confraternizações e encontros especiais com serviço personalizado e sofisticado de alto padrão.</p>
           <ul class="servicos__card-list">
             <li>Atendimento sob medida</li>
             <li>Equipe especializada</li>
             <li>Experiência premium</li>
           </ul>
         </article>
-
       </div>
     </div>
   </section>
 
-  <!-- =============================================
-       SEÇÃO PORTFÓLIO / GALERIA
-  ============================================== -->
+  <!-- PORTFOLIO -->
+  <!-- FIX: os radios precisam ser irmãos anteriores da .gallery no mesmo pai -->
   <section class="portfolio section" id="portfolio" aria-labelledby="portfolio-titulo">
     <div class="container">
 
       <div class="section__header">
         <span class="eyebrow">Nosso Trabalho</span>
-        <h2 class="section__title" id="portfolio-titulo">Portfólio</h2>
-        <p class="section__subtitle">Veja alguns dos eventos que transformamos em experiências únicas</p>
+        <h2 class="section__title" id="portfolio-titulo">Experiências Memoráveis</h2>
+        <p class="section__subtitle">Cada evento é planejado para criar uma atmosfera sofisticada, elegante e inesquecível.</p>
       </div>
 
-      <!-- Filtros -->
-      <div class="portfolio__filtros" role="group" aria-label="Filtrar por categoria">
-        <button class="filter-btn active" data-filter="all">Todos</button>
-        <button class="filter-btn" data-filter="casamento">Casamentos</button>
-        <button class="filter-btn" data-filter="corporativo">Corporativo</button>
-        <button class="filter-btn" data-filter="aniversario">Aniversários</button>
+      <!-- RADIOS DE FILTRO (antes dos filtros e da galeria) -->
+      <input class="portfolio-radio" type="radio" name="portfolio-filter" id="pf-all" checked>
+      <input class="portfolio-radio" type="radio" name="portfolio-filter" id="pf-cas">
+      <input class="portfolio-radio" type="radio" name="portfolio-filter" id="pf-cor">
+      <input class="portfolio-radio" type="radio" name="portfolio-filter" id="pf-ani">
+
+      <!-- FILTROS -->
+      <div class="portfolio__filtros">
+        <label class="filter-btn" for="pf-all">Todos</label>
+        <label class="filter-btn" for="pf-cas">Casamentos</label>
+        <label class="filter-btn" for="pf-cor">Corporativo</label>
+        <label class="filter-btn" for="pf-ani">Aniversários</label>
       </div>
 
-      <!-- Galeria -->
-      <div class="gallery" id="gallery">
+      <!-- GALERIA -->
+      <!-- FIX: substituído class="casamento/corporativo/aniversario" por data-category="..." -->
+      <div class="gallery">
 
-        <div class="gallery__item reveal" data-category="casamento">
-          <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=800&h=600" alt="Casamento luxo com 150 convidados" loading="lazy">
+        <div class="gallery__item" data-category="casamento">
+          <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=1200" alt="Casamento Luxo" loading="lazy">
           <div class="gallery__overlay">
-            <span class="gallery__overlay-text">Casamento Luxo · 150 convidados</span>
+            <div>
+              <span class="gallery__category">Casamento</span>
+              <h3 class="gallery__title">Open Bar Premium</h3>
+              <p class="gallery__info">Curitiba · 180 convidados</p>
+            </div>
           </div>
         </div>
 
-        <div class="gallery__item reveal" data-category="corporativo">
-          <img src="https://images.unsplash.com/photo-1574096079513-d8259312b785?auto=format&fit=crop&q=80&w=800&h=600" alt="Evento corporativo executivo" loading="lazy">
+        <div class="gallery__item" data-category="corporativo">
+          <img src="https://images.unsplash.com/photo-1574096079513-d8259312b785?auto=format&fit=crop&q=80&w=1200" alt="Evento Corporativo" loading="lazy">
           <div class="gallery__overlay">
-            <span class="gallery__overlay-text">Evento Corporativo Executivo</span>
+            <div>
+              <span class="gallery__category">Corporativo</span>
+              <h3 class="gallery__title">Volvo Experience</h3>
+              <p class="gallery__info">Evento executivo · 300 convidados</p>
+            </div>
           </div>
         </div>
 
-        <div class="gallery__item reveal" data-category="aniversario">
-          <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=800&h=600" alt="Aniversário premium" loading="lazy">
+        <div class="gallery__item" data-category="aniversario">
+          <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=1200" alt="Aniversário Premium" loading="lazy">
           <div class="gallery__overlay">
-            <span class="gallery__overlay-text">Aniversário Premium</span>
+            <div>
+              <span class="gallery__category">Aniversário</span>
+              <h3 class="gallery__title">Sunset Party</h3>
+              <p class="gallery__info">Drinks autorais exclusivos</p>
+            </div>
           </div>
         </div>
 
-        <div class="gallery__item reveal" data-category="casamento">
-          <img src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?auto=format&fit=crop&q=80&w=800&h=600" alt="Equipe em evento luxuoso" loading="lazy">
+        <div class="gallery__item" data-category="casamento">
+          <img src="https://images.unsplash.com/photo-1525268323446-0505b6fe7778?auto=format&fit=crop&q=80&w=1200" alt="Equipe de Bartenders" loading="lazy">
           <div class="gallery__overlay">
-            <span class="gallery__overlay-text">Equipe em Evento Luxuoso</span>
+            <div>
+              <span class="gallery__category">Premium Service</span>
+              <h3 class="gallery__title">Equipe Especializada</h3>
+              <p class="gallery__info">Atendimento sofisticado</p>
+            </div>
           </div>
         </div>
 
-        <div class="gallery__item reveal" data-category="corporativo">
-          <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&q=80&w=800&h=600" alt="Drinks autorais exclusivos" loading="lazy">
+        <div class="gallery__item" data-category="corporativo">
+          <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&q=80&w=1200" alt="Drinks Autorais" loading="lazy">
           <div class="gallery__overlay">
-            <span class="gallery__overlay-text">Drinks Autorais Exclusivos</span>
+            <div>
+              <span class="gallery__category">Signature Drinks</span>
+              <h3 class="gallery__title">Coquetelaria Exclusiva</h3>
+              <p class="gallery__info">Drinks personalizados</p>
+            </div>
           </div>
         </div>
 
-        <div class="gallery__item reveal" data-category="aniversario">
-          <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&q=80&w=800&h=600" alt="Experiência premium" loading="lazy">
+        <div class="gallery__item" data-category="aniversario">
+          <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&q=80&w=1200" alt="Experiência Premium" loading="lazy">
           <div class="gallery__overlay">
-            <span class="gallery__overlay-text">Experiência Premium</span>
+            <div>
+              <span class="gallery__category">Luxury Event</span>
+              <h3 class="gallery__title">Atmosfera Exclusiva</h3>
+              <p class="gallery__info">Experiência completa</p>
+            </div>
           </div>
         </div>
 
@@ -356,795 +318,339 @@
     </div>
   </section>
 
-  <!-- =============================================
-       SEÇÃO CARDÁPIO DE DRINKS
-  ============================================== -->
-
-  <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cardápio de Drinks</title>
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="cardapio.css">
-</head>
-<body>
-
-<!-- ============================================================
-     SEÇÃO: CARDÁPIO DE DRINKS
-     Filtros por pacote funcionam via checkboxes/radio ocultos.
-     Toda a interatividade é CSS puro — sem JavaScript.
-============================================================ -->
-
-<section class="cardapio">
-  <div class="container">
-
-    <!-- ── Cabeçalho ── -->
-    <header class="cardapio__header">
-      <h2 class="cardapio__title">Cardápio de Drinks</h2>
-      <p class="cardapio__subtitle">Selecione o pacote ideal para o seu evento</p>
-    </header>
-
-    <!-- ══════════════════════════════════════════════════════
-         SISTEMA DE FILTROS (CSS-only via radio + checkboxes)
-
-         Como funciona:
-         • Um grupo de <input type="radio"> controla qual PACOTE
-           está visível (ou "todos").
-         • Um grupo de <input type="checkbox"> controla o filtro
-           de DESTILADO; marcar um oculta itens que não o possuem.
-         • As regras de visibilidade usam os seletores :checked ~
-           e combinadores de irmão/descendente no CSS.
-    ══════════════════════════════════════════════════════════ -->
-
-    <!-- Radios de PACOTE (ocultos visualmente) -->
-    <input class="filter-radio" type="radio" name="pkg" id="pkg-all"  value="all"  checked>
-    <input class="filter-radio" type="radio" name="pkg" id="pkg-1"    value="1">
-    <input class="filter-radio" type="radio" name="pkg" id="pkg-2"    value="2">
-    <input class="filter-radio" type="radio" name="pkg" id="pkg-3"    value="3">
-    <input class="filter-radio" type="radio" name="pkg" id="pkg-4"    value="4">
-    <input class="filter-radio" type="radio" name="pkg" id="pkg-5"    value="5">
-
-    <!-- Checkboxes de DESTILADO (ocultos visualmente) -->
-    <input class="filter-check" type="checkbox" id="spirit-vodka"      value="vodka">
-    <input class="filter-check" type="checkbox" id="spirit-gin"        value="gin">
-    <input class="filter-check" type="checkbox" id="spirit-rum"        value="rum">
-    <input class="filter-check" type="checkbox" id="spirit-cachaça"    value="cachaça">
-    <input class="filter-check" type="checkbox" id="spirit-whisky"     value="whisky">
-    <input class="filter-check" type="checkbox" id="spirit-tequila"    value="tequila">
-    <input class="filter-check" type="checkbox" id="spirit-sem-alcool" value="sem-alcool">
-
-    <!-- ── Barra de filtros ── -->
-    <nav class="filter-bar" aria-label="Filtros de cardápio">
-
-      <span class="filter-bar__label">Pacote</span>
-
-      <label class="filter-btn" for="pkg-all">Todos</label>
-      <label class="filter-btn" for="pkg-1">Clássico</label>
-      <label class="filter-btn" for="pkg-2">Intermediário</label>
-      <label class="filter-btn" for="pkg-3">Premium</label>
-      <label class="filter-btn" for="pkg-4">Exclusivo</label>
-      <label class="filter-btn" for="pkg-5">Teen</label>
-
-      <div class="filter-bar__divider" role="separator"></div>
-
-      <span class="filter-bar__label">Destilado</span>
-
-      <label class="filter-btn filter-btn--spirit" for="spirit-vodka">Vodka</label>
-      <label class="filter-btn filter-btn--spirit" for="spirit-gin">Gin</label>
-      <label class="filter-btn filter-btn--spirit" for="spirit-rum">Rum</label>
-      <label class="filter-btn filter-btn--spirit" for="spirit-cachaça">Cachaça</label>
-      <label class="filter-btn filter-btn--spirit" for="spirit-whisky">Whisky</label>
-      <label class="filter-btn filter-btn--spirit" for="spirit-tequila">Tequila</label>
-      <label class="filter-btn filter-btn--spirit" for="spirit-sem-alcool">Sem álcool</label>
-
-    </nav>
-
-    <!-- ══════════════════════════════
-         1. MASTER CLÁSSICO
-    ══════════════════════════════════ -->
-    <div class="pkg-group" id="group-pkg-1" data-pkg="1">
-      <header class="pkg-group__header">
-        <span class="pkg-group__title">Master Clássico</span>
-        <span class="pkg-group__desc">Drinks tradicionais para todos os estilos de eventos.</span>
-        <span class="pkg-group__badge">Clássico</span>
-      </header>
-
-      <ul class="menu-list">
-
-        <li class="menu-item" data-spirits="vodka">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80"
-            alt="Lagoa Azul"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Lagoa Azul</h3>
-            <p class="menu-item__ingredients">Vodka, licor fino de curaçao blue, refrigerante e suco de limão</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="sem-alcool">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1606107538950-9b8d7b3b6b48?w=150&q=80"
-            alt="Soda Italiana"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">
-              Soda Italiana
-              <span class="badge badge--na">Sem álcool</span>
-            </h3>
-            <p class="menu-item__ingredients">Xaropes de variados sabores e água com gás</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="conhaque">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=150&q=80"
-            alt="Alexander"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Alexander</h3>
-            <p class="menu-item__ingredients">Conhaque, licor de cacau, creme de leite e leite condensado</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="vodka cachaça">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80"
-            alt="Caipirinhas"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Caipirinhas</h3>
-            <p class="menu-item__ingredients">Sabores Limão ou Abacaxi — Vodka ou Cachaça</p>
-          </div>
-        </li>
-
-      </ul>
-    </div>
-
-    <!-- ══════════════════════════════
-         2. MASTER INTERMEDIÁRIO
-    ══════════════════════════════════ -->
-    <div class="pkg-group" id="group-pkg-2" data-pkg="2">
-      <header class="pkg-group__header">
-        <span class="pkg-group__title">Master Intermediário</span>
-        <span class="pkg-group__desc">Equilíbrio entre opções clássicas e modernas.</span>
-        <span class="pkg-group__badge">Intermediário</span>
-      </header>
-
-      <ul class="menu-list">
-
-        <li class="menu-item" data-spirits="vodka">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80"
-            alt="Sex on the Beach"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Sex on the Beach</h3>
-            <p class="menu-item__ingredients">Vodka, licor de pêssego, suco de laranja e xarope grenadine</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="gin">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80"
-            alt="Gin Tônica"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Gin Tônica</h3>
-            <p class="menu-item__ingredients">Gin, água tônica e especiarias</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="rum">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=150&q=80"
-            alt="Cuba Libre"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Cuba Libre</h3>
-            <p class="menu-item__ingredients">Rum, suco de limão e Coca-Cola</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="rum">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80"
-            alt="Piña Colada"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Piña Colada</h3>
-            <p class="menu-item__ingredients">Rum, leite de coco, leite condensado e suco de abacaxi</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="gin">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80"
-            alt="Gin Tropical"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Gin Tropical</h3>
-            <p class="menu-item__ingredients">Gin, energético tropical, laranja bahia, morango e limão</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="vodka cachaça saquê">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80"
-            alt="Caipirinhas"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Caipirinhas</h3>
-            <p class="menu-item__ingredients">Sabores Limão ou Morango — Vodka, Cachaça ou Saquê</p>
-          </div>
-        </li>
-
-      </ul>
-    </div>
-
-    <!-- ══════════════════════════════
-         3. MASTER PREMIUM
-    ══════════════════════════════════ -->
-    <div class="pkg-group" id="group-pkg-3" data-pkg="3">
-      <header class="pkg-group__header">
-        <span class="pkg-group__title">Master Premium</span>
-        <span class="pkg-group__desc">Carta contemporânea com diversidade de sabores e opções autorais.</span>
-        <span class="pkg-group__badge">Premium</span>
-      </header>
-
-      <ul class="menu-list">
-
-        <li class="menu-item" data-spirits="vodka">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80"
-            alt="Moscow Mule"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Moscow Mule</h3>
-            <p class="menu-item__ingredients">Vodka, xarope de gengibre, limão e espuma</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="vodka">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80"
-            alt="Green Apple"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">
-              Green Apple
-              <span class="badge badge--autoral">Autoral</span>
-            </h3>
-            <p class="menu-item__ingredients">Vodka, xarope de maçã verde, limão e espuma</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="rum">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80"
-            alt="Mojito"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Mojito</h3>
-            <p class="menu-item__ingredients">Rum, água com gás, suco de limão, hortelã e açúcar</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="campari">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80"
-            alt="Garibaldi"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Garibaldi</h3>
-            <p class="menu-item__ingredients">Campari e suco de laranja</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="aperol">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80"
-            alt="Aperol Spritz"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Aperol Spritz</h3>
-            <p class="menu-item__ingredients">Aperol, espumante, água com gás e laranja bahia</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="rum">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80"
-            alt="Piña Colada"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Piña Colada</h3>
-            <p class="menu-item__ingredients">Rum, leite de coco, leite condensado e suco de abacaxi</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="tequila">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80"
-            alt="Tequila Sunrise"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Tequila Sunrise</h3>
-            <p class="menu-item__ingredients">Tequila, suco de laranja e xarope grenadine</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="gin">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80"
-            alt="Gin Grape"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">
-              Gin Grape
-              <span class="badge badge--autoral">Autoral</span>
-            </h3>
-            <p class="menu-item__ingredients">Gin, uva, limão, xarope de gengibre, tônica e espuma</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="vodka cachaça saquê rum">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80"
-            alt="Caipirinhas"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Caipirinhas</h3>
-            <p class="menu-item__ingredients">Sabores Limão, Morango ou Maracujá — Vodka, Cachaça, Saquê ou Rum</p>
-          </div>
-        </li>
-
-      </ul>
-    </div>
-
-    <!-- ══════════════════════════════
-         4. MASTER EXCLUSIVO
-    ══════════════════════════════════ -->
-    <div class="pkg-group" id="group-pkg-4" data-pkg="4">
-      <header class="pkg-group__header">
-        <span class="pkg-group__title">Master Exclusivo</span>
-        <span class="pkg-group__desc">Drinks sofisticados e combinações diferenciadas.</span>
-        <span class="pkg-group__badge">Exclusivo</span>
-      </header>
-
-      <ul class="menu-list">
-
-        <li class="menu-item" data-spirits="gin">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80"
-            alt="Fitzgerald"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Fitzgerald</h3>
-            <p class="menu-item__ingredients">Gin, limão, xarope de açúcar e Angostura</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="vodka">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80"
-            alt="Cosmopolitan"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Cosmopolitan</h3>
-            <p class="menu-item__ingredients">Vodka, Triple Sec, xarope de Cranberry e limão</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="whisky">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=150&q=80"
-            alt="Whisky Sour"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Whisky Sour</h3>
-            <p class="menu-item__ingredients">Whisky, xarope de açúcar, limão e Angostura</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="whisky">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=150&q=80"
-            alt="Old Fashioned"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Old Fashioned</h3>
-            <p class="menu-item__ingredients">Bourbon, xarope de açúcar e Angostura</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="gin campari">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80"
-            alt="Negroni"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Negroni</h3>
-            <p class="menu-item__ingredients">Gin, Vermute e Campari</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="saquê">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80"
-            alt="Marajá"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">
-              Marajá
-              <span class="badge badge--autoral">Autoral</span>
-            </h3>
-            <p class="menu-item__ingredients">Saquê, maracujá, xarope de limão e espuma</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="whisky campari">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80"
-            alt="Boulevardier"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Boulevardier</h3>
-            <p class="menu-item__ingredients">Whisky, Campari e Vermute</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="gin">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80"
-            alt="Gin Red"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">
-              Gin Red
-              <span class="badge badge--autoral">Autoral</span>
-            </h3>
-            <p class="menu-item__ingredients">Gin, soda, limão, chá, xarope de frutas vermelhas e espuma</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="cachaça vodka saquê rum">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80"
-            alt="Caipirinhas Gourmet"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">Caipirinhas Gourmet</h3>
-            <p class="menu-item__ingredients">Morango com Limão e Maracujá; Melancia com Hortelã; Uva com Gengibre; entre outras</p>
-          </div>
-        </li>
-
-      </ul>
-    </div>
-
-    <!-- ══════════════════════════════
-         5. MASTER TEEN
-    ══════════════════════════════════ -->
-    <div class="pkg-group" id="group-pkg-5" data-pkg="5">
-      <header class="pkg-group__header">
-        <span class="pkg-group__title">Master Teen</span>
-        <span class="pkg-group__desc">Opções focadas exclusivamente em versões sem álcool.</span>
-        <span class="pkg-group__badge">Sem álcool</span>
-      </header>
-
-      <ul class="menu-list">
-
-        <li class="menu-item" data-spirits="sem-alcool">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1606107538950-9b8d7b3b6b48?w=150&q=80"
-            alt="Soda Italiana"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">
-              Soda Italiana
-              <span class="badge badge--na">Sem álcool</span>
-            </h3>
-            <p class="menu-item__ingredients">Xaropes de variados sabores e água com gás</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="sem-alcool">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80"
-            alt="Green Apple"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">
-              Green Apple
-              <span class="badge badge--autoral">Autoral</span>
-            </h3>
-            <p class="menu-item__ingredients">Soda, xarope de maçã verde, limão e espuma</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="sem-alcool">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80"
-            alt="Mojito"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">
-              Mojito
-              <span class="badge badge--na">Sem álcool</span>
-            </h3>
-            <p class="menu-item__ingredients">Água com gás, suco de limão, hortelã e açúcar</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="sem-alcool">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80"
-            alt="Lagoa Azul"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">
-              Lagoa Azul
-              <span class="badge badge--na">Sem álcool</span>
-            </h3>
-            <p class="menu-item__ingredients">Soda, limão, xarope de curaçao blue e laranja</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="sem-alcool">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80"
-            alt="Tropical Blue"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">
-              Tropical Blue
-              <span class="badge badge--na">Sem álcool</span>
-            </h3>
-            <p class="menu-item__ingredients">Energético Tropical, frutas e xarope curaçao blue</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="sem-alcool">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80"
-            alt="Piña Colada"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">
-              Piña Colada
-              <span class="badge badge--na">Sem álcool</span>
-            </h3>
-            <p class="menu-item__ingredients">Suco de abacaxi, leite de coco e leite condensado</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="sem-alcool">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80"
-            alt="Pink Lemonade"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">
-              Pink Lemonade
-              <span class="badge badge--na">Sem álcool</span>
-            </h3>
-            <p class="menu-item__ingredients">Água, xarope de cranberry e suco de limão siciliano</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="sem-alcool">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80"
-            alt="Miami Beach"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">
-              Miami Beach
-              <span class="badge badge--na">Sem álcool</span>
-            </h3>
-            <p class="menu-item__ingredients">Suco de pêssego, suco de laranja e xarope grenadine</p>
-          </div>
-        </li>
-
-        <li class="menu-item" data-spirits="sem-alcool">
-          <img
-            class="menu-item__img"
-            src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80"
-            alt="Caipirinhas"
-            loading="lazy"
-          >
-          <div class="menu-item__info">
-            <h3 class="menu-item__name">
-              Caipirinhas
-              <span class="badge badge--na">Sem álcool</span>
-            </h3>
-            <p class="menu-item__ingredients">Limão, Morango ou Abacaxi — água com gás e açúcar</p>
-          </div>
-        </li>
-
-      </ul>
-    </div>
-
-  </div><!-- /.container -->
-</section>
-
-</body>
-</html>
-
-  <!-- =============================================
-       SEÇÃO DEPOIMENTOS
-  ============================================== -->
-  <section class="depoimentos section" id="depoimentos" aria-labelledby="depoimentos-titulo">
+  <!-- CARDÁPIO -->
+  <section class="cardapio" id="cardapio" aria-labelledby="cardapio-titulo">
     <div class="container">
 
+      <div class="cardapio__header section__header">
+        <span class="eyebrow">Nossa Carta</span>
+        <h2 class="section__title" id="cardapio-titulo">Cardápio de <em>Drinks</em></h2>
+        <p class="section__subtitle">Selecione o pacote ideal para o seu evento</p>
+      </div>
+
+      <!-- RADIOS DE PACOTE -->
+      <input class="filter-radio" type="radio" name="pkg" id="pkg-all" value="all" checked>
+      <input class="filter-radio" type="radio" name="pkg" id="pkg-1"   value="1">
+      <input class="filter-radio" type="radio" name="pkg" id="pkg-2"   value="2">
+      <input class="filter-radio" type="radio" name="pkg" id="pkg-3"   value="3">
+      <input class="filter-radio" type="radio" name="pkg" id="pkg-4"   value="4">
+      <input class="filter-radio" type="radio" name="pkg" id="pkg-5"   value="5">
+
+      <!-- RADIOS DE DESTILADO -->
+      <input class="filter-radio" type="radio" name="spirit" id="sp-all"       value="all" checked>
+      <input class="filter-radio" type="radio" name="spirit" id="sp-vodka"     value="vodka">
+      <input class="filter-radio" type="radio" name="spirit" id="sp-gin"       value="gin">
+      <input class="filter-radio" type="radio" name="spirit" id="sp-rum"       value="rum">
+      <input class="filter-radio" type="radio" name="spirit" id="sp-cachaca"   value="cachaça">
+      <input class="filter-radio" type="radio" name="spirit" id="sp-whisky"    value="whisky">
+      <input class="filter-radio" type="radio" name="spirit" id="sp-tequila"   value="tequila">
+      <input class="filter-radio" type="radio" name="spirit" id="sp-campari"   value="campari">
+      <input class="filter-radio" type="radio" name="spirit" id="sp-aperol"    value="aperol">
+      <input class="filter-radio" type="radio" name="spirit" id="sp-saque"     value="saquê">
+      <input class="filter-radio" type="radio" name="spirit" id="sp-sem"       value="sem-alcool">
+
+      <!-- BARRA DE FILTROS -->
+      <div class="filter-bars-wrap">
+        <nav class="filter-bar" aria-label="Filtrar por pacote">
+          <span class="filter-bar__label">Pacote</span>
+          <label class="filter-btn" for="pkg-all">Todos</label>
+          <label class="filter-btn" for="pkg-1">Clássico</label>
+          <label class="filter-btn" for="pkg-2">Intermediário</label>
+          <label class="filter-btn" for="pkg-3">Premium</label>
+          <label class="filter-btn" for="pkg-4">Exclusivo</label>
+          <label class="filter-btn" for="pkg-5">Teen</label>
+        </nav>
+        <div class="filter-bar__divider-h"></div>
+        <nav class="filter-bar" aria-label="Filtrar por destilado">
+          <span class="filter-bar__label">Destilado</span>
+          <label class="filter-btn" for="sp-all">Todos</label>
+          <label class="filter-btn" for="sp-vodka">Vodka</label>
+          <label class="filter-btn" for="sp-gin">Gin</label>
+          <label class="filter-btn" for="sp-rum">Rum</label>
+          <label class="filter-btn" for="sp-cachaca">Cachaça</label>
+          <label class="filter-btn" for="sp-whisky">Whisky</label>
+          <label class="filter-btn" for="sp-tequila">Tequila</label>
+          <label class="filter-btn" for="sp-campari">Campari</label>
+          <label class="filter-btn" for="sp-aperol">Aperol</label>
+          <label class="filter-btn" for="sp-saque">Saquê</label>
+          <label class="filter-btn" for="sp-sem">Sem álcool</label>
+        </nav>
+      </div>
+
+      <!-- PACOTE 1: MASTER CLÁSSICO -->
+      <div class="pkg-group" data-pkg="1">
+        <header class="pkg-group__header">
+          <span class="pkg-group__title">Master Clássico</span>
+          <span class="pkg-group__desc">Drinks tradicionais para todos os estilos de eventos.</span>
+          <span class="pkg-group__badge">Clássico</span>
+        </header>
+        <ul class="menu-list">
+          <li class="menu-item" data-spirits="vodka">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80" alt="Lagoa Azul" loading="lazy">
+            <div class="menu-item__info">
+              <h3 class="menu-item__name">Lagoa Azul</h3>
+              <p class="menu-item__ingredients">Vodka, licor fino de curaçao blue, refrigerante e suco de limão</p>
+            </div>
+          </li>
+          <li class="menu-item" data-spirits="sem-alcool">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1606107538950-9b8d7b3b6b48?w=150&q=80" alt="Soda Italiana" loading="lazy">
+            <div class="menu-item__info">
+              <h3 class="menu-item__name">Soda Italiana <span class="badge badge--na">Sem álcool</span></h3>
+              <p class="menu-item__ingredients">Xaropes de variados sabores e água com gás</p>
+            </div>
+          </li>
+          <li class="menu-item" data-spirits="conhaque">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=150&q=80" alt="Alexander" loading="lazy">
+            <div class="menu-item__info">
+              <h3 class="menu-item__name">Alexander</h3>
+              <p class="menu-item__ingredients">Conhaque, licor de cacau, creme de leite e leite condensado</p>
+            </div>
+          </li>
+          <li class="menu-item" data-spirits="vodka cachaça">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80" alt="Caipirinhas" loading="lazy">
+            <div class="menu-item__info">
+              <h3 class="menu-item__name">Caipirinhas</h3>
+              <p class="menu-item__ingredients">Sabores Limão ou Abacaxi — Vodka ou Cachaça</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- PACOTE 2: MASTER INTERMEDIÁRIO -->
+      <div class="pkg-group" data-pkg="2">
+        <header class="pkg-group__header">
+          <span class="pkg-group__title">Master Intermediário</span>
+          <span class="pkg-group__desc">Equilíbrio entre opções clássicas e modernas.</span>
+          <span class="pkg-group__badge">Intermediário</span>
+        </header>
+        <ul class="menu-list">
+          <li class="menu-item" data-spirits="vodka">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80" alt="Sex on the Beach" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Sex on the Beach</h3><p class="menu-item__ingredients">Vodka, licor de pêssego, suco de laranja e xarope grenadine</p></div>
+          </li>
+          <li class="menu-item" data-spirits="gin">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80" alt="Gin Tônica" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Gin Tônica</h3><p class="menu-item__ingredients">Gin, água tônica e especiarias</p></div>
+          </li>
+          <li class="menu-item" data-spirits="rum">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=150&q=80" alt="Cuba Libre" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Cuba Libre</h3><p class="menu-item__ingredients">Rum, suco de limão e Coca-Cola</p></div>
+          </li>
+          <li class="menu-item" data-spirits="rum">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80" alt="Piña Colada" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Piña Colada</h3><p class="menu-item__ingredients">Rum, leite de coco, leite condensado e suco de abacaxi</p></div>
+          </li>
+          <li class="menu-item" data-spirits="gin">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80" alt="Gin Tropical" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Gin Tropical</h3><p class="menu-item__ingredients">Gin, energético tropical, laranja bahia, morango e limão</p></div>
+          </li>
+          <!-- FIX: data-spirits="saquê" (com acento) para bater com o seletor *="saq" -->
+          <li class="menu-item" data-spirits="vodka cachaça saquê">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80" alt="Caipirinhas" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Caipirinhas</h3><p class="menu-item__ingredients">Sabores Limão ou Morango — Vodka, Cachaça ou Saquê</p></div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- PACOTE 3: MASTER PREMIUM -->
+      <div class="pkg-group" data-pkg="3">
+        <header class="pkg-group__header">
+          <span class="pkg-group__title">Master Premium</span>
+          <span class="pkg-group__desc">Carta contemporânea com diversidade de sabores e opções autorais.</span>
+          <span class="pkg-group__badge">Premium</span>
+        </header>
+        <ul class="menu-list">
+          <li class="menu-item" data-spirits="vodka">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80" alt="Moscow Mule" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Moscow Mule</h3><p class="menu-item__ingredients">Vodka, xarope de gengibre, limão e espuma</p></div>
+          </li>
+          <li class="menu-item" data-spirits="vodka">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80" alt="Green Apple" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Green Apple <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Vodka, xarope de maçã verde, limão e espuma</p></div>
+          </li>
+          <li class="menu-item" data-spirits="rum">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80" alt="Mojito" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Mojito</h3><p class="menu-item__ingredients">Rum, água com gás, suco de limão, hortelã e açúcar</p></div>
+          </li>
+          <li class="menu-item" data-spirits="campari">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80" alt="Garibaldi" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Garibaldi</h3><p class="menu-item__ingredients">Campari e suco de laranja</p></div>
+          </li>
+          <li class="menu-item" data-spirits="aperol">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80" alt="Aperol Spritz" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Aperol Spritz</h3><p class="menu-item__ingredients">Aperol, espumante, água com gás e laranja bahia</p></div>
+          </li>
+          <li class="menu-item" data-spirits="rum">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80" alt="Piña Colada" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Piña Colada</h3><p class="menu-item__ingredients">Rum, leite de coco, leite condensado e suco de abacaxi</p></div>
+          </li>
+          <li class="menu-item" data-spirits="tequila">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80" alt="Tequila Sunrise" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Tequila Sunrise</h3><p class="menu-item__ingredients">Tequila, suco de laranja e xarope grenadine</p></div>
+          </li>
+          <li class="menu-item" data-spirits="gin">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80" alt="Gin Grape" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Gin Grape <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Gin, uva, limão, xarope de gengibre, tônica e espuma</p></div>
+          </li>
+          <li class="menu-item" data-spirits="vodka cachaça saquê rum">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80" alt="Caipirinhas" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Caipirinhas</h3><p class="menu-item__ingredients">Sabores Limão, Morango ou Maracujá — Vodka, Cachaça, Saquê ou Rum</p></div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- PACOTE 4: MASTER EXCLUSIVO -->
+      <div class="pkg-group" data-pkg="4">
+        <header class="pkg-group__header">
+          <span class="pkg-group__title">Master Exclusivo</span>
+          <span class="pkg-group__desc">Drinks sofisticados e combinações diferenciadas.</span>
+          <span class="pkg-group__badge">Exclusivo</span>
+        </header>
+        <ul class="menu-list">
+          <li class="menu-item" data-spirits="gin">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80" alt="Fitzgerald" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Fitzgerald</h3><p class="menu-item__ingredients">Gin, limão, xarope de açúcar e Angostura</p></div>
+          </li>
+          <li class="menu-item" data-spirits="vodka">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80" alt="Cosmopolitan" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Cosmopolitan</h3><p class="menu-item__ingredients">Vodka, Triple Sec, xarope de Cranberry e limão</p></div>
+          </li>
+          <li class="menu-item" data-spirits="whisky">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=150&q=80" alt="Whisky Sour" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Whisky Sour</h3><p class="menu-item__ingredients">Whisky, xarope de açúcar, limão e Angostura</p></div>
+          </li>
+          <li class="menu-item" data-spirits="whisky">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=150&q=80" alt="Old Fashioned" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Old Fashioned</h3><p class="menu-item__ingredients">Bourbon, xarope de açúcar e Angostura</p></div>
+          </li>
+          <li class="menu-item" data-spirits="gin campari">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80" alt="Negroni" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Negroni</h3><p class="menu-item__ingredients">Gin, Vermute e Campari</p></div>
+          </li>
+          <li class="menu-item" data-spirits="saquê">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80" alt="Marajá" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Marajá <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Saquê, maracujá, xarope de limão e espuma</p></div>
+          </li>
+          <li class="menu-item" data-spirits="whisky campari">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80" alt="Boulevardier" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Boulevardier</h3><p class="menu-item__ingredients">Whisky, Campari e Vermute</p></div>
+          </li>
+          <li class="menu-item" data-spirits="gin">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=80" alt="Gin Red" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Gin Red <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Gin, soda, limão, chá, xarope de frutas vermelhas e espuma</p></div>
+          </li>
+          <!-- FIX: "cachaça" com ç minúsculo consistente -->
+          <li class="menu-item" data-spirits="cachaça vodka saquê rum">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80" alt="Caipirinhas Gourmet" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Caipirinhas Gourmet</h3><p class="menu-item__ingredients">Morango com Limão e Maracujá; Melancia com Hortelã; Uva com Gengibre; entre outras</p></div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- PACOTE 5: MASTER TEEN -->
+      <div class="pkg-group" data-pkg="5">
+        <header class="pkg-group__header">
+          <span class="pkg-group__title">Master Teen</span>
+          <span class="pkg-group__desc">Opções focadas exclusivamente em versões sem álcool.</span>
+          <span class="pkg-group__badge">Sem álcool</span>
+        </header>
+        <ul class="menu-list">
+          <li class="menu-item" data-spirits="sem-alcool">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1606107538950-9b8d7b3b6b48?w=150&q=80" alt="Soda Italiana" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Soda Italiana <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Xaropes de variados sabores e água com gás</p></div>
+          </li>
+          <li class="menu-item" data-spirits="sem-alcool">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=150&q=80" alt="Green Apple" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Green Apple <span class="badge badge--autoral">Autoral</span></h3><p class="menu-item__ingredients">Soda, xarope de maçã verde, limão e espuma</p></div>
+          </li>
+          <li class="menu-item" data-spirits="sem-alcool">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80" alt="Mojito" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Mojito <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Água com gás, suco de limão, hortelã e açúcar</p></div>
+          </li>
+          <li class="menu-item" data-spirits="sem-alcool">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=150&q=80" alt="Lagoa Azul" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Lagoa Azul <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Soda, limão, xarope de curaçao blue e laranja</p></div>
+          </li>
+          <li class="menu-item" data-spirits="sem-alcool">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=150&q=80" alt="Tropical Blue" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Tropical Blue <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Energético Tropical, frutas e xarope curaçao blue</p></div>
+          </li>
+          <li class="menu-item" data-spirits="sem-alcool">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&q=80" alt="Piña Colada" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Piña Colada <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Suco de abacaxi, leite de coco e leite condensado</p></div>
+          </li>
+          <li class="menu-item" data-spirits="sem-alcool">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1510626176961-4b57d4f40208?w=150&q=80" alt="Pink Lemonade" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Pink Lemonade <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Água, xarope de cranberry e suco de limão siciliano</p></div>
+          </li>
+          <li class="menu-item" data-spirits="sem-alcool">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&q=80" alt="Miami Beach" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Miami Beach <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Suco de pêssego, suco de laranja e xarope grenadine</p></div>
+          </li>
+          <li class="menu-item" data-spirits="sem-alcool">
+            <img class="menu-item__img" src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=150&q=80" alt="Caipirinhas" loading="lazy">
+            <div class="menu-item__info"><h3 class="menu-item__name">Caipirinhas <span class="badge badge--na">Sem álcool</span></h3><p class="menu-item__ingredients">Limão, Morango ou Abacaxi — água com gás e açúcar</p></div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section class="depoimentos section" id="depoimentos" aria-labelledby="depoimentos-titulo">
+    <div class="container">
       <div class="section__header">
         <span class="eyebrow">Clientes Satisfeitos</span>
         <h2 class="section__title" id="depoimentos-titulo">Depoimentos</h2>
-        <p class="section__subtitle">
-          Experiências reais de quem confiou no nosso trabalho
-        </p>
+        <p class="section__subtitle">Experiências reais de quem confiou no nosso trabalho</p>
       </div>
-
       <div class="depoimentos__grid">
-
-        <article class="depo reveal">
+        <article class="depo">
           <div class="depo__stars" aria-label="5 estrelas">★★★★★</div>
-          <p class="depo__text">
-            "Simplesmente impecável. Os drinks foram o destaque do casamento, todos os convidados elogiaram muito."
-          </p>
+          <p class="depo__text">"Simplesmente impecável. Os drinks foram o destaque do casamento, todos os convidados elogiaram muito."</p>
           <div class="depo__author">
             <div class="depo__avatar" aria-hidden="true">A</div>
-            <div>
-              <span class="depo__name">Amanda Silva</span>
-              <span class="depo__event">Casamento · 120 convidados</span>
-            </div>
+            <div><span class="depo__name">Amanda Silva</span><span class="depo__event">Casamento · 120 convidados</span></div>
           </div>
         </article>
-
-        <article class="depo reveal">
+        <article class="depo">
           <div class="depo__stars" aria-label="5 estrelas">★★★★★</div>
-          <p class="depo__text">
-            "Equipe extremamente profissional. Elevou completamente o nível do nosso evento corporativo."
-          </p>
+          <p class="depo__text">"Equipe extremamente profissional. Elevou completamente o nível do nosso evento corporativo."</p>
           <div class="depo__author">
             <div class="depo__avatar" aria-hidden="true">R</div>
-            <div>
-              <span class="depo__name">Ricardo Mendes</span>
-              <span class="depo__event">Evento Corporativo</span>
-            </div>
+            <div><span class="depo__name">Ricardo Mendes</span><span class="depo__event">Evento Corporativo</span></div>
           </div>
         </article>
-
-        <article class="depo reveal">
+        <article class="depo">
           <div class="depo__stars" aria-label="5 estrelas">★★★★★</div>
-          <p class="depo__text">
-            "Os drinks autorais são incríveis. Atendimento perfeito do começo ao fim, superou todas as expectativas."
-          </p>
+          <p class="depo__text">"Os drinks autorais são incríveis. Atendimento perfeito do começo ao fim, superou todas as expectativas."</p>
           <div class="depo__author">
             <div class="depo__avatar" aria-hidden="true">J</div>
-            <div>
-              <span class="depo__name">Juliana Costa</span>
-              <span class="depo__event">Aniversário Premium</span>
-            </div>
+            <div><span class="depo__name">Juliana Costa</span><span class="depo__event">Aniversário Premium</span></div>
           </div>
         </article>
-
       </div>
     </div>
   </section>
 
-  <!-- =============================================
-       SEÇÃO CONTATO
-  ============================================== -->
+  <!-- CONTATO -->
   <section class="contato section" id="contato" aria-labelledby="contato-titulo">
     <div class="container">
       <div class="contato__inner">
-
-        <!-- Texto e informações -->
-        <div class="contato__content reveal">
+        <div class="contato__content">
           <span class="eyebrow">Fale Conosco</span>
-          <h2 class="contato__title" id="contato-titulo">
-            Transforme seu evento em uma<br>
-            <em>experiência inesquecível</em>
-          </h2>
-
-          <p class="contato__body">
-            Atendemos casamentos, eventos corporativos e aniversários com drinks exclusivos e atendimento premium.
-          </p>
-
-          <!-- Provas sociais -->
+          <h2 class="contato__title" id="contato-titulo">Transforme seu evento em uma<br><em>experiência inesquecível</em></h2>
+          <p class="contato__body">Atendemos casamentos, eventos corporativos e aniversários com drinks exclusivos e atendimento premium.</p>
           <div class="contato__badges">
             <span>+150 eventos realizados</span>
             <span>Atendimento rápido</span>
             <span>100% personalizado</span>
           </div>
-
-          <!-- Cards de contato: WhatsApp e Instagram -->
           <div class="contato__canais">
-
-            <!-- WhatsApp Card -->
             <a href="https://wa.me/5500000000000" class="canal-card canal-card--wa" target="_blank" rel="noopener noreferrer" aria-label="Chamar no WhatsApp">
               <div class="canal-card__img-wrap">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/240px-WhatsApp.svg.png" alt="WhatsApp" width="56" height="56">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="56" height="56">
                 <div class="canal-card__img-shine" aria-hidden="true"></div>
               </div>
               <div class="canal-card__body">
@@ -1153,11 +659,9 @@
                 <span class="canal-card__action">Chamar agora →</span>
               </div>
             </a>
-
-            <!-- Instagram Card -->
             <a href="https://instagram.com/masterdrinks" class="canal-card canal-card--ig" target="_blank" rel="noopener noreferrer" aria-label="Visitar Instagram">
               <div class="canal-card__img-wrap">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/240px-Instagram_icon.png" alt="Instagram" width="56" height="56">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" width="56" height="56">
                 <div class="canal-card__img-shine" aria-hidden="true"></div>
               </div>
               <div class="canal-card__body">
@@ -1166,22 +670,16 @@
                 <span class="canal-card__action">Ver perfil →</span>
               </div>
             </a>
-
           </div>
         </div>
-
-        <!-- Card CTA -->
-        <div class="contato__cta reveal">
+        <div class="contato__cta">
           <div class="contato__cta-card">
             <h3>Solicite seu orçamento</h3>
             <p>Retorno rápido em horário comercial.</p>
-            <a
-              href="https://wa.me/5500000000000?text=Olá! Quero solicitar um orçamento"
-              class="btn btn--primary btn--large btn--wa"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <a href="https://wa.me/5500000000000?text=Olá! Quero solicitar um orçamento" class="btn btn--primary btn--large btn--wa" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
               <span>Falar no WhatsApp</span>
             </a>
             <div class="contato__cta-extra">
@@ -1189,20 +687,16 @@
               <span>✔ Atendimento personalizado</span>
               <span>✔ Resposta rápida</span>
             </div>
-            <p class="contato__cta-note">Jenifer &amp; Marcelo — Fundadores</p>
+            <p class="contato__cta-note">Jhenefer &amp; Marcelo — Fundadores</p>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- =============================================
-       FOOTER
-  ============================================== -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
-
       <div class="footer__inner">
         <div class="footer__brand">
           <span class="footer__logo">Master Drinks</span>
@@ -1216,96 +710,12 @@
           <a href="#contato">Contato</a>
         </nav>
       </div>
-
       <div class="footer__bottom">
         <p>&copy; 2025 Master Drinks. Todos os direitos reservados.</p>
-        <p>Desenvolvido com <span aria-label="amor">♥</span> por Jenifer &amp; Marcelo</p>
+        <p>Desenvolvido com <span aria-label="amor">♥</span> por Jhenefer &amp; Marcelo</p>
       </div>
-
     </div>
   </footer>
-
-  <!-- =============================================
-       SCRIPTS
-  ============================================== -->
-  <script>
-    // ─── HAMBURGER / MENU MOBILE ───────────────────────────────
-    const hamburger = document.getElementById('hamburger');
-    const nav = document.getElementById('nav');
-
-    hamburger.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('open');
-      hamburger.classList.toggle('is-active', isOpen);
-      hamburger.setAttribute('aria-expanded', isOpen);
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    });
-
-    // Fecha o menu ao clicar num link
-    nav.querySelectorAll('.nav__link').forEach(link => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('open');
-        hamburger.classList.remove('is-active');
-        hamburger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      });
-    });
-
-    // ─── SCROLL REVEAL ─────────────────────────────────────────
-    const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          // Delay escalonado para grupos de elementos
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-
-    revealEls.forEach(el => observer.observe(el));
-
-    // ─── FILTRO DO PORTFÓLIO ───────────────────────────────────
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const galleryItems = document.querySelectorAll('.gallery__item');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const filter = btn.getAttribute('data-filter');
-
-        galleryItems.forEach(item => {
-          const match = filter === 'all' || item.dataset.category === filter;
-          item.style.opacity = '0';
-          item.style.transform = 'scale(0.95)';
-
-          setTimeout(() => {
-            item.style.display = match ? 'block' : 'none';
-            if (match) {
-              requestAnimationFrame(() => {
-                item.style.opacity = '1';
-                item.style.transform = 'scale(1)';
-              });
-            }
-          }, 200);
-        });
-      });
-    });
-
-    // ─── HEADER SCROLL STATE (fallback para browsers sem animation-timeline) ─
-    const header = document.getElementById('header');
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      if (y > 80) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-      lastScroll = y;
-    }, { passive: true });
-  </script>
 
 </body>
 </html>
